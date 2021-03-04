@@ -6,7 +6,7 @@ depend: [ Vault, FactionsX ]
 authors: [ MatiasME, DadoGamer13 ]
 description: ...
 commands:
-  player:
+  anchor:
     description: Buy an anchor sell
     usage: /anchor
     permission: anchorsell.player
