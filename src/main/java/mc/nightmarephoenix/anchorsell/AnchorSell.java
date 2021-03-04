@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell;
 
 import mc.nightmarephoenix.anchorsell.commands.Anchor;
+import mc.nightmarephoenix.anchorsell.events.ActionAnchor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AnchorSell extends JavaPlugin {

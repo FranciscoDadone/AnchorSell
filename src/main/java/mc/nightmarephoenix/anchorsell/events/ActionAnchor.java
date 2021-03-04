@@ -1,4 +1,4 @@
-package mc.nightmarephoenix.anchorsell;
+package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,7 +16,7 @@ public class ActionAnchor implements Listener {
 
             Player p = (Player) e.getPlayer();
 
-            p.openInventory(new AnchorScreen().getInventory());
+            p.openInventory(new AnchorScreen(p.getName()).getInventory());
 
 
         }
