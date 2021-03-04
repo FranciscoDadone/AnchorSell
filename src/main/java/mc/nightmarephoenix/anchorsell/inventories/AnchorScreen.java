@@ -13,8 +13,8 @@ import java.util.List;
 public class AnchorScreen implements InventoryHolder {
     private Inventory inv;
 
-    public AnchorScreen(String playername) {
-        this.playername = playername;
+    public AnchorScreen(String playerName) {
+        this.playerName = playerName;
         inv = Bukkit.createInventory(this, 27, "Anchor Sell");
         init();
     }
@@ -40,7 +40,7 @@ public class AnchorScreen implements InventoryHolder {
         inv.setItem(11, info);
 
         // Player
-        ItemStack player = createItem(playername, Material.SKELETON_SKULL, Collections.singletonList("Mostrar información sobre el jugador acá"));
+        ItemStack player = createItem(playerName, Material.SKELETON_SKULL, Collections.singletonList("Mostrar información sobre el jugador acá"));
         inv.setItem(13, player);
 
         // Upgrades
@@ -67,5 +67,5 @@ public class AnchorScreen implements InventoryHolder {
 
 
 
-    private String playername;
+    private String playerName;
 }
