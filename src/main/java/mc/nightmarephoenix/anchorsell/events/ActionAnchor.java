@@ -12,12 +12,10 @@ public class ActionAnchor implements Listener {
     @EventHandler
     public void onBlockClick(PlayerInteractEvent e) {
         if(e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) {
-            System.out.println("Clicked");
 
             Player p = (Player) e.getPlayer();
 
             p.openInventory(new AnchorScreen(p.getName()).getInventory());
-
 
         }
     }
