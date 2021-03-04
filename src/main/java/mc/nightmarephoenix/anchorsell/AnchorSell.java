@@ -7,7 +7,7 @@ public final class AnchorSell extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        getServer().getPluginManager().registerEvents(new actionAnchor(), this); // enabling the listener
+        getServer().getPluginManager().registerEvents(new ActionAnchor(), this); // enabling the listener
     }
 
     @Override
