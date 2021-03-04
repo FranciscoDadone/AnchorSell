@@ -7,20 +7,45 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
 import java.util.List;
 
 public class AnchorScreen implements InventoryHolder {
-
     private Inventory inv;
 
-    public AnchorScreen() {
-
-        inv = Bukkit.createInventory(this, 54, "Título");
-
+    public AnchorScreen(String playername) {
+        this.playername = playername;
+        inv = Bukkit.createInventory(this, 27, "Anchor Sell");
+        init();
     }
 
     private void init() {
+        ItemStack item;
+        ItemStack border = createItem(".", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList());
+        // Top
+        for( int i = 0; i < 9; i++ ) {
+            inv.setItem(i, border);
+        }
+        // Left - Right
+        inv.setItem(9, border);
+        inv.setItem(17, border);
+        // Bottom
+        for( int i = 18; i < 27; i++ ) {
+            inv.setItem(i, border);
+        }
 
+
+        // Info
+        ItemStack info = createItem("Info", Material.BOOK, Collections.singletonList("Mostrar información sobre el anchor actual"));
+        inv.setItem(11, info);
+
+        // Player
+        ItemStack player = createItem(playername, Material.SKELETON_SKULL, Collections.singletonList("Mostrar información sobre el jugador acá"));
+        inv.setItem(13, player);
+
+        // Upgrades
+        ItemStack upgrades = createItem("Mejoras", Material.GLOWSTONE, Collections.singletonList("Haz click para ver las mejoras."));
+        inv.setItem(15, upgrades);
     }
 
 
@@ -38,4 +63,9 @@ public class AnchorScreen implements InventoryHolder {
     public Inventory getInventory() {
         return inv;
     }
+
+
+
+
+    private String playername;
 }
