@@ -30,6 +30,8 @@ public class MainAnchorEvents implements Listener {
             Player p = (Player) e.getWhoClicked();
             if( (e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.LIME_STAINED_GLASS_PANE) )  { // checks if the slot is the upgrade slot
                 p.sendMessage("Upgrade");
+            } else if( (e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.BARRIER) ) {
+                p.openInventory(new AnchorScreen(p.getName()).getInventory());
             }
         }
     }

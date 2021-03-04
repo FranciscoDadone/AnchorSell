@@ -42,16 +42,18 @@ public class UpgradesScreen implements InventoryHolder {
         inv.setItem(9, border);
         inv.setItem(17, border);
         // Bottom
-        for( int i = 18; i < 27; i++ ) {
+        for( int i = 19; i < 27; i++ ) {
             inv.setItem(i, border);
         }
 
 
-        for( int i = 10; i < 17; i++ ) {
+        for( int i = 10; i <= 18; i++ ) {
             ItemStack item;
             if (i == 13) {
                 // Current state
                 item = createItem("Nivel actual", material, Collections.singletonList("Mostrar el nivel actual de una mejor forma"));
+            } else if(i == 18) {
+                item = createItem("Atrás", Material.BARRIER, Collections.emptyList());
             } else {
                 item = createItem("Actualizar", Material.LIME_STAINED_GLASS_PANE, Collections.singletonList("Actualizar el anchor actual"));
             }
