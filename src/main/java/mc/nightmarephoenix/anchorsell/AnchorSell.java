@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell;
 
+import mc.nightmarephoenix.anchorsell.commands.Anchor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class AnchorSell extends JavaPlugin {
@@ -8,6 +9,8 @@ public final class AnchorSell extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new ActionAnchor(), this); // enabling the listener
+
+        getCommand("anchor").setExecutor(new Anchor(this));
     }
 
     @Override

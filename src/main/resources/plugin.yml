@@ -1,7 +1,13 @@
 name: AnchorSell
-version: 0.1.0
+version: 1.0
 main: mc.nightmarephoenix.anchorsell.AnchorSell
 api-version: 1.16
 depend: [ Vault, FactionsX ]
 authors: [ MatiasME, DadoGamer13 ]
 description: ...
+commands:
+  player:
+    description: Buy an anchor sell
+    usage: /anchor
+    permission: anchorsell.player
+    permission-message: You don't have <permission>
