@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell;
 
+import mc.nightmarephoenix.anchorsell.commands.AnchorCommand;
 import mc.nightmarephoenix.anchorsell.events.ActionAnchor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -14,17 +15,11 @@ public final class AnchorSell extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ActionAnchor(), this);     // enabling the listener
         getServer().getPluginManager().registerEvents(new MainAnchorEvents(), this); // gui click events
 
-        //this.getCommand("anchor").setExecutor(new AnchorCommand());
+        this.getCommand("anchor").setExecutor(new AnchorCommand());
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        return super.onCommand(sender, command, label, args);
-
     }
 }
