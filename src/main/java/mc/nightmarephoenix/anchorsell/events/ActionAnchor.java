@@ -12,11 +12,15 @@ public class ActionAnchor implements Listener {
 
     @EventHandler
     public void onBlockClick(PlayerInteractEvent e) {
-        if( (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) ) {
-            Player p = (Player) e.getPlayer();
-            p.openInventory(new AnchorScreen(p.getName()).getInventory());
-        } else {
-            return;
+        try {
+            if( (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) ) {
+                Player p = (Player) e.getPlayer();
+                p.openInventory(new AnchorScreen(p.getName()).getInventory());
+            } else {
+                return;
+            }
+        } catch (Exception e1) {
+            System.out.println(e1);
         }
     }
 }
