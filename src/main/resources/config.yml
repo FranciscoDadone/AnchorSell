@@ -1,0 +1,31 @@
+reload-message: "&aConfig reloaded."
+help-message:
+  - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&e/anchor reload &f Reloads the config file."
+  - "&e/anchor give [name] [quantity] &fgives an anchor to a player"
+  - "&7&m----------------------------"
+
+anchor:
+  title: "&5Anchor Sell"
+  current-anchor-info:
+    txt: "Info"
+    lore: "Show current anchor info"
+  player:
+    lore: "Show player stats"
+  upgrades:
+    txt: "Upgrades"
+    lore: "Click to show upgrades"
+  upgrade-menu:
+    title: "&5Anchor Sell - Upgrades"
+    current-level:
+      txt: "Current level"
+      lore: "Show detailed current level"
+    upgrade-button:
+      txt: "&6&lUpgrade"
+      lore: "Upgrade current anchor"
+    back: "&cGo back"
+
+
+
+anchor-place: "&aNew anchor placed (%coordsX%, %coordsY%, %coordsZ%)"
+anchor-break: "&cAnchor removed (%coordsX%, %coordsY%, %coordsZ%)"

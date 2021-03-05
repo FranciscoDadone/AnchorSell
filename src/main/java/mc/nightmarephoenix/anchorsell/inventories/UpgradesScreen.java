@@ -1,5 +1,7 @@
 package mc.nightmarephoenix.anchorsell.inventories;
 
+import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -11,10 +13,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class UpgradesScreen implements InventoryHolder {
-    private Inventory inv;
 
-    public UpgradesScreen(int level) {
-        inv = Bukkit.createInventory(this, 27, "Anchor Sell - Mejoras");
+    public UpgradesScreen(AnchorSell plugin, int level) {
+        this.plugin = plugin;
+        inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.title")));
 
         System.out.println(Math.round(level / 16));
         switch (Math.round(level / 16)) {
@@ -51,13 +53,13 @@ public class UpgradesScreen implements InventoryHolder {
             ItemStack item;
             if (i == 13) {
                 // Current state
-                item = createItem("Nivel actual", material, Collections.singletonList("Mostrar el nivel actual de una mejor forma"));
+                item = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt")), material, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.lore"))));
             } else {
-                item = createItem("Actualizar", Material.LIME_STAINED_GLASS_PANE, Collections.singletonList("Actualizar el anchor actual"));
+                item = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")), Material.LIME_STAINED_GLASS_PANE, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.lore"))));
             }
             inv.setItem(i, item);
         }
-        inv.setItem(18, createItem("Atrás", Material.BARRIER, Collections.emptyList())); // back button
+        inv.setItem(18, createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.back")), Material.BARRIER, Collections.emptyList())); // back button
     }
 
 
@@ -76,7 +78,7 @@ public class UpgradesScreen implements InventoryHolder {
         return inv;
     }
 
-
-
+    private AnchorSell plugin;
+    private Inventory inv;
     private Material material;
 }

@@ -1,7 +1,10 @@
 package mc.nightmarephoenix.anchorsell.inventories;
 
+import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -11,11 +14,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class AnchorScreen implements InventoryHolder {
-    private Inventory inv;
 
-    public AnchorScreen(String playerName) {
-        this.playerName = playerName;
-        inv = Bukkit.createInventory(this, 27, "Anchor Sell");
+    public AnchorScreen(Player p, AnchorSell plugin) {
+        this.p = p;
+        this.plugin = plugin;
+        inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.title")));
         init();
     }
 
@@ -36,15 +39,15 @@ public class AnchorScreen implements InventoryHolder {
 
 
         // Info
-        ItemStack info = createItem("Info", Material.BOOK, Collections.singletonList("Mostrar información sobre el anchor actual"));
+        ItemStack info = createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")), Material.BOOK, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.lore"))));
         inv.setItem(11, info);
 
         // Player
-        ItemStack player = createItem(playerName, Material.SKELETON_SKULL, Collections.singletonList("Mostrar información sobre el jugador acá"));
+        ItemStack player = createItem(p.getName(), Material.SKELETON_SKULL, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.player.lore"))));
         inv.setItem(13, player);
 
         // Upgrades
-        ItemStack upgrades = createItem("Mejoras", Material.GLOWSTONE, Collections.singletonList("Haz click para ver las mejoras."));
+        ItemStack upgrades = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrades.lore"))));
         inv.setItem(15, upgrades);
     }
 
@@ -67,5 +70,7 @@ public class AnchorScreen implements InventoryHolder {
 
 
 
-    private String playerName;
+    private Player p;
+    private Inventory inv;
+    private AnchorSell plugin;
 }

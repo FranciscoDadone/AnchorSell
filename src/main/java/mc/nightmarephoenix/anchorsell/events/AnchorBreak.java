@@ -7,24 +7,24 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.BlockBreakEvent;
 
+public class AnchorBreak implements Listener {
 
-public class AnchorPlace implements Listener {
-
-    public AnchorPlace(AnchorSell plugin) {
+    public AnchorBreak(AnchorSell plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void place(BlockPlaceEvent e) {
+    public void place(BlockBreakEvent e) {
         Block block = e.getBlock();
         Player p = e.getPlayer();
 
         if(block.getType() == Material.RESPAWN_ANCHOR) {
-            p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor-place").replaceAll("%coordsX%", String.valueOf(block.getX())).replaceAll("%coordsY%", String.valueOf(block.getY())).replaceAll("%coordsZ%", String.valueOf(block.getZ()))));
+            p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor-break").replaceAll("%coordsX%", String.valueOf(block.getX())).replaceAll("%coordsY%", String.valueOf(block.getY())).replaceAll("%coordsZ%", String.valueOf(block.getZ()))));
         }
     }
+
 
     private AnchorSell plugin;
 }
