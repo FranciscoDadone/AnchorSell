@@ -20,7 +20,9 @@ public class ActionAnchor implements Listener {
         try {
             if( (e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) ) {
                 Player p = (Player) e.getPlayer();
+                e.setCancelled(true);
                 p.openInventory(new AnchorScreen(p, plugin).getInventory());
+                return;
             } else {
                 return;
             }

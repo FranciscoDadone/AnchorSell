@@ -18,7 +18,6 @@ public class UpgradesScreen implements InventoryHolder {
         this.plugin = plugin;
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.title")));
 
-        System.out.println(Math.round(level / 16));
         switch (Math.round(level / 16)) {
             case 0:
                 material = Material.COAL; break;
