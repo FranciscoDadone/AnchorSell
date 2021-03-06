@@ -5,6 +5,9 @@ import mc.nightmarephoenix.anchorsell.events.ActionAnchor;
 import mc.nightmarephoenix.anchorsell.events.AnchorBreak;
 import mc.nightmarephoenix.anchorsell.events.MainAnchorEvents;
 import mc.nightmarephoenix.anchorsell.events.AnchorPlace;
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -14,7 +17,12 @@ public final class AnchorSell extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        // Vault check
+        if (!setupEconomy()) {
+            this.getLogger().severe("Disabled due to no Vault dependency found!");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
 
         // Config
         this.saveDefaultConfig();
@@ -37,4 +45,25 @@ public final class AnchorSell extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+
+    private boolean setupEconomy() {
+        if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
+            return false;
+        }
+
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+        if (rsp == null) {
+            return false;
+        }
+        econ = rsp.getProvider();
+        return econ != null;
+    }
+
+    public Economy getEconomy() {
+        return econ;
+    }
+
+
+    private Economy econ;
 }
