@@ -9,11 +9,8 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class AnchorBlow implements Listener {
     @EventHandler
@@ -28,8 +25,10 @@ public class AnchorBlow implements Listener {
 
                 ArrayList<String> Lore = new ArrayList<String>();
                 Lore.add("");
-                Lore.add("&fAnchor level: &e1");
-                Lore.add("Owner: ds");
+                Lore.add(Utils.Color("&7&m----------------------------"));
+                Lore.add(Utils.Color("&fAnchor level: &e1"));
+                Lore.add(Utils.Color("&fMoney per minute: &e" + Utils.getMoneyPerMinute(1)));
+                Lore.add(Utils.Color("&7&m----------------------------"));
 
                 world.dropItem(b.getLocation(), Utils.getAnchor("&5Anchor", Lore)).setInvulnerable(true);
             }

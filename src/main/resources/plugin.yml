@@ -2,7 +2,7 @@ name: AnchorSell
 version: 1.0
 main: mc.nightmarephoenix.anchorsell.AnchorSell
 api-version: 1.16
-depend: [ Vault, FactionsX, EssentialsX ]
+depend: [ Vault, FactionsX ]
 authors: [ DadoGamer13, MatiasME ]
 description: ...
 commands:
