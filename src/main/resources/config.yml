@@ -2,9 +2,12 @@ reload-message: "&aConfig reloaded."
 help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&e/anchor reload &f Reloads the config file."
-  - "&e/anchor give [name] [quantity] &fgives an anchor to a player"
+  - "&e/anchor give [name] [quantity] [level] &fgives an anchor to a player"
   - "&7&m----------------------------"
-cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity]"
+
+cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
+total-anchors-user-can-have: 15
+cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
 
 anchor:
   title: "&5Anchor Sell"

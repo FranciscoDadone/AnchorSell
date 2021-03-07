@@ -12,8 +12,8 @@ public class Utils {
         return ChatColor.translateAlternateColorCodes('§', str.replace("&", "§"));
     }
 
-    public static ItemStack getAnchor(int level) {
-        ItemStack item = new ItemStack(Material.RESPAWN_ANCHOR, 1);
+    public static ItemStack getAnchor(int level, int quantity) {
+        ItemStack item = new ItemStack(Material.RESPAWN_ANCHOR, quantity);
         ArrayList<String> Lore = new ArrayList<String>();
         Lore.add("");
         Lore.add(Utils.Color("&7&m----------------------------"));

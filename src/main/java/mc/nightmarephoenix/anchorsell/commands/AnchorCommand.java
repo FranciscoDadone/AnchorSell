@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 
 public class AnchorCommand implements CommandExecutor {
 
@@ -40,13 +41,18 @@ public class AnchorCommand implements CommandExecutor {
                 }
                 // Give one Anchor
                 else if (args.length == 2) {
-                    String giveCommand = "give " + args[1] + " respawn_anchor 1";
-                    Bukkit.dispatchCommand(console, giveCommand);
+                    Player p = sender.getServer().getPlayer(args[1]);
+                    p.getInventory().addItem(Utils.getAnchor(1, 1));
                 }
                 // Give Anchor with quantity argument
                 else if (args.length == 3) {
-                    String giveCommand = "give " + args[1] + " respawn_anchor " + args[2];
-                    Bukkit.dispatchCommand(console, giveCommand);
+                    Player p = sender.getServer().getPlayer(args[1]);
+                    p.getInventory().addItem(Utils.getAnchor(1, Integer.parseInt(args[2])));
+                }
+                // Give Anchor with quantity and level argument
+                else if (args.length == 4) {
+                    Player p = sender.getServer().getPlayer(args[1]);
+                    p.getInventory().addItem(Utils.getAnchor(Integer.parseInt(args[3]), Integer.parseInt(args[2])));
                 }
             }
         }
