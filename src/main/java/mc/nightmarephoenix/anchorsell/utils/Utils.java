@@ -12,11 +12,17 @@ public class Utils {
         return ChatColor.translateAlternateColorCodes('§', str.replace("&", "§"));
     }
 
-    public static ItemStack getAnchor(String name, ArrayList<String> lore) {
+    public static ItemStack getAnchor(int level) {
         ItemStack item = new ItemStack(Material.RESPAWN_ANCHOR, 1);
+        ArrayList<String> Lore = new ArrayList<String>();
+        Lore.add("");
+        Lore.add(Utils.Color("&7&m----------------------------"));
+        Lore.add(Utils.Color("&fAnchor level: &e" + level));
+        Lore.add(Utils.Color("&fMoney per minute: &e" + Utils.getMoneyPerMinute(level)));
+        Lore.add(Utils.Color("&7&m----------------------------"));
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(Utils.Color(name));
-        meta.setLore(lore);
+        meta.setDisplayName(Utils.Color("&5&lAnchor"));
+        meta.setLore(Lore);
         item.setItemMeta(meta);
         return item;
     }

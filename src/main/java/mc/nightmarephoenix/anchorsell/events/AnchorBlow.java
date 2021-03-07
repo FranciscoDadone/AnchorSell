@@ -23,14 +23,9 @@ public class AnchorBlow implements Listener {
                 world = entity.getLocation().getWorld();
                 b.breakNaturally();
 
-                ArrayList<String> Lore = new ArrayList<String>();
-                Lore.add("");
-                Lore.add(Utils.Color("&7&m----------------------------"));
-                Lore.add(Utils.Color("&fAnchor level: &e1"));
-                Lore.add(Utils.Color("&fMoney per minute: &e" + Utils.getMoneyPerMinute(1)));
-                Lore.add(Utils.Color("&7&m----------------------------"));
 
-                world.dropItem(b.getLocation(), Utils.getAnchor("&5Anchor", Lore)).setInvulnerable(true);
+
+                world.dropItem(b.getLocation(), Utils.getAnchor(1)).setInvulnerable(true);
             }
         }
     }
