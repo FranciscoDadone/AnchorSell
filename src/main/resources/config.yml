@@ -4,6 +4,7 @@ help-message:
   - "&e/anchor reload &f Reloads the config file."
   - "&e/anchor give [name] [quantity] &fgives an anchor to a player"
   - "&7&m----------------------------"
+cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity]"
 
 anchor:
   title: "&5Anchor Sell"
