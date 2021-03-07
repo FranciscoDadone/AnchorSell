@@ -73,9 +73,15 @@ public class StorageManager {
         String anchorID = getAnchorUUID(location);
 
         // Figuring out who's the anchor owner
-        Player p = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + anchorID + ".owner")));
-        userData = new PerUSerStorage(plugin, p);
+        Player p;
 
+        try {
+            p = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + anchorID + ".owner")));
+            userData = new PerUSerStorage(plugin, p);
+        } catch (Exception exception) {
+            // Creative anchor break not work
+            return;
+        }
 
         // Updating the total amount of anchors in the user config
         int totalUserAnchors = 0;
@@ -117,7 +123,8 @@ public class StorageManager {
         generalData = new GeneralStorage(plugin);
 
         try {
-            Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner")));
+            Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(
+                    generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner")));
 
             if(p.getUniqueId().toString().equals(actualPlayerAnchor.getUniqueId().toString())) {
                 return true;
