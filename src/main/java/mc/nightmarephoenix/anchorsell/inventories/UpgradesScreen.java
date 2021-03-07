@@ -8,7 +8,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -18,16 +17,17 @@ public class UpgradesScreen implements InventoryHolder {
         this.plugin = plugin;
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.title")));
 
-        switch (Math.round(level / 16)) {
-            case 0:
-                material = Material.IRON_INGOT; break;
-            case 1:
-                material = Material.GOLD_INGOT; break;
-            case 2:
-                material = Material.DIAMOND; break;
-            case 3:
-                material = Material.NETHERITE_INGOT; break;
-        }
+        if(level > 0 && level < 16)
+            material = Material.COAL;
+        else if(level >= 16 && level < 24)
+            material = Material.IRON_INGOT;
+        else if(level >= 24 && level < 32)
+            material = Material.GOLD_INGOT;
+        else if(level >= 32 && level < 48)
+            material = Material.DIAMOND;
+        else if(level >= 32 && level <= 64)
+            material = Material.NETHERITE_INGOT;
+
         init();
     }
 
