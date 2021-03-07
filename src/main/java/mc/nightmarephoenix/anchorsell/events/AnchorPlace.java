@@ -41,6 +41,8 @@ public class AnchorPlace implements Listener {
             storage.getConfig().set("anchors." + amount + ".location.z", block.getZ());
 
 
+
+
             storage.saveConfig();
         }
     }
