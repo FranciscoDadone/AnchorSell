@@ -8,6 +8,7 @@ help-message:
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 15
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
+you-dont-own-this-anchor: "&4You don't own this anchor"
 
 anchor:
   title: "&5Anchor Sell"

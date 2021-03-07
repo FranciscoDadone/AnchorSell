@@ -36,7 +36,7 @@ public class StorageManager {
         }
 
         // Anchor UUID
-        String anchorID = (int)location.getX() + "_" + (int)location.getY() + "_" + (int)location.getZ();
+        String anchorID = getAnchorUUID(location);
 
         // Storing the data in the user file
         userData.getConfig().set("anchors." + anchorID + ".location.x", location.getX());
@@ -62,7 +62,7 @@ public class StorageManager {
         generalData = new GeneralStorage(plugin);
 
         // Anchor UUID
-        String anchorID = (int)location.getX() + "_" + (int)location.getY() + "_" + (int)location.getZ();
+        String anchorID = getAnchorUUID(location);
 
         // Figuring out who's the anchor owner
         Player p = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + anchorID + ".owner")));
@@ -92,15 +92,34 @@ public class StorageManager {
     }
 
     public static int getAnchorLevel(Location location) {
-        String anchorID = (int)location.getX() + "_" + (int)location.getY() + "_" + (int)location.getZ();
         // Getting the current anchor level
-        int currentAnchorLevel = generalData.getConfig().getInt("all_anchors." + anchorID + ".level");
+        int currentAnchorLevel = generalData.getConfig().getInt("all_anchors." + getAnchorUUID(location) + ".level");
         if(currentAnchorLevel == 0) {
             currentAnchorLevel = 1;
         }
         return currentAnchorLevel;
     }
 
-    private static PerUSerStorage userData;
-    private static GeneralStorage generalData;
+    public static String getAnchorUUID(Location location) {
+        return (int)location.getX() + "_" + (int)location.getY() + "_" + (int)location.getZ();
+    }
+
+    public static boolean isMyAnchor(Location location, Player p, AnchorSell plugin) {
+        userData = new PerUSerStorage(plugin, p);
+        generalData = new GeneralStorage(plugin);
+
+        Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner")));
+
+        try {
+            if(p.getUniqueId().toString().equals(actualPlayerAnchor.getUniqueId().toString())) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static PerUSerStorage userData;
+    public static GeneralStorage generalData;
 }
