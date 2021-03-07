@@ -24,14 +24,14 @@ public class ActionAnchor implements Listener {
             if((e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) && !p.isSneaking()) {
                 if(StorageManager.isMyAnchor(e.getClickedBlock().getLocation(), p, plugin)) {
                     e.setCancelled(true);
-                    p.openInventory(new AnchorScreen(p, plugin).getInventory());
+                    p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
                 } else {
                     p.sendMessage(Utils.Color(plugin.getConfig().getString("you-dont-own-this-anchor")));
                 }
             }
             return;
         } catch (Exception e1) {
-            e1.printStackTrace();
+            return;
         }
     }
 

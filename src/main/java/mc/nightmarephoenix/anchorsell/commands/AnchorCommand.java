@@ -1,10 +1,8 @@
 package mc.nightmarephoenix.anchorsell.commands;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -58,7 +56,6 @@ public class AnchorCommand implements CommandExecutor {
                 }
             }
         }
-
         return true;
     }
 

@@ -20,14 +20,12 @@ public class UpgradesScreen implements InventoryHolder {
 
         switch (Math.round(level / 16)) {
             case 0:
-                material = Material.COAL; break;
-            case 1:
                 material = Material.IRON_INGOT; break;
-            case 2:
+            case 1:
                 material = Material.GOLD_INGOT; break;
-            case 3:
+            case 2:
                 material = Material.DIAMOND; break;
-            case 4:
+            case 3:
                 material = Material.NETHERITE_INGOT; break;
         }
         init();
