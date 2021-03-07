@@ -1,7 +1,6 @@
 package mc.nightmarephoenix.anchorsell.storage;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -12,9 +11,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 
-public class Storage {
+public class PerUSerStorage {
 
-    public Storage(AnchorSell plugin, Player p) {
+    public PerUSerStorage(AnchorSell plugin, Player p) {
         this.plugin = plugin;
         this.p = p;
         saveDefaultConfig(p);
