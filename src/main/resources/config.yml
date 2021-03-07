@@ -19,7 +19,7 @@ anchor:
     lore: "Show player stats"
   upgrades:
     txt: "Upgrades"
-    lore: "Click to show upgrades"
+    lore: "Click to show  upgrades"
   upgrade-menu:
     title: "&5Anchor Sell - Upgrades"
     current-level:

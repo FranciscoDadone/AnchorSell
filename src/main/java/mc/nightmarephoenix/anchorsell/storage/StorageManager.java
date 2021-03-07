@@ -14,9 +14,17 @@ public class StorageManager {
         userData = new PerUSerStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
 
+        int currentAnchorLevel = -1;
+
         // Getting the current anchor level before placing the block
-        int currentAnchorLevel = Integer.parseInt(String.valueOf(e.getItemInHand().getItemMeta().getLore().get(2).substring(18)));
-        if(currentAnchorLevel == 0) {
+        try {
+            currentAnchorLevel = Integer.parseInt(String.valueOf(e.getItemInHand().getItemMeta().getLore().get(2).substring(18)));
+        } catch (NullPointerException nullPointerException) {
+            // Creative respawn anchor not work
+            return;
+        }
+
+        if (currentAnchorLevel == 0) {
             currentAnchorLevel = 1;
         }
 
