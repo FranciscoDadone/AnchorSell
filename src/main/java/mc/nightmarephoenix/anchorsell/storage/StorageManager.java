@@ -14,9 +14,17 @@ public class StorageManager {
         userData = new PerUSerStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
 
+        int currentAnchorLevel = -1;
+
         // Getting the current anchor level before placing the block
-        int currentAnchorLevel = Integer.parseInt(String.valueOf(e.getItemInHand().getItemMeta().getLore().get(2).substring(18)));
-        if(currentAnchorLevel == 0) {
+        try {
+            currentAnchorLevel = Integer.parseInt(String.valueOf(e.getItemInHand().getItemMeta().getLore().get(2).substring(18)));
+        } catch (NullPointerException nullPointerException) {
+            // Creative respawn anchor not work
+            return;
+        }
+
+        if (currentAnchorLevel == 0) {
             currentAnchorLevel = 1;
         }
 
@@ -65,9 +73,15 @@ public class StorageManager {
         String anchorID = getAnchorUUID(location);
 
         // Figuring out who's the anchor owner
-        Player p = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + anchorID + ".owner")));
-        userData = new PerUSerStorage(plugin, p);
+        Player p;
 
+        try {
+            p = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + anchorID + ".owner")));
+            userData = new PerUSerStorage(plugin, p);
+        } catch (Exception exception) {
+            // Creative anchor break not work
+            return;
+        }
 
         // Updating the total amount of anchors in the user config
         int totalUserAnchors = 0;
@@ -108,9 +122,10 @@ public class StorageManager {
         userData = new PerUSerStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
 
-        Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner")));
-
         try {
+            Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(
+                    generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner")));
+
             if(p.getUniqueId().toString().equals(actualPlayerAnchor.getUniqueId().toString())) {
                 return true;
             }

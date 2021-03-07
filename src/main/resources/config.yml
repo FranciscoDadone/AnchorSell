@@ -1,8 +1,8 @@
 reload-message: "&aConfig reloaded."
 help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"
-  - "&e/anchor reload &f Reloads the config file."
-  - "&e/anchor give [name] [quantity] [level] &fgives an anchor to a player"
+  - "&e/anchor reload &f Reloads the config file"
+  - "&e/anchor give [name] [quantity] [level] &fGives an anchor to a player"
   - "&7&m----------------------------"
 
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
@@ -19,7 +19,7 @@ anchor:
     lore: "Show player stats"
   upgrades:
     txt: "Upgrades"
-    lore: "Click to show upgrades"
+    lore: "Click to show  upgrades"
   upgrade-menu:
     title: "&5Anchor Sell - Upgrades"
     current-level:
