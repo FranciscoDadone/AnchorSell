@@ -108,9 +108,9 @@ public class StorageManager {
         userData = new PerUSerStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
 
-        Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner")));
-
         try {
+            Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner")));
+
             if(p.getUniqueId().toString().equals(actualPlayerAnchor.getUniqueId().toString())) {
                 return true;
             }

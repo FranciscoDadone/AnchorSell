@@ -4,10 +4,10 @@ main: mc.nightmarephoenix.anchorsell.AnchorSell
 api-version: 1.16
 depend: [ Vault, FactionsX ]
 authors: [ DadoGamer13, MatiasME ]
-description: ...
+description: Minecraft plugin to get money using a Respawn Anchor for FactionsX.
 commands:
   anchor:
-    description: Buy an anchor sell
+    description: Buy an anchor
     usage: /anchor
     permission: anchorsell.player
     permission-message: You don't have <permission>
