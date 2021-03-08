@@ -1,6 +1,8 @@
 package mc.nightmarephoenix.anchorsell.commands;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
+import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -54,6 +56,12 @@ public class AnchorCommand implements CommandExecutor {
                     Player p = sender.getServer().getPlayer(args[1]);
                     p.getInventory().addItem(Utils.getAnchor(Integer.parseInt(args[3]), Integer.parseInt(args[2])));
                 }
+            } else if (sender.hasPermission("anchorsell.give")
+                    && args.length == 1
+                    && args[0].equalsIgnoreCase("buy")) {
+
+                Player player = sender.getServer().getPlayerExact(sender.getName());
+                player.openInventory(new BuyScreen(player, plugin).getInventory());
             }
         }
         return true;

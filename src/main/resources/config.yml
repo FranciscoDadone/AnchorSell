@@ -30,7 +30,14 @@ anchor:
       lore: "Upgrade current anchor"
     back: "&cGo back"
 
-
+anchorbuy:
+  title: "&5Buy Anchor Sell"
+  current-anchor-info:
+    txt: "What is an Anchor Sell?"
+    lore:
+      - "An Anchor Sell is a block with which"
+      - "you can earn money automatically, from"
+      - "time to time, by placing it."
 
 anchor-place: "&aNew anchor placed (%coordsX%, %coordsY%, %coordsZ%)"
 anchor-break: "&cAnchor removed (%coordsX%, %coordsY%, %coordsZ%)"

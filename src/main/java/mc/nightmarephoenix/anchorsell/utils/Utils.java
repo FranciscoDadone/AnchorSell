@@ -8,6 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 
 public class Utils {
+
     public static String Color(String str) {
         return ChatColor.translateAlternateColorCodes('§', str.replace("&", "§"));
     }
