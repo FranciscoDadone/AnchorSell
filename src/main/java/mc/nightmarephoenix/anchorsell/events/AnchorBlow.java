@@ -11,6 +11,7 @@ import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class AnchorBlow implements Listener {
         for(Block b : blocks) {
             if(b.getType().equals(Material.RESPAWN_ANCHOR)) {
                 world = entity.getLocation().getWorld();
-                b.breakNaturally();
+                b.breakNaturally(new ItemStack(Material.AIR));
                 world.dropItem(b.getLocation(), Utils.getAnchor(StorageManager.getAnchorLevel(b.getLocation()), 1)).setInvulnerable(true);
                 StorageManager.anchorBreak(plugin, b.getLocation());
             }
