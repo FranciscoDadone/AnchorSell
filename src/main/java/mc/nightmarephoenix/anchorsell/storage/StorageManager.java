@@ -4,9 +4,11 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class StorageManager {
@@ -174,6 +176,11 @@ public class StorageManager {
         return res;
     }
 
+    public static ArrayList<String> getAnchorUserList(AnchorSell plugin, Player p) throws InvalidConfigurationException {
+        userData = new PerUSerStorage(plugin, p);
+        userData.getConfig().loadFromString("anchors");
+        return null;
+    }
 
 
     public static GeneralStorage getGeneralStorage() {
