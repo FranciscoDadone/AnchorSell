@@ -13,7 +13,7 @@ radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
 you-dont-own-this-anchor: "&4You don't own this anchor"
 
-pay-timer-in-minutes: 1
+pay-timer-in-minutes: 15
 
 anchor:
   title: "&5Anchor Sell"
@@ -24,10 +24,16 @@ anchor:
       - "&eMoney per 15 minutes: &f$%moneyPer15Minutes%"
       - "&eMoney per minute: &f$%moneyPerMinute%"
   player:
-    lore: "Show player stats"
+    lore:
+      - "&eBalance:&f %playerBalance%"
+      - "&eNumber of anchors:&f %playerAnchors% / %maxPlayerAnchors%"
+      - "&eTotal money per 15 minutes: &f%playerMoneyPer15Minutes%"
   upgrades:
-    txt: "Upgrades"
-    lore: "Click to show  upgrades"
+    txt: "&6&lUpgrades"
+    lore:
+      - "&eFrom:&f %level% (%oreLevel%&f)"
+      - "&eTo: &f%nextLevel% (%nextLevelOre%&f)"
+      - "&ePrice: &f$%priceOfUpgrade%"
   upgrade-menu:
     title: "&5Anchor Sell - Upgrades"
     current-level:
@@ -60,7 +66,6 @@ anchor-place:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&aNew anchor placed"
   - ""
-  - "&eLocation: &fX:%coordsX%, Y:%coordsY%, Z:%coordsZ%"
   - "&eLevel: &f%level%"
   - "&7&m----------------------------"
 
@@ -68,9 +73,16 @@ anchor-break:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&cAnchor removed"
   - ""
-  - "&eLocation: &fX:%coordsX%, Y:%coordsY%, Z:%coordsZ%"
   - "&eLevel: &f%level%"
   - "&7&m----------------------------"
 
 
 paying-message: "&aYou have received &c$%amount% &afrom &5&lAnchors"
+
+levels:
+  1: "&8Coal"
+  2: "&7Iron"
+  3: "&eGold"
+  4: "&bDiamond"
+  5: "&6&lNETHERITE"
+  maxed-out-level: "&c&lMaxed out!"
