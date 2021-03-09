@@ -1,4 +1,4 @@
-package mc.nightmarephoenix.anchorsell.events;
+package mc.nightmarephoenix.anchorsell.events.gui;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
@@ -11,9 +11,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
-public class MainAnchorEvents implements Listener {
+public class GuiAnchorEvents implements Listener {
 
-    public MainAnchorEvents(AnchorSell plugin) {
+    public GuiAnchorEvents(AnchorSell plugin) {
         this.plugin = plugin;
     }
 
@@ -44,6 +44,8 @@ public class MainAnchorEvents implements Listener {
                 p.openInventory(new AnchorScreen(p, plugin, AnchorScreen.location).getInventory());
             }
         }
+
+        // Buy screen
     }
 
     private AnchorSell plugin;
