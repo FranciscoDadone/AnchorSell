@@ -6,12 +6,21 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Utils {
 
     public static String Color(String str) {
         return ChatColor.translateAlternateColorCodes('§', str.replace("&", "§"));
     }
+
+    public static List<String> Color(List<String> strList) {
+        for(String string: strList) {
+            strList.set(strList.indexOf(string), Color(string));
+        }
+        return strList;
+    }
+
 
     public static ItemStack getAnchor(int level, int quantity) {
         ItemStack item = new ItemStack(Material.RESPAWN_ANCHOR, quantity);

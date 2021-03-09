@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.inventories;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +43,9 @@ public class AnchorScreen implements InventoryHolder {
 
 
         // Info
-        ItemStack info = createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")), Material.BOOK, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.lore"))));
+        List<String> a = new ArrayList<>();
+        ItemStack info = createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")),
+                Material.BOOK, getLore("anchor.current-anchor-info.lore"));
         inv.setItem(11, info);
 
         // Player
@@ -61,6 +65,15 @@ public class AnchorScreen implements InventoryHolder {
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
+    }
+
+
+    private List<String> getLore(String path) {
+        List<String> res = new ArrayList<>();
+        for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
+            res.add(str.replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, location))));
+        }
+        return res;
     }
 
 

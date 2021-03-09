@@ -46,11 +46,17 @@ public class StorageManager {
         // Anchor UUID
         String anchorID = getAnchorUUID(location);
 
-        // Storing the data in the user file
-        userData.getConfig().set("anchors." + (totalUserAnchors + 1) + ".location.x", location.getX());
-        userData.getConfig().set("anchors." + (totalUserAnchors + 1) + ".location.y", location.getY());
-        userData.getConfig().set("anchors." + (totalUserAnchors + 1) + ".location.z", location.getZ());
-        userData.getConfig().set("anchors." + (totalUserAnchors + 1) + ".level", currentAnchorLevel);
+        // Determines what number the anchor can have
+        for(int i = 1; i <= userData.getConfig().getInt("total"); i++) {
+            if(!userData.getConfig().contains("anchors." + i)) {
+                // Storing the data in the user file
+                userData.getConfig().set("anchors." + i + ".location.x", location.getX());
+                userData.getConfig().set("anchors." + i + ".location.y", location.getY());
+                userData.getConfig().set("anchors." + i + ".location.z", location.getZ());
+                userData.getConfig().set("anchors." + i + ".level", currentAnchorLevel);
+                break;
+            }
+        }
 
         //Storing in the general file
         generalData.getConfig().set("all_anchors." + anchorID + ".location.x", location.getX());
@@ -93,7 +99,15 @@ public class StorageManager {
         userData.getConfig().set("total", (totalUserAnchors));
 
         // Storing the data in the user file
-        userData.getConfig().set("anchors." + (totalUserAnchors + 1), null);
+        for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
+            if(userData.getConfig().contains("anchors." + i)) {
+                if(location.getX() == userData.getConfig().getInt("anchors." + i + ".location.x") &&
+                        location.getY() == userData.getConfig().getInt("anchors." + i + ".location.y") &&
+                        location.getZ() == userData.getConfig().getInt("anchors." + i + ".location.z")) {
+                    userData.getConfig().set("anchors." + i, null);
+                }
+            }
+        }
 
         //Storing in the general file
         generalData.getConfig().set("all_anchors." + anchorID, null);
@@ -105,7 +119,8 @@ public class StorageManager {
 
     }
 
-    public static int getAnchorLevel(Location location) {
+    public static int getAnchorLevel(AnchorSell plugin, Location location) {
+        generalData = new GeneralStorage(plugin);
         // Getting the current anchor level
         int currentAnchorLevel = generalData.getConfig().getInt("all_anchors." + getAnchorUUID(location) + ".level");
         if(currentAnchorLevel == 0) {

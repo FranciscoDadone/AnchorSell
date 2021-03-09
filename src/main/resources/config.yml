@@ -18,8 +18,11 @@ pay-timer-in-minutes: 1
 anchor:
   title: "&5Anchor Sell"
   current-anchor-info:
-    txt: "Info"
-    lore: "Show current anchor info"
+    txt: "&6&lThis anchor"
+    lore:
+      - "&eLevel: &f%level% (%oreLevel%)"
+      - "&eMoney per 15 minutes: &f$%moneyPer15Minutes%"
+      - "&eMoney per minute: &f$%moneyPerMinute%"
   player:
     lore: "Show player stats"
   upgrades:

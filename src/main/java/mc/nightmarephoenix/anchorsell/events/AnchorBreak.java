@@ -18,7 +18,7 @@ public class AnchorBreak implements Listener {
     }
 
     @EventHandler
-    public void place(BlockBreakEvent e) {
+    public void breakEv(BlockBreakEvent e) {
         Block block = e.getBlock();
         Player p = e.getPlayer();
 
@@ -26,7 +26,7 @@ public class AnchorBreak implements Listener {
             p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor-break").replaceAll("%coordsX%", String.valueOf(block.getX())).replaceAll("%coordsY%", String.valueOf(block.getY())).replaceAll("%coordsZ%", String.valueOf(block.getZ()))));
 
             e.setDropItems(false);
-            p.getWorld().dropItem(block.getLocation(), Utils.getAnchor(StorageManager.getAnchorLevel(block.getLocation()), 1)).setInvulnerable(true);
+            p.getWorld().dropItem(block.getLocation(), Utils.getAnchor(StorageManager.getAnchorLevel(plugin, block.getLocation()), 1)).setInvulnerable(true);
             StorageManager.anchorBreak(plugin, block.getLocation());
         }
     }

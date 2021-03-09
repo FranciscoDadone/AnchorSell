@@ -33,7 +33,7 @@ public class GuiAnchorEvents implements Listener {
 
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getSlot() == 15)) { // checks if the slot is the upgrade slot
-                p.openInventory(new UpgradesScreen(plugin, StorageManager.getAnchorLevel(new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()))).getInventory());
+                p.openInventory(new UpgradesScreen(plugin, StorageManager.getAnchorLevel(plugin, new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()))).getInventory());
             }
         }
 
