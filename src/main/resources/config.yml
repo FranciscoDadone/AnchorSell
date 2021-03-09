@@ -12,6 +12,9 @@ radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
 you-dont-own-this-anchor: "&4You don't own this anchor"
 
+
+pay-timer-in-minutes: 1
+
 anchor:
   title: "&5Anchor Sell"
   current-anchor-info:

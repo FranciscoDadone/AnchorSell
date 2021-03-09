@@ -47,10 +47,10 @@ public class StorageManager {
         String anchorID = getAnchorUUID(location);
 
         // Storing the data in the user file
-        userData.getConfig().set("anchors." + anchorID + ".location.x", location.getX());
-        userData.getConfig().set("anchors." + anchorID + ".location.y", location.getY());
-        userData.getConfig().set("anchors." + anchorID + ".location.z", location.getZ());
-        userData.getConfig().set("anchors." + anchorID + ".level", currentAnchorLevel);
+        userData.getConfig().set("anchors." + (totalUserAnchors + 1) + ".location.x", location.getX());
+        userData.getConfig().set("anchors." + (totalUserAnchors + 1) + ".location.y", location.getY());
+        userData.getConfig().set("anchors." + (totalUserAnchors + 1) + ".location.z", location.getZ());
+        userData.getConfig().set("anchors." + (totalUserAnchors + 1) + ".level", currentAnchorLevel);
 
         //Storing in the general file
         generalData.getConfig().set("all_anchors." + anchorID + ".location.x", location.getX());
@@ -72,6 +72,7 @@ public class StorageManager {
         // Anchor UUID
         String anchorID = getAnchorUUID(location);
 
+
         // Figuring out who's the anchor owner
         Player p;
 
@@ -91,9 +92,8 @@ public class StorageManager {
         }
         userData.getConfig().set("total", (totalUserAnchors));
 
-
         // Storing the data in the user file
-        userData.getConfig().set("anchors." + anchorID, null);
+        userData.getConfig().set("anchors." + (totalUserAnchors + 1), null);
 
         //Storing in the general file
         generalData.getConfig().set("all_anchors." + anchorID, null);
@@ -133,6 +133,21 @@ public class StorageManager {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static int getPlayerTotalAnchors(AnchorSell plugin, Player p) {
+        return getUserData(plugin, p).getConfig().getInt("total");
+    }
+
+
+
+
+    public static GeneralStorage getGeneralStorage() {
+        return generalData;
+    }
+
+    public static PerUSerStorage getUserData(AnchorSell plugin, Player p) {
+        return new PerUSerStorage(plugin, p);
     }
 
     public static PerUSerStorage userData;
