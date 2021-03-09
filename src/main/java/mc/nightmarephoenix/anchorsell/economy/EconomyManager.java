@@ -21,15 +21,6 @@ public class EconomyManager {
         return econ != null;
     }
 
-    public static boolean depositToUser(Player p, double balance) {
-        EconomyResponse res = EconomyManager.getEconomy().bankDeposit(p.getName(), balance);
-        if(res.equals(EconomyResponse.ResponseType.SUCCESS)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public static Economy getEconomy() {
         return econ;
     }
