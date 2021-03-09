@@ -4,6 +4,7 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -71,10 +72,15 @@ public class AnchorScreen implements InventoryHolder {
     private List<String> getLore(String path) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
-            res.add(str.replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, location))));
+            int level = StorageManager.getAnchorLevel(plugin, location);
+            res.add(str.replaceAll("%level%", String.valueOf(level)).
+                        replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
+                        replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
+                        replaceAll("%oreLevel%", Utils.getAnchorOreColor(level) + Utils.getAnchorOreLevelString(level)));
         }
         return res;
     }
+
 
 
     @Override

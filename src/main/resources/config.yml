@@ -20,7 +20,7 @@ anchor:
   current-anchor-info:
     txt: "&6&lThis anchor"
     lore:
-      - "&eLevel: &f%level% (%oreLevel%)"
+      - "&eLevel: &f%level% (%oreLevel%&f)"
       - "&eMoney per 15 minutes: &f$%moneyPer15Minutes%"
       - "&eMoney per minute: &f$%moneyPerMinute%"
   player:

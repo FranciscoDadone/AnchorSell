@@ -17,16 +17,7 @@ public class UpgradesScreen implements InventoryHolder {
         this.plugin = plugin;
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.title")));
 
-        if(level > 0 && level < 16)
-            material = Material.COAL;
-        else if(level >= 16 && level < 24)
-            material = Material.IRON_INGOT;
-        else if(level >= 24 && level < 32)
-            material = Material.GOLD_INGOT;
-        else if(level >= 32 && level < 48)
-            material = Material.DIAMOND;
-        else if(level >= 32 && level <= 64)
-            material = Material.NETHERITE_INGOT;
+        material = Utils.getAnchorOreLevel(level);
 
         init();
     }
