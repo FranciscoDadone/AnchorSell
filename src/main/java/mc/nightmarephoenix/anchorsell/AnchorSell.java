@@ -2,6 +2,7 @@ package mc.nightmarephoenix.anchorsell;
 
 import mc.nightmarephoenix.anchorsell.commands.AnchorCommand;
 import mc.nightmarephoenix.anchorsell.events.*;
+import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -26,7 +27,7 @@ public final class AnchorSell extends JavaPlugin {
 
         // Listeners
         getServer().getPluginManager().registerEvents(new ActionAnchor(this), this);     // enabling the listener
-        getServer().getPluginManager().registerEvents(new MainAnchorEvents(this), this); // gui click events
+        getServer().getPluginManager().registerEvents(new GuiAnchorEvents(this), this); // gui click events
         getServer().getPluginManager().registerEvents(new AnchorPlace(this), this);      // detects where the anchor has been placed and stores all the data
         getServer().getPluginManager().registerEvents(new AnchorBreak(this), this);     // detects where the anchor has been remove and stores all the data
         getServer().getPluginManager().registerEvents(new AnchorBlow(this), this);     // detects where the anchor has been remove and stores all the data
