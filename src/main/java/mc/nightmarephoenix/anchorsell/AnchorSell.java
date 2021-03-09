@@ -31,7 +31,7 @@ public final class AnchorSell extends JavaPlugin {
 
         // Commands
         this.getCommand("anchor").setExecutor(new AnchorCommand(this));
-
+        
         // Tasks
         new PayTask(this).runTaskTimer(this, 0, 20 * this.getConfig().getInt("pay-timer-in-minutes") * 60); // starts the timer to pay the player
     }
