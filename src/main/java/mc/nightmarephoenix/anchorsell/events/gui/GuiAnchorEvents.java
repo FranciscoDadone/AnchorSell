@@ -67,17 +67,19 @@ public class GuiAnchorEvents implements Listener {
 
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.GREEN_STAINED_GLASS_PANE)) {
-                if (EconomyManager.withdrawFromUser(p, plugin.getConfig().getInt("anchor-value"))) {
+                int anchorValue = plugin.getConfig().getInt("anchor-value");
+
+                if (EconomyManager.getEconomy().getBalance(p) >=  anchorValue) {
+                    EconomyManager.withdrawFromUser(p, anchorValue);
                     p.getInventory().addItem(Utils.getAnchor(1, 1));
-                    p.sendMessage(Utils.Color(plugin.getConfig().getString("anchorconfirm.you-have-an-anchor")));
+                    p.sendMessage(Utils.Color(plugin.getConfig().getString("confirmscreen.you-have-an-anchor")));
                 } else {
-                    p.sendMessage(Utils.Color(plugin.getConfig().getString("anchorconfirm.you-cant-afford")));
+                    p.sendMessage(Utils.Color(plugin.getConfig().getString("confirmscreen.you-cant-afford")));
                 }
                 p.closeInventory();
             } else if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.RED_STAINED_GLASS_PANE)) {
                 p.closeInventory();
             }
-
         }
     }
 
