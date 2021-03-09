@@ -64,12 +64,11 @@ public class GuiAnchorEvents implements Listener {
 
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.GREEN_STAINED_GLASS_PANE)) {
-                if (EconomyManager.withdrawFromUser(p, 100.0)) {
+                if (EconomyManager.withdrawFromUser(p, plugin.getConfig().getInt("anchor-value"))) {
                     p.getInventory().addItem(Utils.getAnchor(1, 1));
-                    p.sendMessage("sipe");
+                    p.sendMessage(Utils.Color(plugin.getConfig().getString("anchorconfirm.you-have-an-anchor")));
                 } else {
-                    p.sendMessage("nope");
-
+                    p.sendMessage(Utils.Color(plugin.getConfig().getString("anchorconfirm.you-cant-afford")));
                 }
                 p.closeInventory();
             } else if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.RED_STAINED_GLASS_PANE)) {

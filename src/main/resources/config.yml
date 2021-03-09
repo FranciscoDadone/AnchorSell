@@ -53,6 +53,8 @@ confirmscreen:
   title: "&5Are you sure you want to buy?"
   yes: "&5Yes"
   no: "&5No"
+  you-have-an-anchor: "&5You have purchased an anchor."
+  you-cant-afford: "&5You can't afford this."
 
 anchor-place:
   - "&7&m----------&r &5&lAnchor &7&m----------"
