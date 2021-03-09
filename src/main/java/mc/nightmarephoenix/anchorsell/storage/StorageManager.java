@@ -170,7 +170,31 @@ public class StorageManager {
         return res;
     }
 
+    public static void upgradeAnchor(AnchorSell plugin, Location location, Player p) {
+        userData = new PerUSerStorage(plugin, p);
+        generalData = new GeneralStorage(plugin);
 
+        // Updating user data...
+        for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
+            if(userData.getConfig().contains("anchors." + i)) {
+                if(userData.getConfig().getInt("anchors." + i + ".location.x") == location.getX() &&
+                        userData.getConfig().getInt("anchors." + i + ".location.y") == location.getY() &&
+                        userData.getConfig().getInt("anchors." + i + ".location.z") == location.getZ()) {
+                    int currentLevel = userData.getConfig().getInt("anchors." + i + ".level");
+                    if(currentLevel >= 64)
+                        return;
+                    userData.getConfig().set("anchors." + i + ".level", (currentLevel + 1));
+                }
+            }
+        }
+
+        // Updating general data...
+        generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(location) + ".level",
+                generalData.getConfig().getInt("all_anchors." + StorageManager.getAnchorUUID(location) + ".level") + 1);
+
+        generalData.saveConfig();
+        userData.saveConfig();
+    }
 
     public static GeneralStorage getGeneralStorage() {
         return generalData;

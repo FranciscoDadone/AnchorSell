@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell.economy;
 
+import mc.nightmarephoenix.anchorsell.AnchorSell;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
@@ -21,13 +22,15 @@ public class EconomyManager {
         return econ != null;
     }
 
-    public static boolean withdrawFromUser(Player p, double balance) {
-        EconomyResponse res = EconomyManager.getEconomy().withdrawPlayer(p, balance);
-        if (!res.equals(EconomyResponse.ResponseType.SUCCESS) && econ.getBalance(p) >= balance) {
-            return true;
-        } else {
-            return false;
+    public static boolean withdrawFromUser(AnchorSell plugin, Player p, double balance) {
+        int anchorValue = plugin.getConfig().getInt("anchor-value");
+        if (EconomyManager.getEconomy().getBalance(p) >=  anchorValue) {
+            EconomyResponse res = EconomyManager.getEconomy().withdrawPlayer(p, balance);
+            if (!res.equals(EconomyResponse.ResponseType.SUCCESS) && econ.getBalance(p) >= balance) {
+                return true;
+            }
         }
+        return false;
     }
 
     public static Economy getEconomy() {
