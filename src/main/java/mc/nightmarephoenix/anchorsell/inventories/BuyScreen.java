@@ -30,6 +30,7 @@ public class BuyScreen implements InventoryHolder {
     private void init() {
         ItemStack item;
         ItemStack border = createItem(" ", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList());
+
         // Top
         for( int i = 0; i < 9; i++ ) {
             inv.setItem(i, border);
@@ -51,14 +52,13 @@ public class BuyScreen implements InventoryHolder {
                         Material.BOOK, plugin.getConfig().getStringList("anchorbuy.anchor-info.lore"));
         inv.setItem(11, info);
 
-        // Upgrades
-        ItemStack upgrades = createItem(
-                Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")),
-                Material.GLOWSTONE, Collections.singletonList(
-                        Utils.Color(plugin.getConfig().getString("anchor.upgrades.lore"))));
-        inv.setItem(15, upgrades);
+        // Buy
+        ItemStack buy = createItem(
+                Utils.Color(
+                        plugin.getConfig().getString("anchorbuy.buy.title")),
+                        Material.RESPAWN_ANCHOR, Collections.singletonList(""));
+        inv.setItem(15, buy);
     }
-
 
     private ItemStack createItem(String name, Material material, List<String> lore) {
         ItemStack item = new ItemStack(material, 1);
