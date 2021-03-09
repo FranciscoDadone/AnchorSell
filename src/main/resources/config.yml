@@ -32,7 +32,7 @@ anchor:
 
 anchorbuy:
   title: "&5Buy Anchor Sell"
-  current-anchor-info:
+  anchor-info:
     txt: "What is an Anchor Sell?"
     lore:
       - "An Anchor Sell is a block with which"

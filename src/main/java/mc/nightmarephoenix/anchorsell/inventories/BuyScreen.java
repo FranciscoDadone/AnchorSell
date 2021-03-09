@@ -44,12 +44,11 @@ public class BuyScreen implements InventoryHolder {
             inv.setItem(i, border);
         }
 
-
         // Info
         ItemStack info = createItem(
                 Utils.Color(
-                        plugin.getConfig().getString("anchorbuy.current-anchor-info.txt")),
-                        Material.BOOK, plugin.getConfig().getStringList("anchorbuy.current-anchor-info.lore"));
+                        plugin.getConfig().getString("anchorbuy.anchor-info.txt")),
+                        Material.BOOK, plugin.getConfig().getStringList("anchorbuy.anchor-info.lore"));
         inv.setItem(11, info);
 
         // Upgrades
