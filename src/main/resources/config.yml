@@ -1,3 +1,11 @@
+##
+# AnchorSell plugin
+# Authors: DadoGamer13, MatiasME
+# Description: Minecraft plugin to get money using a Respawn anchor.
+# Github: https://github.com/FranciscoDadone/AnchorSell.git
+# Discord: http://bit.ly/nightmarediscord
+##
+
 reload-message: "&aConfig reloaded."
 help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"

@@ -124,6 +124,10 @@ public class StorageManager {
 
     }
 
+    public static boolean isARegisterAnchor(Location location) {
+        return generalData.getConfig().contains("all_anchors." + getAnchorUUID(location));
+    }
+
     public static int getAnchorLevel(AnchorSell plugin, Location location) {
         generalData = new GeneralStorage(plugin);
         // Getting the current anchor level
