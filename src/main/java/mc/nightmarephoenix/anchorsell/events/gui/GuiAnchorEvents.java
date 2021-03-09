@@ -30,20 +30,35 @@ public class GuiAnchorEvents implements Listener {
         // Main anchor screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof AnchorScreen) {
             e.setCancelled(true);
-
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getSlot() == 15)) { // checks if the slot is the upgrade slot
-                p.openInventory(new UpgradesScreen(plugin, StorageManager.getAnchorLevel(plugin, new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()))).getInventory());
+                int level = StorageManager.getAnchorLevel(plugin, new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()));
+                if(level >= 64)
+                    return;
+                p.openInventory(new UpgradesScreen(plugin, level).getInventory());
             }
         }
 
         // Upgrades screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof UpgradesScreen) {
             e.setCancelled(true);
-
             Player p = (Player) e.getWhoClicked();
+            Location location = new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ());
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.LIME_STAINED_GLASS_PANE)) { // checks if the slot is the upgrade slot
-                p.sendMessage("Upgrade");
+                int level = StorageManager.getAnchorLevel(plugin, location);
+                if(EconomyManager.withdrawFromUser(plugin, p, Utils.getMoneyToUpgrade(level))) {
+
+                    StorageManager.upgradeAnchor(plugin, location, p);
+
+                    plugin.getConfig().getStringList("anchor.upgrade-menu.upgrade-success").forEach((str) -> {
+                        p.sendMessage(Utils.Color(str.replaceAll("%previusLevel%", "&r(" + Utils.getAnchorOreLevelString(plugin, level) + "&r) " + level).
+                                replaceAll("%currentLevel%", "&r(" + Utils.getAnchorOreLevelString(plugin, level + 1) + "&r) " + (level + 1))));
+                    });
+                } else {
+                    plugin.getConfig().getStringList("anchor.upgrade-menu.upgrade-fail").forEach((str) -> {
+                        p.sendMessage(Utils.Color(str));
+                    });
+                }
             } else if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.BARRIER)) {
                 p.openInventory(new AnchorScreen(p, plugin, AnchorScreen.location).getInventory());
             }
@@ -52,7 +67,6 @@ public class GuiAnchorEvents implements Listener {
         // Buy screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof BuyScreen) {
             e.setCancelled(true);
-
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.RESPAWN_ANCHOR))
                 p.openInventory(new ConfirmScreen(plugin).getInventory());
@@ -65,9 +79,7 @@ public class GuiAnchorEvents implements Listener {
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.GREEN_STAINED_GLASS_PANE)) {
                 int anchorValue = plugin.getConfig().getInt("anchor-value");
-
-                if (EconomyManager.getEconomy().getBalance(p) >=  anchorValue) {
-                    EconomyManager.withdrawFromUser(p, anchorValue);
+                if(EconomyManager.withdrawFromUser(plugin, p, anchorValue)) {
                     p.getInventory().addItem(Utils.getAnchor(1, 1));
                     p.sendMessage(Utils.Color(plugin.getConfig().getString("confirmscreen.you-have-an-anchor")));
                 } else {

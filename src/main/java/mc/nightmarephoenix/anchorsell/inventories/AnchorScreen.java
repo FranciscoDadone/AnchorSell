@@ -73,9 +73,10 @@ public class AnchorScreen implements InventoryHolder {
             int level = StorageManager.getAnchorLevel(plugin, location);
             String levelToUpgrade = String.valueOf(level + 1);
             String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
-            if((level + 1) > 64)
+            if((level + 1) > 64) {
                 levelToUpgrade = "";
                 priceOfUpgrade = "-";
+            }
             res.add(str.replaceAll("%level%", String.valueOf(level)).
                         replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
                         replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).

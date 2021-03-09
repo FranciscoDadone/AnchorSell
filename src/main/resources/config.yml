@@ -45,12 +45,22 @@ anchor:
   upgrade-menu:
     title: "&5Anchor Sell - Upgrades"
     current-level:
-      txt: "Current level"
+      txt: "%currentLevel%"
       lore: "Show detailed current level"
     upgrade-button:
       txt: "&6&lUpgrade"
       lore: "Upgrade current anchor"
     back: "&cGo back"
+    upgrade-success:
+      - "&7&m----------&r &5&lAnchor &7&m----------"
+      - "&aSuccessfully upgraded the anchor"
+      - "%previusLevel% -> %currentLevel%"
+      - "&7&m----------------------------"
+    upgrade-fail:
+      - "&7&m----------&r &5&lAnchor &7&m----------"
+      - "&cYou don't have money to upgrade :("
+      - "&7&m----------------------------"
+
 
 anchorbuy:
   title: "&5Buy Anchor Sell"

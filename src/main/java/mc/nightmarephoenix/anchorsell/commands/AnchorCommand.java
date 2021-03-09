@@ -3,12 +3,14 @@ package mc.nightmarephoenix.anchorsell.commands;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
+import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 
 public class AnchorCommand implements CommandExecutor {
@@ -67,7 +69,11 @@ public class AnchorCommand implements CommandExecutor {
                     && args[0].equalsIgnoreCase("list")) {
 
                 Player player = sender.getServer().getPlayerExact(sender.getName());
-                player.openInventory(new BuyScreen(player, plugin).getInventory());
+                try {
+                    StorageManager.getAnchorUserList(plugin, player);
+                } catch (InvalidConfigurationException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return true;
