@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
+import mc.nightmarephoenix.anchorsell.AnchorSell;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +22,6 @@ public class Utils {
         return strList;
     }
 
-
     public static ItemStack getAnchor(int level, int quantity) {
         ItemStack item = new ItemStack(Material.RESPAWN_ANCHOR, quantity);
         ArrayList<String> Lore = new ArrayList<String>();
@@ -37,17 +37,19 @@ public class Utils {
         return item;
     }
 
-    public static String getAnchorOreLevelString(int level) {
+    public static String getAnchorOreLevelString(AnchorSell plugin, int level) {
+        if(level > 64)
+            return Color(plugin.getConfig().getString("levels.maxed-out-level"));
         if(level > 0 && level < 16)
-            return "Coal";
+            return Color(plugin.getConfig().getString("levels.1"));
         else if(level >= 16 && level < 24)
-            return "Iron";
+            return Color(plugin.getConfig().getString("levels.2"));
         else if(level >= 24 && level < 32)
-            return "Gold";
+            return Color(plugin.getConfig().getString("levels.3"));
         else if(level >= 32 && level < 48)
-            return "Diamond";
+            return Color(plugin.getConfig().getString("levels.4"));
         else if(level >= 32 && level <= 64)
-            return "Netherite";
+            return Color(plugin.getConfig().getString("levels.5"));
         else
             return null;
     }
@@ -67,26 +69,15 @@ public class Utils {
             return null;
     }
 
-    public static ChatColor getAnchorOreColor(int level) {
-        if(level > 0 && level < 16)
-            return ChatColor.GRAY;
-        else if(level >= 16 && level < 24)
-            return ChatColor.WHITE;
-        else if(level >= 24 && level < 32)
-            return ChatColor.YELLOW;
-        else if(level >= 32 && level < 48)
-            return ChatColor.AQUA;
-        else if(level >= 32 && level <= 64)
-            return ChatColor.GOLD;
-        else
-            return null;
+    public static double getMoneyPerSecond(int anchorLevel) {
+        return Math.round(0.1 * anchorLevel + Math.pow(anchorLevel, 0.8));
     }
 
-    public static int getMoneyPerSecond(int anchorLevel) {
-        return (int) Math.round(0.1 * anchorLevel + Math.pow(anchorLevel, 0.8));
-    }
-
-    public static int getMoneyPerMinute(int anchorLevel) {
+    public static double getMoneyPerMinute(int anchorLevel) {
         return getMoneyPerSecond(anchorLevel) * 60;
+    }
+
+    public static double getMoneyToUpgrade(int anchorLevel) {
+        return getMoneyPerMinute(anchorLevel + 1) * 60 * 16; // the money that gives the next level multiplied by 16hs
     }
 }

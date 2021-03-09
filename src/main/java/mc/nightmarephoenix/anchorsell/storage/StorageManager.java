@@ -159,6 +159,16 @@ public class StorageManager {
         return getUserData(plugin, p).getConfig().getInt("total");
     }
 
+    public static double getPlayerMoneyPerMinute(AnchorSell plugin, Player p) {
+        userData = new PerUSerStorage(plugin, p);
+        double res = 0;
+        for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
+            if(userData.getConfig().contains("anchors." + i)) {
+                res += Utils.getMoneyPerMinute(userData.getConfig().getInt("anchors." + i + ".level"));
+            }
+        }
+        return res;
+    }
 
 
 

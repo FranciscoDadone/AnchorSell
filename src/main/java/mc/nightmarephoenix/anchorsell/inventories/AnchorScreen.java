@@ -1,10 +1,10 @@
 package mc.nightmarephoenix.anchorsell.inventories;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -28,7 +28,6 @@ public class AnchorScreen implements InventoryHolder {
     }
 
     private void init() {
-        ItemStack item;
         ItemStack border = createItem(" ", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList());
         // Top
         for( int i = 0; i < 9; i++ ) {
@@ -44,17 +43,16 @@ public class AnchorScreen implements InventoryHolder {
 
 
         // Info
-        List<String> a = new ArrayList<>();
         ItemStack info = createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")),
                 Material.BOOK, getLore("anchor.current-anchor-info.lore"));
         inv.setItem(11, info);
 
         // Player
-        ItemStack player = createItem(p.getName(), Material.SKELETON_SKULL, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.player.lore"))));
+        ItemStack player = createItem(p.getName(), Material.SKELETON_SKULL, getLore("anchor.player.lore"));
         inv.setItem(13, player);
 
         // Upgrades
-        ItemStack upgrades = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrades.lore"))));
+        ItemStack upgrades = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, getLore("anchor.upgrades.lore"));
         inv.setItem(15, upgrades);
     }
 
@@ -73,15 +71,25 @@ public class AnchorScreen implements InventoryHolder {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
             int level = StorageManager.getAnchorLevel(plugin, location);
+            String levelToUpgrade = String.valueOf(level + 1);
+            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
+            if((level + 1) > 64)
+                levelToUpgrade = "";
+                priceOfUpgrade = "-";
             res.add(str.replaceAll("%level%", String.valueOf(level)).
                         replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
                         replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
-                        replaceAll("%oreLevel%", Utils.getAnchorOreColor(level) + Utils.getAnchorOreLevelString(level)));
+                        replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(plugin, level)).
+                        replaceAll("%playerBalance%", String.valueOf(EconomyManager.getEconomy().getBalance(p))).
+                        replaceAll("%playerAnchors%", String.valueOf(StorageManager.getPlayerTotalAnchors(plugin, p))).
+                        replaceAll("%maxPlayerAnchors%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have"))).
+                        replaceAll("%playerMoneyPer15Minutes%", String.valueOf(StorageManager.getPlayerMoneyPerMinute(plugin, p) * 15)).
+                        replaceAll("%priceOfUpgrade%", priceOfUpgrade).
+                        replaceAll("%nextLevel%", levelToUpgrade).
+                        replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(plugin, level + 1)));
         }
         return res;
     }
-
-
 
     @Override
     public Inventory getInventory() {
