@@ -2,6 +2,8 @@ package mc.nightmarephoenix.anchorsell.events.gui;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
+import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
+import mc.nightmarephoenix.anchorsell.inventories.ConfirmScreen;
 import mc.nightmarephoenix.anchorsell.inventories.UpgradesScreen;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import org.bukkit.Location;
@@ -46,6 +48,29 @@ public class GuiAnchorEvents implements Listener {
         }
 
         // Buy screen
+        if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof BuyScreen) {
+            e.setCancelled(true);
+
+            Player p = (Player) e.getWhoClicked();
+            if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.RESPAWN_ANCHOR))
+                p.openInventory(new ConfirmScreen(plugin).getInventory());
+        }
+
+        // Confirm Screen
+        if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof ConfirmScreen) {
+            e.setCancelled(true);
+
+            Player p = (Player) e.getWhoClicked();
+            if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.GREEN_STAINED_GLASS_PANE)) {
+                /*if (plugin.getEconomy().has(p, 100)) {
+                    plugin.getEconomy().
+                }*/
+                p.closeInventory();
+            } else if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.RED_STAINED_GLASS_PANE)) {
+                p.closeInventory();
+            }
+
+        }
     }
 
     private AnchorSell plugin;
