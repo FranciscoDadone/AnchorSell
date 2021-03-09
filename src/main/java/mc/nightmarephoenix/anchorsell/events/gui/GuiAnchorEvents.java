@@ -19,9 +19,12 @@ public class GuiAnchorEvents implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
+        if (e == null) {
+            return;
+        }
 
         // Main anchor screen
-        if ((e.getClickedInventory().getHolder() instanceof AnchorScreen) && (e.getClickedInventory() != null)) {
+        if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof AnchorScreen) {
             e.setCancelled(true);
 
             Player p = (Player) e.getWhoClicked();
@@ -31,7 +34,7 @@ public class GuiAnchorEvents implements Listener {
         }
 
         // Upgrades screen
-        if ((e.getClickedInventory().getHolder() instanceof UpgradesScreen) && (e.getClickedInventory() != null)) {
+        if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof UpgradesScreen) {
             e.setCancelled(true);
 
             Player p = (Player) e.getWhoClicked();
