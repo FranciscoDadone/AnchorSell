@@ -16,9 +16,8 @@ public class UpgradesScreen implements InventoryHolder {
     public UpgradesScreen(AnchorSell plugin, int level) {
         this.plugin = plugin;
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.title")));
-
+        this.level = level;
         material = Utils.getAnchorOreLevel(level);
-
         init();
     }
 
@@ -36,12 +35,11 @@ public class UpgradesScreen implements InventoryHolder {
             inv.setItem(i, border);
         }
 
-
         for( int i = 10; i < 17; i++ ) {
             ItemStack item;
             if (i == 13) {
                 // Current state
-                item = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt")), material, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.lore"))));
+                item = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt").replaceAll("%currentLevel%", Utils.getAnchorOreLevelString(plugin, level) + "  &f(" + level + ")")), material, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.lore"))));
             } else {
                 item = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")), Material.LIME_STAINED_GLASS_PANE, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.lore"))));
             }
@@ -69,4 +67,5 @@ public class UpgradesScreen implements InventoryHolder {
     private AnchorSell plugin;
     private Inventory inv;
     private Material material;
+    private int level;
 }

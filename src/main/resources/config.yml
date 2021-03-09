@@ -37,7 +37,7 @@ anchor:
   upgrade-menu:
     title: "&5Anchor Sell - Upgrades"
     current-level:
-      txt: "Current level"
+      txt: "%currentLevel%"
       lore: "Show detailed current level"
     upgrade-button:
       txt: "&6&lUpgrade"

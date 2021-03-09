@@ -30,20 +30,24 @@ public class GuiAnchorEvents implements Listener {
         // Main anchor screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof AnchorScreen) {
             e.setCancelled(true);
-
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getSlot() == 15)) { // checks if the slot is the upgrade slot
-                p.openInventory(new UpgradesScreen(plugin, StorageManager.getAnchorLevel(plugin, new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()))).getInventory());
+                int level = StorageManager.getAnchorLevel(plugin, new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()));
+                if(level >= 64)
+                    return;
+                p.openInventory(new UpgradesScreen(plugin, level).getInventory());
             }
         }
 
         // Upgrades screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof UpgradesScreen) {
             e.setCancelled(true);
-
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.LIME_STAINED_GLASS_PANE)) { // checks if the slot is the upgrade slot
-                p.sendMessage("Upgrade");
+                int level = StorageManager.getAnchorLevel(plugin, new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()));
+
+                EconomyManager.withdrawFromUser(p, Utils.getMoneyToUpgrade(level));
+
             } else if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.BARRIER)) {
                 p.openInventory(new AnchorScreen(p, plugin, AnchorScreen.location).getInventory());
             }
@@ -52,7 +56,6 @@ public class GuiAnchorEvents implements Listener {
         // Buy screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof BuyScreen) {
             e.setCancelled(true);
-
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.RESPAWN_ANCHOR))
                 p.openInventory(new ConfirmScreen(plugin).getInventory());
