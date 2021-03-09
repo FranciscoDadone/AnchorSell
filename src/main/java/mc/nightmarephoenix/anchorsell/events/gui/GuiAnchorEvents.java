@@ -1,11 +1,13 @@
 package mc.nightmarephoenix.anchorsell.events.gui;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
 import mc.nightmarephoenix.anchorsell.inventories.ConfirmScreen;
 import mc.nightmarephoenix.anchorsell.inventories.UpgradesScreen;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -62,9 +64,13 @@ public class GuiAnchorEvents implements Listener {
 
             Player p = (Player) e.getWhoClicked();
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.GREEN_STAINED_GLASS_PANE)) {
-                /*if (plugin.getEconomy().has(p, 100)) {
-                    plugin.getEconomy().
-                }*/
+                if (EconomyManager.withdrawFromUser(p, 100.0)) {
+                    p.getInventory().addItem(Utils.getAnchor(1, 1));
+                    p.sendMessage("sipe");
+                } else {
+                    p.sendMessage("nope");
+
+                }
                 p.closeInventory();
             } else if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.RED_STAINED_GLASS_PANE)) {
                 p.closeInventory();

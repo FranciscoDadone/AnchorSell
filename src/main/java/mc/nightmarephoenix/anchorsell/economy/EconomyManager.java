@@ -23,7 +23,18 @@ public class EconomyManager {
 
     public static boolean depositToUser(Player p, double balance) {
         EconomyResponse res = EconomyManager.getEconomy().bankDeposit(p.getName(), balance);
+
         if(res.equals(EconomyResponse.ResponseType.SUCCESS)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean withdrawFromUser(Player p, double balance) {
+        EconomyResponse res = EconomyManager.getEconomy().withdrawPlayer(p, balance);
+
+        if (!res.equals(EconomyResponse.ResponseType.SUCCESS)) {
             return true;
         } else {
             return false;

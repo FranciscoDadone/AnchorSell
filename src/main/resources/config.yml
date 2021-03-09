@@ -8,10 +8,10 @@ help-message:
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 10
 safe-anchor-area: 3
+anchor-value: 5000
 radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
 you-dont-own-this-anchor: "&4You don't own this anchor"
-
 
 pay-timer-in-minutes: 1
 
