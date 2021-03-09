@@ -69,7 +69,14 @@ public class StorageManager {
         // Saving to configs
         userData.saveConfig();
         generalData.saveConfig();
-        p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor-place").replaceAll("%coordsX%", String.valueOf(location.getX())).replaceAll("%coordsY%", String.valueOf(location.getY())).replaceAll("%coordsZ%", String.valueOf(location.getZ()))));
+
+        // Announcing to the user that the anchor has been placed
+        Utils.Color(plugin.getConfig().getStringList("anchor-place")).forEach((str) -> {
+            p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(location.getX())).
+                    replaceAll("%coordsY%", String.valueOf(location.getY())).
+                    replaceAll("%coordsZ%", String.valueOf(location.getZ())).
+                    replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, location))));
+        });
     }
 
     public static void anchorBreak(AnchorSell plugin, Location location) {
@@ -81,7 +88,6 @@ public class StorageManager {
 
         // Figuring out who's the anchor owner
         Player p;
-
         try {
             p = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + anchorID + ".owner")));
             userData = new PerUSerStorage(plugin, p);
@@ -111,7 +117,6 @@ public class StorageManager {
 
         //Storing in the general file
         generalData.getConfig().set("all_anchors." + anchorID, null);
-
 
         // Saving to configs
         userData.saveConfig();

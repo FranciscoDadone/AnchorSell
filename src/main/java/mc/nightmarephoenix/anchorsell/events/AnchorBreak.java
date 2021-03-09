@@ -4,6 +4,7 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.PerUSerStorage;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -23,11 +24,18 @@ public class AnchorBreak implements Listener {
         Player p = e.getPlayer();
 
         if(block.getType() == Material.RESPAWN_ANCHOR) {
-            p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor-break").replaceAll("%coordsX%", String.valueOf(block.getX())).replaceAll("%coordsY%", String.valueOf(block.getY())).replaceAll("%coordsZ%", String.valueOf(block.getZ()))));
+            Location location = block.getLocation();
+            // Announcing to the user that the anchor has been removed
+            Utils.Color(plugin.getConfig().getStringList("anchor-break")).forEach((str) -> {
+                p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(location.getX())).
+                        replaceAll("%coordsY%", String.valueOf(location.getY())).
+                        replaceAll("%coordsZ%", String.valueOf(location.getZ())).
+                        replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, location))));
+            });
 
             e.setDropItems(false);
-            p.getWorld().dropItem(block.getLocation(), Utils.getAnchor(StorageManager.getAnchorLevel(plugin, block.getLocation()), 1)).setInvulnerable(true);
-            StorageManager.anchorBreak(plugin, block.getLocation());
+            p.getWorld().dropItem(location, Utils.getAnchor(StorageManager.getAnchorLevel(plugin, location), 1)).setInvulnerable(true);
+            StorageManager.anchorBreak(plugin, location);
         }
     }
 

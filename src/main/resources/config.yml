@@ -54,7 +54,21 @@ confirmscreen:
   yes: "&5Yes"
   no: "&5No"
 
-anchor-place: "&aNew anchor placed (%coordsX%, %coordsY%, %coordsZ%)"
-anchor-break: "&cAnchor removed (%coordsX%, %coordsY%, %coordsZ%)"
+anchor-place:
+  - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&aNew anchor placed"
+  - ""
+  - "&eLocation: &fX:%coordsX%, Y:%coordsY%, Z:%coordsZ%"
+  - "&eLevel: &f%level%"
+  - "&7&m----------------------------"
+
+anchor-break:
+  - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&cAnchor removed"
+  - ""
+  - "&eLocation: &fX:%coordsX%, Y:%coordsY%, Z:%coordsZ%"
+  - "&eLevel: &f%level%"
+  - "&7&m----------------------------"
+
 
 paying-message: "&aYou have received &c$%amount% &afrom &5&lAnchors"
