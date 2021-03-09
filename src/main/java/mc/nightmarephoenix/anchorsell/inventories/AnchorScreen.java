@@ -67,6 +67,7 @@ public class AnchorScreen implements InventoryHolder {
     }
 
 
+
     private List<String> getLore(String path) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
