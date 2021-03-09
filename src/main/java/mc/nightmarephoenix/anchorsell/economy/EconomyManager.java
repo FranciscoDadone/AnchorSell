@@ -24,19 +24,16 @@ public class EconomyManager {
     public static boolean withdrawFromUser(Player p, double balance) {
         EconomyResponse res = EconomyManager.getEconomy().withdrawPlayer(p, balance);
 
-        if (!res.equals(EconomyResponse.ResponseType.SUCCESS)) {
+        if (!res.equals(EconomyResponse.ResponseType.SUCCESS) && econ.getBalance(p) >= balance) {
             return true;
         } else {
             return false;
         }
     }
 
-
-
     public static Economy getEconomy() {
         return econ;
     }
-
 
     private static Economy econ;
 
