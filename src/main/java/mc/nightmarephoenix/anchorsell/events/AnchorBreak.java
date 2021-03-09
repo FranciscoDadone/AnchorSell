@@ -25,6 +25,12 @@ public class AnchorBreak implements Listener {
 
         if(block.getType() == Material.RESPAWN_ANCHOR) {
             Location location = block.getLocation();
+
+            // Si no esta registrado el anchor no hace nada
+            if (!StorageManager.isARegisterAnchor(location)) {
+                return;
+            }
+
             // Announcing to the user that the anchor has been removed
             Utils.Color(plugin.getConfig().getStringList("anchor-break")).forEach((str) -> {
                 p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(location.getX())).
