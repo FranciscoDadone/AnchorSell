@@ -24,8 +24,11 @@ public class AnchorBlow implements Listener {
     @EventHandler
     public void onExplosion(ExplosionPrimeEvent e) {
         Entity entity = e.getEntity();
-        int radius = Math.round(e.getRadius());
-        ArrayList<Block> blocks = getNearbyBlocks(entity.getLocation(), radius);
+        int r = Math.round(e.getRadius());
+        String radius = plugin.getConfig().getString("anchor.explotion-raius-break");
+        if(!radius.equals("mc-default"))
+            r = Integer.parseInt(radius);
+        ArrayList<Block> blocks = getNearbyBlocks(entity.getLocation(), r);
         for(Block b : blocks) {
             if(b.getType().equals(Material.RESPAWN_ANCHOR)) {
                 world = entity.getLocation().getWorld();
