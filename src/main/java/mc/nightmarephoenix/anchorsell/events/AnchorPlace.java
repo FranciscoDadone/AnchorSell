@@ -3,9 +3,7 @@ package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
@@ -46,6 +44,19 @@ public class AnchorPlace implements Listener {
         if(block.getType() == Material.RESPAWN_ANCHOR) {
             if(analyzeLocation(new Location(block.getWorld(), block.getX() - 3, block.getY() - 3, block.getZ() - 3), loc, plugin.getConfig().getInt("safe-anchor-area"))) {
                 StorageManager.anchorPlace(plugin, e, p, loc);
+
+                // generate sound on place
+                p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1f, 1f);
+
+                // generate particles around on place
+                for(int i = 0; i < 360; i += 5) {
+                    Location flameloc = new Location(loc.getWorld(), loc.getX(), loc.getY(), loc.getZ());
+                    flameloc.setZ(flameloc.getZ() + Math.cos(i)*5);
+                    flameloc.setX(flameloc.getX() + Math.sin(i)*5);
+                    loc.getWorld().playEffect(flameloc, Effect.POTION_BREAK, 51);
+                }
+
+
 
                 // Determines witch level of glowstone the anchor needs
                 Material i = Utils.getAnchorOreLevel(StorageManager.getAnchorLevel(plugin, loc));
