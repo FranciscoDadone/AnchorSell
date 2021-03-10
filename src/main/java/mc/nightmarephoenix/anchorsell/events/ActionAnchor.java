@@ -23,7 +23,7 @@ public class ActionAnchor implements Listener {
 
     @EventHandler
     public void onBlockClick(PlayerInteractEvent e) {
-        Player p = (Player) e.getPlayer();
+        Player p = e.getPlayer();
         try {
             if((e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) && !p.isSneaking()) {
                 if(StorageManager.isMyAnchor(e.getClickedBlock().getLocation(), p, plugin)) {

@@ -6,6 +6,7 @@ import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,6 +29,22 @@ public class AnchorPlace implements Listener {
         if(block.getType() == Material.RESPAWN_ANCHOR) {
             if(analyzeLocation(new Location(block.getWorld(), block.getX() - 3, block.getY() - 3, block.getZ() - 3), loc, plugin.getConfig().getInt("safe-anchor-area"))) {
                 StorageManager.anchorPlace(plugin, e, p, loc);
+
+                // Determines witch level of glowstone the anchor needs
+                Material i = Utils.getAnchorOreLevel(StorageManager.getAnchorLevel(plugin, loc));
+                int charges = 0;
+                if(i == Material.IRON_INGOT)
+                    charges = 1;
+                else if(i == Material.GOLD_INGOT)
+                    charges = 2;
+                else if(i == Material.DIAMOND)
+                    charges = 3;
+                else if(i == Material.NETHERITE_INGOT)
+                    charges = 4;
+                Block b = loc.getBlock();
+                RespawnAnchor anchor = (RespawnAnchor) b.getBlockData();
+                anchor.setCharges(charges);
+                b.setBlockData(anchor);
             } else {
                 p.sendMessage(Utils.Color(plugin.getConfig().getString("radius-error")));
                 e.setCancelled(true);
