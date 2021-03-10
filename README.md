@@ -9,10 +9,26 @@ Anchor Sell can also be removed with TNT and keep their characteristics.
 You can upgrade the anchors to earn more money!
 
 ## Dependencies
-+ Vault
++ [Vault](https://www.spigotmc.org/resources/vault.34315/)
 
 ## Authors
 DadoGamer13, MatiasME
+
+##Commands and permissions
+
+### Player
+
+/anchor (anchorsell.player.help)
+
+/anchor buy (anchorsell.player.help)
+
+/anchor list (anchorsell.player.list)
+
+### Admin
+
+/anchor reload (anchorsell.admin.reload)
+
+/anchor give [player] [quantity] [level]
 
 ## Discord
 http://bit.ly/nightmarediscord
