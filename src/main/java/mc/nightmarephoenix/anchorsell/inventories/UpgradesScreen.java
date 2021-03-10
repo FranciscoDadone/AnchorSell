@@ -12,11 +12,15 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Collections;
 
 public class UpgradesScreen implements InventoryHolder {
-
-    public UpgradesScreen(AnchorSell plugin, int level, Location location) {
+    private Player p;
+    public UpgradesScreen(AnchorSell plugin, int level, Location location, Player p) {
         this.plugin = plugin;
         this.location = location;
         this.level = level;
+        this.p = p;
+
+        Bukkit.broadcastMessage(location.toString());
+
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.title")));
         material = Utils.getAnchorOreLevel(level);
         init();
@@ -43,7 +47,7 @@ public class UpgradesScreen implements InventoryHolder {
                 item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt").replaceAll("%currentLevel%", Utils.getAnchorOreLevelString(plugin, level) + " &f(" + level + ")")), material,
                         Utils.getLore("anchor.upgrade-menu.current-level.lore", plugin, location), true);
             } else {
-                item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")), Material.LIME_STAINED_GLASS_PANE, Utils.getLore("anchor.upgrade-menu.upgrade-button.lore", plugin, null, null), true);
+                item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")), Material.LIME_STAINED_GLASS_PANE, Utils.getLore("anchor.upgrade-menu.upgrade-button.lore", plugin, null, null, false), true);
             }
             inv.setItem(i, item);
         }
