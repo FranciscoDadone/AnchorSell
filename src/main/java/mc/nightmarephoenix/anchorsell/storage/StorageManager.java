@@ -125,7 +125,8 @@ public class StorageManager {
 
     }
 
-    public static boolean isARegisterAnchor(Location location) {
+    public static boolean isARegisterAnchor(AnchorSell plugin, Location location) {
+        generalData = new GeneralStorage(plugin);
         return generalData.getConfig().contains("all_anchors." + getAnchorUUID(location));
     }
 

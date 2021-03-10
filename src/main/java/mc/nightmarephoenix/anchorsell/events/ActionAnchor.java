@@ -3,7 +3,10 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,6 +26,17 @@ public class ActionAnchor implements Listener {
         try {
             if((e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) && !p.isSneaking()) {
                 if(StorageManager.isMyAnchor(e.getClickedBlock().getLocation(), p, plugin)) {
+
+
+//                    Block b1 = new Location(e.getClickedBlock().getWorld(), e.getClickedBlock().getX()+1, e.getClickedBlock().getY(), e.getClickedBlock().getZ()).getBlock();
+//                    e.getClickedBlock().breakNaturally();
+//
+//                    RespawnAnchor anchor = (RespawnAnchor) b1.getBlockData();
+//                    anchor.setCharges(1);
+//                    b1.setBlockData(anchor);
+//
+//                    b1.setType(b1);
+
                     e.setCancelled(true);
                     p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
                 } else {
