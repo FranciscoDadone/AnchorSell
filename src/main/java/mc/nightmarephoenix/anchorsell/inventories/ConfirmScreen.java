@@ -38,19 +38,19 @@ public class ConfirmScreen implements InventoryHolder {
         }
 
         // Yes
-        ItemStack yesGlass = Utils.createItem(" ", Material.GREEN_STAINED_GLASS_PANE, true);
+        ItemStack yesGlass = Utils.createItem(Utils.Color(plugin.getConfig().getString("confirmscreen.confirm")), Material.GREEN_STAINED_GLASS_PANE, true);
         inv.setItem(10, yesGlass);
         inv.setItem(11, yesGlass);
         inv.setItem(12, yesGlass);
 
         // No
-        ItemStack noGlass = Utils.createItem(" ", Material.RED_STAINED_GLASS_PANE, true);
+        ItemStack noGlass = Utils.createItem(Utils.Color(plugin.getConfig().getString("confirmscreen.cancel")), Material.RED_STAINED_GLASS_PANE, true);
         inv.setItem(14, noGlass);
         inv.setItem(15, noGlass);
         inv.setItem(16, noGlass);
 
         // anchor
-        ItemStack anchor = Utils.createItem(" ", Material.RESPAWN_ANCHOR, true);
+        ItemStack anchor = Utils.createItem(Utils.Color(plugin.getConfig().getString("confirmscreen.item")), Material.RESPAWN_ANCHOR, true);
         inv.setItem(13, anchor);
     }
 
