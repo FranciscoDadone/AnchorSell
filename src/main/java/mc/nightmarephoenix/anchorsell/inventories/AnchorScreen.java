@@ -41,15 +41,15 @@ public class AnchorScreen implements InventoryHolder {
 
         // Info
         ItemStack info = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")),
-                Material.BOOK, Utils.getLore("anchor.current-anchor-info.lore", plugin, location, p, true), false);
+                Material.BOOK, Utils.getLore("anchor.current-anchor-info.lore", plugin, location, p), false);
         inv.setItem(11, info);
 
         // Player
-        ItemStack player = Utils.createItem(p.getName(), Material.SKELETON_SKULL, Utils.getLore("anchor.player.lore", plugin, location, p, false), false);
+        ItemStack player = Utils.createItem(p.getName(), Material.SKELETON_SKULL, Utils.getLore("anchor.player.lore", plugin, location, p), false);
         inv.setItem(13, player);
 
         // Upgrades
-        ItemStack upgrades = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Utils.getLore("anchor.upgrades.lore", plugin, location, p, false), false);
+        ItemStack upgrades = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Utils.getLore("anchor.upgrades.lore", plugin, location, p), false);
         inv.setItem(15, upgrades);
     }
 

@@ -34,7 +34,6 @@ anchor:
       - "&eLevel: &f%level% (%oreLevel%&f)"
       - "&eMoney per 15 minutes: &f$%moneyPer15Minutes%"
       - "&eMoney per minute: &f$%moneyPerMinute%"
-      - "&eID:&f %id%"
   player:
     lore:
       - "&eBalance:&f %playerBalance%"
