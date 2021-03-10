@@ -3,8 +3,7 @@ package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,6 +28,16 @@ public class AnchorBreak implements Listener {
             if (!StorageManager.isARegisterAnchor(plugin, location)) {
                 return;
             }
+
+            // Playing sound on anchor break
+            p.playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1f, 1f);
+
+            // generate particles around on place
+            for(int i = 0; i < 360; i += 3) {
+                Location flameloc = new Location(e.getBlock().getLocation().getWorld(), e.getBlock().getLocation().getX(), e.getBlock().getLocation().getY(), e.getBlock().getLocation().getZ());
+                p.getWorld().spawnParticle(Particle.FLAME,new Location(p.getWorld(), flameloc.getX() + Math.sin(i) * 1, e.getBlock().getLocation().getY(), flameloc.getZ() + Math.cos(i) * 1),10);
+            }
+
 
             // Announcing to the user that the anchor has been removed
             Utils.Color(plugin.getConfig().getStringList("anchor-break")).forEach((str) -> {
