@@ -16,7 +16,6 @@ public class UpgradesScreen implements InventoryHolder {
     public UpgradesScreen(AnchorSell plugin, int level, Location location) {
         this.plugin = plugin;
         this.location = location;
-        this.p = p;
         this.level = level;
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.title")));
         material = Utils.getAnchorOreLevel(level);
@@ -37,7 +36,7 @@ public class UpgradesScreen implements InventoryHolder {
             inv.setItem(i, border);
         }
 
-        for( int i = 10; i < 17; i++ ) {
+        for(int i = 10; i < 17; i++) {
             ItemStack item;
             if (i == 13) {
                 // Current state
@@ -62,5 +61,4 @@ public class UpgradesScreen implements InventoryHolder {
     private Material material;
     private int level;
     private Location location;
-    private Player p;
 }

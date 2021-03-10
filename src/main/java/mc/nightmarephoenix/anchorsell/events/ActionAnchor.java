@@ -3,17 +3,12 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-
 
 public class ActionAnchor implements Listener {
 
@@ -25,10 +20,13 @@ public class ActionAnchor implements Listener {
     public void onBlockClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         try {
+            if(e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR && p.isSneaking()) {
+                e.setCancelled(true);
+            }
             if((e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) && !p.isSneaking()) {
                 if(StorageManager.isMyAnchor(e.getClickedBlock().getLocation(), p, plugin)) {
                     e.setCancelled(true);
-                    p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
+                    p.openInventory(new AnchorScreen(p, plugin).getInventory()); //e.getClickedBlock().getLocation()
                 } else {
                     e.setCancelled(true);
                     p.sendMessage(Utils.Color(plugin.getConfig().getString("you-dont-own-this-anchor")));

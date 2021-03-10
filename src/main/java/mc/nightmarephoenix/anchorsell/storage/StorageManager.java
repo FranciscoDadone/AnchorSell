@@ -210,11 +210,14 @@ public class StorageManager {
         }
 
         // Updating general data...
-        generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(location) + ".level",
-                generalData.getConfig().getInt("all_anchors." + StorageManager.getAnchorUUID(location) + ".level") + 1);
+        if(generalData.getConfig().getString("all_anchors." + StorageManager.getAnchorUUID(location) + ".owner").equals(p.getUniqueId().toString())) {
+            generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(location) + ".level",
+                    generalData.getConfig().getInt("all_anchors." + StorageManager.getAnchorUUID(location) + ".level") + 1);
+        }
 
         generalData.saveConfig();
         userData.saveConfig();
+        return;
     }
 
     public static GeneralStorage getGeneralStorage() {
@@ -224,6 +227,8 @@ public class StorageManager {
     public static PerUSerStorage getUserData(AnchorSell plugin, Player p) {
         return new PerUSerStorage(plugin, p);
     }
+
+
 
     public static PerUSerStorage userData;
     public static GeneralStorage generalData;

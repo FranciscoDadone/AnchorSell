@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.inventories;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,8 +14,8 @@ import java.util.Collections;
 
 public class AnchorScreen implements InventoryHolder {
 
-    public AnchorScreen(Player p, AnchorSell plugin, Location location) {
-        this.location = location;
+    public AnchorScreen(Player p, AnchorSell plugin) { //Location location
+        //this.location = location;
         this.p = p;
         this.plugin = plugin;
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.title")));
@@ -36,6 +37,10 @@ public class AnchorScreen implements InventoryHolder {
             inv.setItem(i, border);
         }
 
+
+        Location location = new Location(p.getWorld(), StorageManager.getUserData(plugin, p).getConfig().getInt("anchors.1.location.x"),
+                StorageManager.getUserData(plugin, p).getConfig().getInt("anchors.1.location.y"),
+                StorageManager.getUserData(plugin, p).getConfig().getInt("anchors.1.location.z"));
 
         // Info
         ItemStack info = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")),
@@ -59,5 +64,4 @@ public class AnchorScreen implements InventoryHolder {
     private Player p;
     private Inventory inv;
     private AnchorSell plugin;
-    public static Location location;
 }

@@ -8,6 +8,7 @@ import mc.nightmarephoenix.anchorsell.inventories.ConfirmScreen;
 import mc.nightmarephoenix.anchorsell.inventories.UpgradesScreen;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.InventoryHolder;
 
 public class GuiAnchorEvents implements Listener {
 
@@ -28,22 +30,28 @@ public class GuiAnchorEvents implements Listener {
         if (e == null) {
             return;
         }
+
+        // ACA ESTÁ EL PROBLEMA, HAY QUE CONSEGUIR LAS COORDS EXACTAS SIN USAR ESTE MÉTODO QUE NO SIRVE
+        Location location = new Location(e.getWhoClicked().getLocation().getWorld(), Math.round(e.getWhoClicked().getLocation().getX()), e.getWhoClicked().getLocation().getY() - 1, Math.round(e.getWhoClicked().getLocation().getZ()));
         Player p = (Player) e.getWhoClicked();
+
+        p.sendMessage(location.toString());
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+
         // Main anchor screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof AnchorScreen) {
             e.setCancelled(true);
             if ((e.getCurrentItem() != null) && (e.getSlot() == 15)) { // checks if the slot is the upgrade slot
-                int level = StorageManager.getAnchorLevel(plugin, new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()));
+                int level = StorageManager.getAnchorLevel(plugin, new Location(p.getWorld(), location.getX(), location.getY(), location.getZ()));
                 if(level >= 64)
                     return;
-                p.openInventory(new UpgradesScreen(plugin, level, AnchorScreen.location).getInventory());
+                p.openInventory(new UpgradesScreen(plugin, level, location).getInventory());
             }
         }
 
         // Upgrades screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof UpgradesScreen) {
             e.setCancelled(true);
-            Location location = new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ());
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.LIME_STAINED_GLASS_PANE)) { // checks if the slot is the upgrade slot
                 int level = StorageManager.getAnchorLevel(plugin, location);
                 if(EconomyManager.withdrawFromUser(plugin, p, Utils.getMoneyToUpgrade(level))) {
@@ -61,6 +69,7 @@ public class GuiAnchorEvents implements Listener {
                         p.sendMessage(Utils.Color(str.replaceAll("%previusLevel%", "&r(" + Utils.getAnchorOreLevelString(plugin, level) + "&r) " + level).
                                 replaceAll("%currentLevel%", "&r(" + Utils.getAnchorOreLevelString(plugin, level + 1) + "&r) " + (level + 1))));
                     });
+
                     p.openInventory(new UpgradesScreen(plugin, level + 1, location).getInventory());
                 } else {
                     plugin.getConfig().getStringList("anchor.upgrade-menu.upgrade-fail").forEach((str) -> {
@@ -68,7 +77,7 @@ public class GuiAnchorEvents implements Listener {
                     });
                 }
             } else if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.BARRIER)) {
-                p.openInventory(new AnchorScreen(p, plugin, AnchorScreen.location).getInventory());
+                p.openInventory(new AnchorScreen(p, plugin).getInventory());
             }
         }
 
