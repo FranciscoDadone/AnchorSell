@@ -14,7 +14,9 @@ help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&e/anchor reload &f Reloads the config file"
   - "&e/anchor give [name] [quantity] [level] &fGives an anchor to a player"
-  - "&e/anchor list"
+  - "&e/anchor list &fGives a list of the placed anchors in the world"
+  - ""
+  - "&e/anchor authors"
   - "&7&m----------------------------"
 
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
@@ -72,7 +74,14 @@ anchor:
       - "&7&m----------------------------"
   explotion-raius-break: "1" # to set as default minecraft, change to "mc-default"
   upgrade-multiplier: 8 # this is how much the upgrade cost depending of the money that the anchor gives per hour in the next level. For example... upgrade-multiplier: 8. Next level reward per hour: 10. The cost of the upgrade will be 80.
-
+  list:
+    first-message: "&7&m----------&r &5&lAnchors &7&m----------"
+    last-message: "&7&m-----------------------------"
+    message:
+      - ""
+      - "&eLocation:&f %location%"
+      - "&eLevel: %level%"
+      - ""
 
 anchorbuy:
   title: "&5Buy Anchor Sell"

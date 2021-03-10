@@ -176,19 +176,26 @@ public class StorageManager {
         return res;
     }
 
-    public static void getAnchorUserList(AnchorSell plugin, Player p) throws InvalidConfigurationException {
+    public static void getAnchorUserList(AnchorSell plugin, Player p, int page) throws InvalidConfigurationException {
         userData = new PerUSerStorage(plugin, p);
+
+        p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.first-message")));
 
         for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
-                p.sendMessage("[" + i + "] "
-                        + "Level: " + userData.getConfig().getInt("anchors."+ i + ".level")
-                        + " Location: x " + userData.getConfig().getInt("anchors."+ i + ".location.x")
-                        + " z " + userData.getConfig().getInt("anchors."+ i + ".location.z")
-                        + " y " + userData.getConfig().getInt("anchors."+ i + ".location.y")
-                );
+
+                int finalI = i;
+                Utils.Color(plugin.getConfig().getStringList("anchor.list.message")).forEach((str) -> {
+                    p.sendMessage(
+                            str.replaceAll("%location%", "X: " + userData.getConfig().getInt("anchors."+ finalI + ".location.x")
+                                            + " Y: " + userData.getConfig().getInt("anchors."+ finalI + ".location.y")
+                                            + " Z: " + userData.getConfig().getInt("anchors."+ finalI + ".location.z"))
+                                    .replaceAll("%level%", String.valueOf(userData.getConfig().getInt("anchors."+ finalI + ".level")))
+                    );
+                });
             }
         }
+        p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.last-message")));
     }
 
     public static void upgradeAnchor(AnchorSell plugin, Location location, Player p) {
