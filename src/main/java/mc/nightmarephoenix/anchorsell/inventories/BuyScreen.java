@@ -3,16 +3,12 @@ package mc.nightmarephoenix.anchorsell.inventories;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import java.util.Collections;
-import java.util.List;
 
 public class BuyScreen implements InventoryHolder {
 
@@ -52,7 +48,7 @@ public class BuyScreen implements InventoryHolder {
 
         // Buy
         ItemStack buy = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchorbuy.buy.title")),
-                        Material.RESPAWN_ANCHOR, Collections.singletonList(""), true);
+                        Material.RESPAWN_ANCHOR, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchorbuy.buy.lore")).replaceAll("%price%", String.valueOf(plugin.getConfig().getInt("anchor-value")))), true);
         inv.setItem(15, buy);
     }
 

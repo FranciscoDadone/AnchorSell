@@ -49,7 +49,7 @@ public class AnchorBlow implements Listener {
         }
 
         Location finalAnchorLoc = anchorLoc;
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> { // waiting 20 ticks to spawn the item because it can break during the explotion
             world.dropItem(new Location(finalAnchorLoc.getWorld(), finalAnchorLoc.getX(), finalAnchorLoc.getY(), finalAnchorLoc.getZ()), Utils.getAnchor(StorageManager.getAnchorLevel(plugin, finalAnchorLoc), 1)).setInvulnerable(true);
         }, 20L);
     }
