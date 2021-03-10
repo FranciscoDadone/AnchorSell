@@ -39,13 +39,13 @@ public class ConfirmScreen implements InventoryHolder {
 
         // Yes
         // No funciona: ItemStack yesGlass = createItem(Utils.Color(Utils.Color(plugin.getConfig().getString("confirmscreen.yes"))), Material.GREEN_STAINED_GLASS_PANE);
-        ItemStack yesGlass = createItem("", Material.GREEN_STAINED_GLASS_PANE);
+        ItemStack yesGlass = createItem(" ", Material.GREEN_STAINED_GLASS_PANE);
         inv.setItem(10, yesGlass);
         inv.setItem(11, yesGlass);
         inv.setItem(12, yesGlass);
 
         // No
-        ItemStack noGlass = createItem("", Material.RED_STAINED_GLASS_PANE);
+        ItemStack noGlass = createItem(" ", Material.RED_STAINED_GLASS_PANE);
         inv.setItem(14, noGlass);
         inv.setItem(15, noGlass);
         inv.setItem(16, noGlass);
