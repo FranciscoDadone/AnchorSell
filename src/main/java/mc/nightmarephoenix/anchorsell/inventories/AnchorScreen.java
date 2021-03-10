@@ -45,15 +45,15 @@ public class AnchorScreen implements InventoryHolder {
 
         // Info
         ItemStack info = createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")),
-                Material.BOOK, getLore("anchor.current-anchor-info.lore"));
+                Material.BOOK, Utils.getLore("anchor.current-anchor-info.lore", plugin, location, p));
         inv.setItem(11, info);
 
         // Player
-        ItemStack player = createItem(p.getName(), Material.SKELETON_SKULL, getLore("anchor.player.lore"));
+        ItemStack player = createItem(p.getName(), Material.SKELETON_SKULL, Utils.getLore("anchor.player.lore", plugin, location, p));
         inv.setItem(13, player);
 
         // Upgrades
-        ItemStack upgrades = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, getLore("anchor.upgrades.lore"));
+        ItemStack upgrades = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Utils.getLore("anchor.upgrades.lore", plugin, location, p));
         inv.setItem(15, upgrades);
     }
 
@@ -65,33 +65,6 @@ public class AnchorScreen implements InventoryHolder {
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
-    }
-
-
-
-    private List<String> getLore(String path) {
-        List<String> res = new ArrayList<>();
-        for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
-            int level = StorageManager.getAnchorLevel(plugin, location);
-            String levelToUpgrade = String.valueOf(level + 1);
-            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
-            if((level + 1) > 64) {
-                levelToUpgrade = "";
-                priceOfUpgrade = "-";
-            }
-            res.add(str.replaceAll("%level%", String.valueOf(level)).
-                        replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
-                        replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
-                        replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(plugin, level)).
-                        replaceAll("%playerBalance%", String.valueOf(EconomyManager.getEconomy().getBalance(p))).
-                        replaceAll("%playerAnchors%", String.valueOf(StorageManager.getPlayerTotalAnchors(plugin, p))).
-                        replaceAll("%maxPlayerAnchors%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have"))).
-                        replaceAll("%playerMoneyPer15Minutes%", String.valueOf(StorageManager.getPlayerMoneyPerMinute(plugin, p) * 15)).
-                        replaceAll("%priceOfUpgrade%", priceOfUpgrade).
-                        replaceAll("%nextLevel%", levelToUpgrade).
-                        replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(plugin, level + 1)));
-        }
-        return res;
     }
 
     @Override
