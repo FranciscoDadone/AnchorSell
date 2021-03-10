@@ -1,7 +1,6 @@
 package mc.nightmarephoenix.anchorsell.commands;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
@@ -22,6 +21,7 @@ public class AnchorCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         boolean isAnchorCommand = label.equalsIgnoreCase("anchor");
+        Player player = sender.getServer().getPlayerExact(sender.getName());
 
         if (isAnchorCommand) { // sender instanceof Player
             if (sender.hasPermission("anchorsell.player.help") && (args.length == 0)) {
@@ -36,8 +36,6 @@ public class AnchorCommand implements CommandExecutor {
             } else if (sender.hasPermission("anchorsell.admin.give")
                     && args.length > 0
                     && args[0].equalsIgnoreCase("give")) {
-
-                ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
                 // Anchor give without argument
                 if (args.length == 1) {
@@ -61,19 +59,23 @@ public class AnchorCommand implements CommandExecutor {
             } else if (sender.hasPermission("anchorsell.player.buy")
                     && args.length == 1
                     && args[0].equalsIgnoreCase("buy")) {
-
-                Player player = sender.getServer().getPlayerExact(sender.getName());
                 player.openInventory(new BuyScreen(player, plugin).getInventory());
             } else if (sender.hasPermission("anchorsell.player.list")
-                    && args.length == 1
                     && args[0].equalsIgnoreCase("list")) {
-
-                Player player = sender.getServer().getPlayerExact(sender.getName());
                 try {
-                    StorageManager.getAnchorUserList(plugin, player);
+                    if(args.length == 1) {
+                        StorageManager.getAnchorUserList(plugin, player, 1);
+                    } else if(args.length == 2) {
+                        StorageManager.getAnchorUserList(plugin, player, Integer.parseInt(args[2]));
+                    }
                 } catch (InvalidConfigurationException e) {
                     e.printStackTrace();
                 }
+            } else if (args[0].equalsIgnoreCase("authors")) {
+                player.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor &7&m----------"));
+                player.sendMessage(Utils.Color("&ePlugin made by: &fMatiasME and DadoGamer13"));
+                player.sendMessage(Utils.Color("&eGithub:&f https://github.com/FranciscoDadone/AnchorSell.git"));
+                player.sendMessage(Utils.Color("&7&m----------------------------"));
             }
         }
         return true;
