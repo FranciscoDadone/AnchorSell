@@ -82,8 +82,8 @@ public class Utils {
         return getMoneyPerSecond(anchorLevel) * 60;
     }
 
-    public static double getMoneyToUpgrade(int anchorLevel) {
-        return getMoneyPerMinute(anchorLevel + 1) * 60 * 16; // the money that gives the next level multiplied by 16hs
+    public static double getMoneyToUpgrade(int anchorLevel, AnchorSell plugin) {
+        return getMoneyPerMinute(anchorLevel + 1) * 60 * plugin.getConfig().getInt("anchor.upgrade-multiplier"); // the money that gives the next level multiplied by 16hs
     }
 
     public static  List<String> getLore(String path, AnchorSell plugin, Location location, Player player) {
@@ -91,8 +91,7 @@ public class Utils {
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
             int level = StorageManager.getAnchorLevel(plugin, location);
             String levelToUpgrade = String.valueOf(level + 1);
-            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
-            String formatted = str;
+            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level, plugin));
             if((level + 1) > 64) {
                 levelToUpgrade = "";
                 priceOfUpgrade = "-";
@@ -118,7 +117,7 @@ public class Utils {
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
             int level = StorageManager.getAnchorLevel(plugin, location);
             String levelToUpgrade = String.valueOf(level + 1);
-            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
+            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level, plugin));
             if((level + 1) > 64) {
                 levelToUpgrade = "";
                 priceOfUpgrade = "-";

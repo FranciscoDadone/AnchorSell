@@ -53,7 +53,7 @@ public class GuiAnchorEvents implements Listener {
                     return;
                 }
 
-                if(EconomyManager.withdrawFromUser(plugin, p, Utils.getMoneyToUpgrade(level))) {
+                if(EconomyManager.withdrawFromUser(plugin, p, Utils.getMoneyToUpgrade(level, plugin))) {
 
                     StorageManager.upgradeAnchor(plugin, location, p);  // saves the upgrade to the configs
 
