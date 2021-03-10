@@ -47,8 +47,8 @@ anchor:
     current-level:
       txt: "%currentLevel%"
       lore:
-        - "&7&m----------&r &5&lAnchor &7&m----------"
-        - "hola"
+        - "&7&m----------------------------"
+        - "&ePrice: &r$%priceOfUpgrade%"
         - "&7&m----------------------------"
     upgrade-button:
       txt: "&6&lUpgrade"

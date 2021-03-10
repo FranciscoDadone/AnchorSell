@@ -111,6 +111,28 @@ public class Utils {
         return res;
     }
 
+    public static  List<String> getLore(String path, AnchorSell plugin, Location location) {
+        List<String> res = new ArrayList<>();
+        for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
+            int level = StorageManager.getAnchorLevel(plugin, location);
+            String levelToUpgrade = String.valueOf(level + 1);
+            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
+            if((level + 1) > 64) {
+                levelToUpgrade = "";
+                priceOfUpgrade = "-";
+            }
+            res.add(str.replaceAll("%level%", String.valueOf(level)).
+                    replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
+                    replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
+                    replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(plugin, level)).
+                    replaceAll("%maxPlayerAnchors%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have"))).
+                    replaceAll("%priceOfUpgrade%", priceOfUpgrade).
+                    replaceAll("%nextLevel%", levelToUpgrade).
+                    replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(plugin, level + 1)));
+        }
+        return res;
+    }
+
     public static ItemStack createItem(String name, Material material, boolean enchanted) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();

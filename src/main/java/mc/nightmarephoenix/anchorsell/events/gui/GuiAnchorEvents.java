@@ -36,7 +36,7 @@ public class GuiAnchorEvents implements Listener {
                 int level = StorageManager.getAnchorLevel(plugin, new Location(AnchorScreen.location.getWorld(), AnchorScreen.location.getBlockX(), AnchorScreen.location.getBlockY(), AnchorScreen.location.getBlockZ()));
                 if(level >= 64)
                     return;
-                p.openInventory(new UpgradesScreen(plugin, level).getInventory());
+                p.openInventory(new UpgradesScreen(plugin, level, AnchorScreen.location).getInventory());
             }
         }
 
@@ -61,7 +61,7 @@ public class GuiAnchorEvents implements Listener {
                         p.sendMessage(Utils.Color(str.replaceAll("%previusLevel%", "&r(" + Utils.getAnchorOreLevelString(plugin, level) + "&r) " + level).
                                 replaceAll("%currentLevel%", "&r(" + Utils.getAnchorOreLevelString(plugin, level + 1) + "&r) " + (level + 1))));
                     });
-                    p.openInventory(new UpgradesScreen(plugin, level + 1).getInventory());
+                    p.openInventory(new UpgradesScreen(plugin, level + 1, location).getInventory());
                 } else {
                     plugin.getConfig().getStringList("anchor.upgrade-menu.upgrade-fail").forEach((str) -> {
                         p.sendMessage(Utils.Color(str));
