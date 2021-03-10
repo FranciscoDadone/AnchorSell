@@ -1,3 +1,5 @@
+version: 0.0.0
+
 ##
 # AnchorSell plugin
 # Authors: DadoGamer13, MatiasME
@@ -5,6 +7,7 @@
 # Github: https://github.com/FranciscoDadone/AnchorSell.git
 # Discord: http://bit.ly/nightmarediscord
 ##
+
 
 reload-message: "&aConfig reloaded."
 help-message:
