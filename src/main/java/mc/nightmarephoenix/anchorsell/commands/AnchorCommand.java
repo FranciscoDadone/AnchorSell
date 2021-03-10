@@ -24,16 +24,16 @@ public class AnchorCommand implements CommandExecutor {
         boolean isAnchorCommand = label.equalsIgnoreCase("anchor");
 
         if (isAnchorCommand) { // sender instanceof Player
-            if (sender.hasPermission("anchorsell.help") && (args.length == 0)) {
+            if (sender.hasPermission("anchorsell.player.help") && (args.length == 0)) {
                 // /anchor
                 for(String msg: plugin.getConfig().getStringList("help-message")) {
                     sender.sendMessage(Utils.Color(msg));
                 }
-            } else if(sender.hasPermission("anchorsell.reload") && (args.length > 0) && (args[0].equalsIgnoreCase("reload"))) {
+            } else if(sender.hasPermission("anchorsell.admin.reload") && (args.length > 0) && (args[0].equalsIgnoreCase("reload"))) {
                 // /anchor reload
                 plugin.reloadConfig();
                 sender.sendMessage(Utils.Color(plugin.getConfig().getString("reload-message")));
-            } else if (sender.hasPermission("anchorsell.give")
+            } else if (sender.hasPermission("anchorsell.admin.give")
                     && args.length > 0
                     && args[0].equalsIgnoreCase("give")) {
 
@@ -58,13 +58,13 @@ public class AnchorCommand implements CommandExecutor {
                     Player p = sender.getServer().getPlayer(args[1]);
                     p.getInventory().addItem(Utils.getAnchor(Integer.parseInt(args[3]), Integer.parseInt(args[2])));
                 }
-            } else if (sender.hasPermission("anchorsell.buy")
+            } else if (sender.hasPermission("anchorsell.player.buy")
                     && args.length == 1
                     && args[0].equalsIgnoreCase("buy")) {
 
                 Player player = sender.getServer().getPlayerExact(sender.getName());
                 player.openInventory(new BuyScreen(player, plugin).getInventory());
-            } else if (sender.hasPermission("anchorsell.list")
+            } else if (sender.hasPermission("anchorsell.player.list")
                     && args.length == 1
                     && args[0].equalsIgnoreCase("list")) {
 
