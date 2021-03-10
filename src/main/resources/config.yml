@@ -46,7 +46,10 @@ anchor:
     title: "&5Anchor Sell - Upgrades"
     current-level:
       txt: "%currentLevel%"
-      lore: "Show detailed current level"
+      lore:
+        - "&7&m----------&r &5&lAnchor &7&m----------"
+        - "hola"
+        - "&7&m----------------------------"
     upgrade-button:
       txt: "&6&lUpgrade"
       lore: "Upgrade current anchor"

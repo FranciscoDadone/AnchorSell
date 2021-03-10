@@ -1,8 +1,12 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
+import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -79,5 +83,30 @@ public class Utils {
 
     public static double getMoneyToUpgrade(int anchorLevel) {
         return getMoneyPerMinute(anchorLevel + 1) * 60 * 16; // the money that gives the next level multiplied by 16hs
+    }
+
+    public static  List<String> getLore(String path, AnchorSell plugin, Location location, Player player) {
+        List<String> res = new ArrayList<>();
+        for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
+            int level = StorageManager.getAnchorLevel(plugin, location);
+            String levelToUpgrade = String.valueOf(level + 1);
+            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
+            if((level + 1) > 64) {
+                levelToUpgrade = "";
+                priceOfUpgrade = "-";
+            }
+            res.add(str.replaceAll("%level%", String.valueOf(level)).
+                    replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
+                    replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
+                    replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(plugin, level)).
+                    replaceAll("%playerBalance%", String.valueOf(EconomyManager.getEconomy().getBalance(player))).
+                    replaceAll("%playerAnchors%", String.valueOf(StorageManager.getPlayerTotalAnchors(plugin, player))).
+                    replaceAll("%maxPlayerAnchors%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have"))).
+                    replaceAll("%playerMoneyPer15Minutes%", String.valueOf(StorageManager.getPlayerMoneyPerMinute(plugin, player) * 15)).
+                    replaceAll("%priceOfUpgrade%", priceOfUpgrade).
+                    replaceAll("%nextLevel%", levelToUpgrade).
+                    replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(plugin, level + 1)));
+        }
+        return res;
     }
 }
