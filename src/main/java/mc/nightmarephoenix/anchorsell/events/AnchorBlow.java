@@ -42,9 +42,8 @@ public class AnchorBlow implements Listener {
                 // generate particles around on place
                 for(int i = 0; i < 360; i += 3) {
                     Location flameloc = new Location(b.getLocation().getWorld(), b.getLocation().getX(), b.getLocation().getY(), b.getLocation().getZ());
-                    flameloc.getWorld().spawnParticle(Particle.FLAME,new Location(b.getWorld(), flameloc.getX() + Math.sin(i) * 3, b.getLocation().getY(), flameloc.getZ() + Math.cos(i) * 3),10);
+                    flameloc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, new Location(b.getWorld(), flameloc.getX() + Math.sin(i) * 3, b.getLocation().getY(), flameloc.getZ() + Math.cos(i) * 3),10);
                 }
-                StorageManager.anchorBreak(plugin, b.getLocation());
             }
         }
 
@@ -61,6 +60,7 @@ public class AnchorBlow implements Listener {
                 for(int z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++) {
                     if(new Location(location.getWorld(), x, y, z).getBlock().getType() == Material.RESPAWN_ANCHOR) {
                         blocks.add(location.getWorld().getBlockAt(x, y, z));
+                        StorageManager.anchorBreak(plugin, new Location(location.getWorld(), x, y, z));
                     }
                 }
             }

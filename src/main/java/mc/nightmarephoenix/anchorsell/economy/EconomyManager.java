@@ -23,11 +23,10 @@ public class EconomyManager {
         return econ != null;
     }
 
-    public static boolean withdrawFromUser(AnchorSell plugin, Player p, double balance) {
-        int anchorValue = plugin.getConfig().getInt("anchor-value");
-        if (EconomyManager.getEconomy().getBalance(p) >=  anchorValue) {
-            EconomyResponse res = EconomyManager.getEconomy().withdrawPlayer(p, balance);
-            if (!res.equals(EconomyResponse.ResponseType.SUCCESS) && econ.getBalance(p) >= balance) {
+    public static boolean withdrawFromUser(Player p, double toWithdraw) {
+        if (EconomyManager.getEconomy().getBalance(p) >= toWithdraw) {
+            if(econ.getBalance(p) >= toWithdraw) {
+                EconomyManager.getEconomy().withdrawPlayer(p, toWithdraw);
                 return true;
             }
         }

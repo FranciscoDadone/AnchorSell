@@ -27,7 +27,6 @@ public class ActionAnchor implements Listener {
             if((e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) && !p.isSneaking()) {
                 if(StorageManager.isMyAnchor(e.getClickedBlock().getLocation(), p, plugin)) {
                     e.setCancelled(true);
-                    Block block = e.getPlayer().getTargetBlock(null,100);
                     p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
                 } else {
                     e.setCancelled(true);

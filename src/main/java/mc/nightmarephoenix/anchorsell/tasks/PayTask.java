@@ -27,7 +27,9 @@ public class PayTask extends BukkitRunnable {
                 totalAmount += amount;
                 EconomyManager.getEconomy().depositPlayer(p, amount);
             }
-            p.sendMessage(Utils.Color(plugin.getConfig().getString("paying-message").replaceAll("%amount%", String.valueOf(totalAmount))));
+            if(totalAmount != 0) {
+                p.sendMessage(Utils.Color(plugin.getConfig().getString("paying-message").replaceAll("%amount%", String.valueOf(totalAmount))));
+            }
         }
     }
 

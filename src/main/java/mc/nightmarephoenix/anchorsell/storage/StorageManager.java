@@ -11,7 +11,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import java.util.UUID;
 
 public class StorageManager {
-    public static void anchorPlace(AnchorSell plugin, BlockPlaceEvent e, Player p, Location location) {
+    public static boolean anchorPlace(AnchorSell plugin, BlockPlaceEvent e, Player p, Location location) {
         userData = new PerUSerStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
 
@@ -22,7 +22,7 @@ public class StorageManager {
             currentAnchorLevel = Integer.parseInt(String.valueOf(e.getItemInHand().getItemMeta().getLore().get(2).substring(18)));
         } catch (NullPointerException nullPointerException) {
             // Creative respawn anchor not work
-            return;
+            return false;
         }
 
         if (currentAnchorLevel == 0) {
@@ -38,7 +38,7 @@ public class StorageManager {
             } else {
                 p.sendMessage(Utils.Color(plugin.getConfig().getString("cannot-place-more-anchors").replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
                 e.setCancelled(true);
-                return;
+                return false;
             }
         } else {
             userData.getConfig().set("total", (totalUserAnchors + 1));
@@ -78,6 +78,7 @@ public class StorageManager {
                     replaceAll("%coordsZ%", String.valueOf(location.getZ())).
                     replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, location))));
         });
+        return true;
     }
 
     public static void anchorBreak(AnchorSell plugin, Location location) {
@@ -86,14 +87,14 @@ public class StorageManager {
         // Anchor UUID
         String anchorID = getAnchorUUID(location);
 
-
         // Figuring out who's the anchor owner
         Player p;
         try {
-            p = Bukkit.getPlayer(UUID.fromString(generalData.getConfig().getString("all_anchors." + anchorID + ".owner")));
+            String uuid = generalData.getConfig().getString("all_anchors." + anchorID + ".owner");
+            p = Bukkit.getPlayer(UUID.fromString(uuid));
             userData = new PerUSerStorage(plugin, p);
         } catch (Exception exception) {
-            // Creative anchor break not work
+            exception.printStackTrace();
             return;
         }
 
