@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 
 public class ActionAnchor implements Listener {
@@ -26,20 +27,10 @@ public class ActionAnchor implements Listener {
         try {
             if((e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) && !p.isSneaking()) {
                 if(StorageManager.isMyAnchor(e.getClickedBlock().getLocation(), p, plugin)) {
-
-
-//                    Block b1 = new Location(e.getClickedBlock().getWorld(), e.getClickedBlock().getX()+1, e.getClickedBlock().getY(), e.getClickedBlock().getZ()).getBlock();
-//                    e.getClickedBlock().breakNaturally();
-//
-//                    RespawnAnchor anchor = (RespawnAnchor) b1.getBlockData();
-//                    anchor.setCharges(1);
-//                    b1.setBlockData(anchor);
-//
-//                    b1.setType(b1);
-
                     e.setCancelled(true);
                     p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
                 } else {
+                    e.setCancelled(true);
                     p.sendMessage(Utils.Color(plugin.getConfig().getString("you-dont-own-this-anchor")));
                 }
             }

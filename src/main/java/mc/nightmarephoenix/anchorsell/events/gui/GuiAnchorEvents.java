@@ -10,6 +10,8 @@ import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -46,7 +48,14 @@ public class GuiAnchorEvents implements Listener {
                 int level = StorageManager.getAnchorLevel(plugin, location);
                 if(EconomyManager.withdrawFromUser(plugin, p, Utils.getMoneyToUpgrade(level))) {
 
-                    StorageManager.upgradeAnchor(plugin, location, p);
+                    StorageManager.upgradeAnchor(plugin, location, p);  // saves the upgrade to the configs
+
+                    if(Utils.getAnchorOreLevel(level) != Utils.getAnchorOreLevel(level + 1)) {
+                        Block b = location.getBlock();
+                        RespawnAnchor anchor = (RespawnAnchor) b.getBlockData();
+                        anchor.setCharges(anchor.getCharges() + 1);
+                        b.setBlockData(anchor);
+                    }
 
                     plugin.getConfig().getStringList("anchor.upgrade-menu.upgrade-success").forEach((str) -> {
                         p.sendMessage(Utils.Color(str.replaceAll("%previusLevel%", "&r(" + Utils.getAnchorOreLevelString(plugin, level) + "&r) " + level).
