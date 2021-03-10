@@ -17,7 +17,6 @@ public class ConfirmScreen implements InventoryHolder {
     public ConfirmScreen(AnchorSell anchorSellPlugin) {
         this.plugin = anchorSellPlugin;
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("confirmscreen.title")));
-
         init();
     }
 

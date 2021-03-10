@@ -67,11 +67,11 @@ anchorbuy:
   anchor-info:
     txt: "What is an Anchor Sell?"
     lore:
-      - "An Anchor Sell is a block with which"
-      - "you can earn money automatically, from"
-      - "time to time, by placing it."
+      - "&eAn Anchor Sell is a block with which"
+      - "&eyou can earn money automatically, from"
+      - "&etime to time, by placing it."
   buy:
-    title: "Buy an anchor!"
+    title: "&5&lBuy an anchor"
 
 confirmscreen:
   title: "&5Are you sure you want to buy?"

@@ -47,15 +47,13 @@ public class BuyScreen implements InventoryHolder {
 
         // Info
         ItemStack info = createItem(
-                Utils.Color(
-                        plugin.getConfig().getString("anchorbuy.anchor-info.txt")),
-                        Material.BOOK, plugin.getConfig().getStringList("anchorbuy.anchor-info.lore"));
+                Utils.Color(plugin.getConfig().getString("anchorbuy.anchor-info.txt")),
+                        Material.BOOK, Utils.Color(plugin.getConfig().getStringList("anchorbuy.anchor-info.lore")));
         inv.setItem(11, info);
 
         // Buy
         ItemStack buy = createItem(
-                Utils.Color(
-                        plugin.getConfig().getString("anchorbuy.buy.title")),
+                Utils.Color(plugin.getConfig().getString("anchorbuy.buy.title")),
                         Material.RESPAWN_ANCHOR, Collections.singletonList(""));
         inv.setItem(15, buy);
     }
