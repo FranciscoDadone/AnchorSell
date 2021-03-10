@@ -14,6 +14,7 @@ help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&e/anchor reload &f Reloads the config file"
   - "&e/anchor give [name] [quantity] [level] &fGives an anchor to a player"
+  - "&e/anchor list"
   - "&7&m----------------------------"
 
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"

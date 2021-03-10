@@ -37,8 +37,6 @@ public class AnchorCommand implements CommandExecutor {
                     && args.length > 0
                     && args[0].equalsIgnoreCase("give")) {
 
-                ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-
                 // Anchor give without argument
                 if (args.length == 1) {
                     sender.sendMessage(Utils.Color(plugin.getConfig().getString("cant-give-anchor-message")));
@@ -64,15 +62,22 @@ public class AnchorCommand implements CommandExecutor {
 
                 Player player = sender.getServer().getPlayerExact(sender.getName());
                 player.openInventory(new BuyScreen(player, plugin).getInventory());
+            // /anchor list
             } else if (sender.hasPermission("anchorsell.list")
-                    && args.length == 1
                     && args[0].equalsIgnoreCase("list")) {
-
                 Player player = sender.getServer().getPlayerExact(sender.getName());
-                try {
-                    StorageManager.getAnchorUserList(plugin, player);
-                } catch (InvalidConfigurationException e) {
-                    e.printStackTrace();
+                if(args.length == 1) {
+                    try {
+                        StorageManager.getAnchorUserList(plugin, player);
+                    } catch (InvalidConfigurationException e) {
+                        e.printStackTrace();
+                    }
+                } else if(args.length == 2) {
+                    try {
+                        StorageManager.getAnchorUserList(plugin, player);
+                    } catch (InvalidConfigurationException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
