@@ -53,7 +53,7 @@ public class GuiAnchorEvents implements Listener {
                     return;
                 }
 
-                if(EconomyManager.withdrawFromUser(plugin, p, Utils.getMoneyToUpgrade(level, plugin))) {
+                if(EconomyManager.withdrawFromUser(p, Utils.getMoneyToUpgrade(level, plugin))) {
 
                     StorageManager.upgradeAnchor(plugin, location, p);  // saves the upgrade to the configs
 
@@ -93,7 +93,7 @@ public class GuiAnchorEvents implements Listener {
 
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.GREEN_STAINED_GLASS_PANE)) {
                 int anchorValue = plugin.getConfig().getInt("anchor-value");
-                if(EconomyManager.withdrawFromUser(plugin, p, anchorValue)) {
+                if(EconomyManager.withdrawFromUser(p, anchorValue)) {
                     p.getInventory().addItem(Utils.getAnchor(1, 1));
                     p.sendMessage(Utils.Color(plugin.getConfig().getString("confirmscreen.you-have-an-anchor")));
                 } else {
