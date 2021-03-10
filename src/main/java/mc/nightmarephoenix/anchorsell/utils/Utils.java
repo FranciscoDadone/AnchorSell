@@ -109,4 +109,22 @@ public class Utils {
         }
         return res;
     }
+
+    public static ItemStack createItem(String name, Material material) {
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    public static ItemStack createItem(String name, Material material, List<String> lore) {
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        meta.setLore(lore);
+        item.setItemMeta(meta);
+        return item;
+    }
+
 }

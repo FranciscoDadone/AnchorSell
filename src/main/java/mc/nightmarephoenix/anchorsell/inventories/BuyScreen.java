@@ -29,7 +29,7 @@ public class BuyScreen implements InventoryHolder {
 
     private void init() {
         ItemStack item;
-        ItemStack border = createItem(" ", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList());
+        ItemStack border = Utils.createItem(" ", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList());
 
         // Top
         for( int i = 0; i < 9; i++ ) {
@@ -46,27 +46,15 @@ public class BuyScreen implements InventoryHolder {
         }
 
         // Info
-        ItemStack info = createItem(
-                Utils.Color(plugin.getConfig().getString("anchorbuy.anchor-info.txt")),
+        ItemStack info = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchorbuy.anchor-info.txt")),
                         Material.BOOK, Utils.Color(plugin.getConfig().getStringList("anchorbuy.anchor-info.lore")));
         inv.setItem(11, info);
 
         // Buy
-        ItemStack buy = createItem(
-                Utils.Color(plugin.getConfig().getString("anchorbuy.buy.title")),
+        ItemStack buy = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchorbuy.buy.title")),
                         Material.RESPAWN_ANCHOR, Collections.singletonList(""));
         inv.setItem(15, buy);
     }
-
-    private ItemStack createItem(String name, Material material, List<String> lore) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
-        meta.setLore(lore);
-        item.setItemMeta(meta);
-        return item;
-    }
-
 
     @Override
     public Inventory getInventory() {

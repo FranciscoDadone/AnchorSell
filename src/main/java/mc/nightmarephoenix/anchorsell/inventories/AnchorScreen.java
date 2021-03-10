@@ -1,8 +1,6 @@
 package mc.nightmarephoenix.anchorsell.inventories;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,11 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class AnchorScreen implements InventoryHolder {
 
@@ -29,7 +23,7 @@ public class AnchorScreen implements InventoryHolder {
     }
 
     private void init() {
-        ItemStack border = createItem(" ", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList());
+        ItemStack border = Utils.createItem(" ", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList());
         // Top
         for( int i = 0; i < 9; i++ ) {
             inv.setItem(i, border);
@@ -44,36 +38,23 @@ public class AnchorScreen implements InventoryHolder {
 
 
         // Info
-        ItemStack info = createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")),
+        ItemStack info = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")),
                 Material.BOOK, Utils.getLore("anchor.current-anchor-info.lore", plugin, location, p));
         inv.setItem(11, info);
 
         // Player
-        ItemStack player = createItem(p.getName(), Material.SKELETON_SKULL, Utils.getLore("anchor.player.lore", plugin, location, p));
+        ItemStack player = Utils.createItem(p.getName(), Material.SKELETON_SKULL, Utils.getLore("anchor.player.lore", plugin, location, p));
         inv.setItem(13, player);
 
         // Upgrades
-        ItemStack upgrades = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Utils.getLore("anchor.upgrades.lore", plugin, location, p));
+        ItemStack upgrades = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Utils.getLore("anchor.upgrades.lore", plugin, location, p));
         inv.setItem(15, upgrades);
-    }
-
-
-    private ItemStack createItem(String name, Material material, List<String> lore) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
-        meta.setLore(lore);
-        item.setItemMeta(meta);
-        return item;
     }
 
     @Override
     public Inventory getInventory() {
         return inv;
     }
-
-
-
 
     private Player p;
     private Inventory inv;

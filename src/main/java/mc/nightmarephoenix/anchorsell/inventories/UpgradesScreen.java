@@ -7,9 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Collections;
-import java.util.List;
 
 public class UpgradesScreen implements InventoryHolder {
 
@@ -22,7 +20,7 @@ public class UpgradesScreen implements InventoryHolder {
     }
 
     private void init() {
-        ItemStack border = createItem(" ", Material.GRAY_STAINED_GLASS_PANE, Collections.emptyList());
+        ItemStack border = Utils.createItem(" ", Material.GRAY_STAINED_GLASS_PANE, Collections.emptyList());
         // Top
         for( int i = 0; i < 9; i++ ) {
             inv.setItem(i, border);
@@ -39,23 +37,13 @@ public class UpgradesScreen implements InventoryHolder {
             ItemStack item;
             if (i == 13) {
                 // Current state
-                item = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt").replaceAll("%currentLevel%", Utils.getAnchorOreLevelString(plugin, level) + "  &f(" + level + ")")), material, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.lore"))));
+                item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt").replaceAll("%currentLevel%", Utils.getAnchorOreLevelString(plugin, level) + "  &f(" + level + ")")), material, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.lore"))));
             } else {
-                item = createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")), Material.LIME_STAINED_GLASS_PANE, Utils.getLore("anchor.upgrade-menu.upgrade-button.lore", plugin, null, null));
+                item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")), Material.LIME_STAINED_GLASS_PANE, Utils.getLore("anchor.upgrade-menu.upgrade-button.lore", plugin, null, null));
             }
             inv.setItem(i, item);
         }
-        inv.setItem(18, createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.back")), Material.BARRIER, Collections.emptyList())); // back button
-    }
-
-
-    private ItemStack createItem(String name, Material material, List<String> lore) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
-        meta.setLore(lore);
-        item.setItemMeta(meta);
-        return item;
+        inv.setItem(18, Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.back")), Material.BARRIER, Collections.emptyList())); // back button
     }
 
 
