@@ -5,6 +5,7 @@ import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.entity.Player;
@@ -22,9 +23,25 @@ public class AnchorPlace implements Listener {
     @EventHandler
     public void place(BlockPlaceEvent e) {
         Block block = e.getBlock();
-        Player p = e.getPlayer();
+        World anchorInWorld = block.getWorld();
+        boolean isInWorld = false;
 
-        Location loc = new Location(block.getWorld(), block.getX(), block.getY(), block.getZ());
+        // Busca si el bloque esta en enable-in-worlds
+        for (String world : plugin.getConfig().getStringList("enable-in-worlds")) {
+            if (anchorInWorld.getName().equalsIgnoreCase(world)) {
+                isInWorld = true;
+                break;
+            }
+        }
+
+        // Si no esta en enable-in-worlds se sale del método
+        if (!isInWorld) {
+            e.setCancelled(true);
+            return;
+        }
+
+        Player p = e.getPlayer();
+        Location loc = new Location(anchorInWorld, block.getX(), block.getY(), block.getZ());
 
         if(block.getType() == Material.RESPAWN_ANCHOR) {
             if(analyzeLocation(new Location(block.getWorld(), block.getX() - 3, block.getY() - 3, block.getZ() - 3), loc, plugin.getConfig().getInt("safe-anchor-area"))) {

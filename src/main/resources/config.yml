@@ -21,6 +21,9 @@ radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
 you-dont-own-this-anchor: "&4You don't own this anchor"
 
+enable-in-worlds:
+  - world
+
 pay-timer-in-minutes: 15
 
 anchor:
