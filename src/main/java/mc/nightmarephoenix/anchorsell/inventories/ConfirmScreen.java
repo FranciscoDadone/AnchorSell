@@ -21,7 +21,7 @@ public class ConfirmScreen implements InventoryHolder {
     }
 
     private void init() {
-        ItemStack border = Utils.createItem(" ", Material.PURPLE_STAINED_GLASS_PANE);
+        ItemStack border = Utils.createItem(" ", Material.GRAY_STAINED_GLASS_PANE, false);
 
         // Top
         for( int i = 0; i < 9; i++ ) {
@@ -38,17 +38,20 @@ public class ConfirmScreen implements InventoryHolder {
         }
 
         // Yes
-        // No funciona: ItemStack yesGlass = createItem(Utils.Color(Utils.Color(plugin.getConfig().getString("confirmscreen.yes"))), Material.GREEN_STAINED_GLASS_PANE);
-        ItemStack yesGlass = Utils.createItem(" ", Material.GREEN_STAINED_GLASS_PANE);
+        ItemStack yesGlass = Utils.createItem(" ", Material.GREEN_STAINED_GLASS_PANE, true);
         inv.setItem(10, yesGlass);
         inv.setItem(11, yesGlass);
         inv.setItem(12, yesGlass);
 
         // No
-        ItemStack noGlass = Utils.createItem(" ", Material.RED_STAINED_GLASS_PANE);
+        ItemStack noGlass = Utils.createItem(" ", Material.RED_STAINED_GLASS_PANE, true);
         inv.setItem(14, noGlass);
         inv.setItem(15, noGlass);
         inv.setItem(16, noGlass);
+
+        // anchor
+        ItemStack anchor = Utils.createItem(" ", Material.RESPAWN_ANCHOR, true);
+        inv.setItem(13, anchor);
     }
 
     @Override

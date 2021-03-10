@@ -20,7 +20,7 @@ public class UpgradesScreen implements InventoryHolder {
     }
 
     private void init() {
-        ItemStack border = Utils.createItem(" ", Material.GRAY_STAINED_GLASS_PANE, Collections.emptyList());
+        ItemStack border = Utils.createItem(" ", Material.GRAY_STAINED_GLASS_PANE, Collections.emptyList(), false);
         // Top
         for( int i = 0; i < 9; i++ ) {
             inv.setItem(i, border);
@@ -37,13 +37,13 @@ public class UpgradesScreen implements InventoryHolder {
             ItemStack item;
             if (i == 13) {
                 // Current state
-                item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt").replaceAll("%currentLevel%", Utils.getAnchorOreLevelString(plugin, level) + "  &f(" + level + ")")), material, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.lore"))));
+                item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt").replaceAll("%currentLevel%", Utils.getAnchorOreLevelString(plugin, level) + "  &f(" + level + ")")), material, Collections.singletonList(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.lore"))), true);
             } else {
-                item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")), Material.LIME_STAINED_GLASS_PANE, Utils.getLore("anchor.upgrade-menu.upgrade-button.lore", plugin, null, null));
+                item = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")), Material.LIME_STAINED_GLASS_PANE, Utils.getLore("anchor.upgrade-menu.upgrade-button.lore", plugin, null, null), true);
             }
             inv.setItem(i, item);
         }
-        inv.setItem(18, Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.back")), Material.BARRIER, Collections.emptyList())); // back button
+        inv.setItem(18, Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.back")), Material.BARRIER, Collections.emptyList(), false)); // back button
     }
 
 

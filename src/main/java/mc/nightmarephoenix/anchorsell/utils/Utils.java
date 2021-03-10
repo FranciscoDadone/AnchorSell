@@ -6,6 +6,7 @@ import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -110,19 +111,23 @@ public class Utils {
         return res;
     }
 
-    public static ItemStack createItem(String name, Material material) {
+    public static ItemStack createItem(String name, Material material, boolean enchanted) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
+        if(enchanted)
+            meta.addEnchant(Enchantment.DURABILITY, 1, true);
         item.setItemMeta(meta);
         return item;
     }
 
-    public static ItemStack createItem(String name, Material material, List<String> lore) {
+    public static ItemStack createItem(String name, Material material, List<String> lore, boolean enchanted) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName(name);
         meta.setLore(lore);
+        if(enchanted)
+            meta.addEnchant(Enchantment.DURABILITY, 1, true);
         item.setItemMeta(meta);
         return item;
     }

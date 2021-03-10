@@ -29,7 +29,7 @@ public class BuyScreen implements InventoryHolder {
 
     private void init() {
         ItemStack item;
-        ItemStack border = Utils.createItem(" ", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList());
+        ItemStack border = Utils.createItem(" ", Material.PURPLE_STAINED_GLASS_PANE, Collections.emptyList(), false);
 
         // Top
         for( int i = 0; i < 9; i++ ) {
@@ -47,12 +47,12 @@ public class BuyScreen implements InventoryHolder {
 
         // Info
         ItemStack info = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchorbuy.anchor-info.txt")),
-                        Material.BOOK, Utils.Color(plugin.getConfig().getStringList("anchorbuy.anchor-info.lore")));
+                        Material.BOOK, Utils.Color(plugin.getConfig().getStringList("anchorbuy.anchor-info.lore")), true);
         inv.setItem(11, info);
 
         // Buy
         ItemStack buy = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchorbuy.buy.title")),
-                        Material.RESPAWN_ANCHOR, Collections.singletonList(""));
+                        Material.RESPAWN_ANCHOR, Collections.singletonList(""), true);
         inv.setItem(15, buy);
     }
 
