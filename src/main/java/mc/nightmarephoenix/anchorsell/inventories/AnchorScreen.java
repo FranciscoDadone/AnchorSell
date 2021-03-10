@@ -24,6 +24,7 @@ public class AnchorScreen implements InventoryHolder {
         this.p = p;
         this.plugin = plugin;
         inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.title")));
+
         init();
     }
 

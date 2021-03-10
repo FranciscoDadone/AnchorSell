@@ -1,7 +1,6 @@
 package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.storage.PerUSerStorage;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Location;
@@ -27,7 +26,7 @@ public class AnchorBreak implements Listener {
             Location location = block.getLocation();
 
             // Si no esta registrado el anchor no hace nada
-            if (!StorageManager.isARegisterAnchor(location)) {
+            if (!StorageManager.isARegisterAnchor(plugin, location)) {
                 return;
             }
 
