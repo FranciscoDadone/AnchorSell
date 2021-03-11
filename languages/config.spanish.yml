@@ -1,0 +1,129 @@
+version: 0.0.0
+
+##
+# AnchorSell plugin
+# Authors: DadoGamer13, MatiasME
+# Description: Minecraft plugin to get money using a Respawn anchor.
+# Github: https://github.com/FranciscoDadone/AnchorSell.git
+# Discord: http://bit.ly/nightmarediscord
+##
+
+
+reload-message: "&aConfig reloaded."
+help-message:
+  - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&e/anchor reload &f Recarga la config (solo Admin)"
+  - "&e/anchor give [nombre] [cantidad] [level] &fDa un anchor a un jugador (solo Admin)"
+  - "&e/anchor list &fMuestra una lista con todos tus anchors"
+  - ""
+  - "&e/anchor authors"
+  - "&7&m----------------------------"
+
+cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
+total-anchors-user-can-have: 10
+safe-anchor-area: 3
+anchor-value: 100000
+radius-error: "&4No puedes poner anchors tan cerca de cada uno."
+cannot-place-more-anchors: "&4No puedes tener más de %quantity% anchors."
+you-dont-own-this-anchor: "&4Este no es tu anchor!"
+
+enable-in-worlds:
+  - world
+
+pay-timer-in-minutes: 15
+
+anchor:
+  title: "&5&lAnchor"
+  current-anchor-info:
+    txt: "&6&lEste anchor"
+    lore:
+      - "&eNivel: &f%level% (%oreLevel%&f)"
+      - "&eDinero cada 15 minutos: &f$%moneyPer15Minutes%"
+      - "&eDinero por minuto: &f$%moneyPerMinute%"
+  player:
+    lore:
+      - "&eDinero:&f %playerBalance%"
+      - "&eNúmero de anchors:&f %playerAnchors% / %maxPlayerAnchors%"
+      - "&eDinero total cada 15 minutos: &f%playerMoneyPer15Minutes%"
+  upgrades:
+    txt: "&6&lMejoras"
+    lore:
+      - "&eDe:&f %level% (%oreLevel%&f)"
+      - "&eA: &f%nextLevel% (%nextLevelOre%&f)"
+      - "&ePrecio: &f$%priceOfUpgrade%"
+  upgrade-menu:
+    title: "&5&lAnchor - Mejoras"
+    current-level:
+      txt: "%currentLevel%"
+      lore:
+        - "&7&m----------------------------"
+        - "&ePrecio: &r$%priceOfUpgrade%"
+        - "&7&m----------------------------"
+    upgrade-button:
+      txt: "&6&lMejorar"
+      lore: "Mejora este anchor"
+    back: "&cIr para atrás"
+    upgrade-success:
+      - "&7&m----------&r &5&lAnchor &7&m----------"
+      - "&aAnchor exitosamente mejorado"
+      - "%previusLevel% -> %currentLevel%"
+      - "&7&m----------------------------"
+    upgrade-fail:
+      - "&7&m----------&r &5&lAnchor &7&m----------"
+      - "&cNo tienes suficiente dinero para actualizar este anchor :("
+      - "&7&m----------------------------"
+  explotion-raius-break: "1" # to set as default minecraft, change to "mc-default"
+  upgrade-multiplier: 6 # this is how much the upgrade cost depending of the money that the anchor gives per hour in the next level. For example... upgrade-multiplier: 8. Next level reward per hour: 10. The cost of the upgrade will be 80.
+  list:
+    first-message: "&7&m----------&r &5&lAnchors &7&m----------"
+    last-message: "&7&m-----------------------------"
+    message:
+      - ""
+      - "&eLocalización:&f %location%"
+      - "&eNivel: %level%"
+      - ""
+
+anchorbuy:
+  title: "&5Comprar un anchor"
+  anchor-info:
+    txt: "¿Qué es un anchor?"
+    lore:
+      - "&eUn anchor es un bloque que se coloca en"
+      - "&ecualquier parte del que puedes ganar"
+      - "&edinero automáticamente cada 15 minutos."
+  buy:
+    title: "&5&lComprar un anchor"
+    lore: "&ePrecio: &f$%price%"
+
+confirmscreen:
+  title: "&5¿Estás seguro de que quieres comprar?"
+  you-have-an-anchor: "&5Compraste un Anchor."
+  you-cant-afford: "&5No tienes suficiente dinero para hacer esto."
+  cancel: "&4&lCancelar"
+  confirm: "&a&lConfirmar"
+  item: "&f$&e100.000,00"
+
+anchor-place:
+  - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&aAnchor puesto"
+  - ""
+  - "&eNivel: &f%level%"
+  - "&7&m----------------------------"
+
+anchor-break:
+  - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&cAnchor removido"
+  - ""
+  - "&eNivel: &f%level%"
+  - "&7&m----------------------------"
+
+
+paying-message: "&aRecibiste &c$%amount% &ade los &5&lAnchors"
+
+levels:
+  1: "&8Carbón"
+  2: "&7Hierro"
+  3: "&eOro"
+  4: "&bDiamante"
+  5: "&6&lNETHERITE"
+  maxed-out-level: "&c&lNivel máximo!"

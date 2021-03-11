@@ -3,6 +3,7 @@ package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
+import mc.nightmarephoenix.anchorsell.worldguard.RegionManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -24,6 +25,30 @@ public class AnchorPlace implements Listener {
         World anchorInWorld = block.getWorld();
         boolean isInWorld = false;
 
+        if(!new RegionManager().canBuild(e.getPlayer(), e.getBlock().getLocation()) && e.getBlock().getType() == Material.RESPAWN_ANCHOR) {// if it is in a protected land, the user can't place the anchor
+            if(!e.getPlayer().isOp()) { // si no es op
+                return;
+            }
+        }
+
+        int currentAnchorLevel = -1;
+        boolean creativeAnchor = false;
+
+        // Getting the current anchor level before placing the block
+        try {
+            currentAnchorLevel = Integer.parseInt(e.getItemInHand().getItemMeta().getLore().get(2).substring(18));
+        } catch (NullPointerException ex) {
+            // Creative respawn anchor will not work as a interactuable anchor
+            creativeAnchor = true;
+        }
+
+        if (currentAnchorLevel == 0) {
+            currentAnchorLevel = 1;
+        } else if(currentAnchorLevel > 64) {
+            currentAnchorLevel = 64;
+        }
+
+
         // Busca si el bloque esta en enable-in-worlds
         for (String world : plugin.getConfig().getStringList("enable-in-worlds")) {
             if (anchorInWorld.getName().equalsIgnoreCase(world)) {
@@ -33,17 +58,20 @@ public class AnchorPlace implements Listener {
         }
 
         // Si no esta en enable-in-worlds se sale del método
-        if (!isInWorld && e.getBlock().getType() == Material.RESPAWN_ANCHOR) {
+        if (!isInWorld && e.getBlock().getType() == Material.RESPAWN_ANCHOR && !creativeAnchor) {
             e.setCancelled(true);
             return;
         }
+
+        if(creativeAnchor)  // if is a creative anchor it will not continue
+            return;
 
         Player p = e.getPlayer();
         Location loc = new Location(anchorInWorld, block.getX(), block.getY(), block.getZ());
 
         if(block.getType() == Material.RESPAWN_ANCHOR) {
             if(analyzeLocation(new Location(block.getWorld(), block.getX() - 3, block.getY() - 3, block.getZ() - 3), loc, plugin.getConfig().getInt("safe-anchor-area"))) {
-                if(!StorageManager.anchorPlace(plugin, e, p, loc)) {
+                if(!StorageManager.anchorPlace(plugin, e, p, loc, currentAnchorLevel)) {
                     return;
                 }
 
