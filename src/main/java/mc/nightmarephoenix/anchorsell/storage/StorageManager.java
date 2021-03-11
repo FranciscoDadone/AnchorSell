@@ -11,23 +11,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import java.util.UUID;
 
 public class StorageManager {
-    public static boolean anchorPlace(AnchorSell plugin, BlockPlaceEvent e, Player p, Location location) {
+    public static boolean anchorPlace(AnchorSell plugin, BlockPlaceEvent e, Player p, Location location, int currentAnchorLevel) {
         userData = new PerUSerStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
-
-        int currentAnchorLevel = -1;
-
-        // Getting the current anchor level before placing the block
-        try {
-            currentAnchorLevel = Integer.parseInt(String.valueOf(e.getItemInHand().getItemMeta().getLore().get(2).substring(18)));
-        } catch (NullPointerException nullPointerException) {
-            // Creative respawn anchor not work
-            return false;
-        }
-
-        if (currentAnchorLevel == 0) {
-            currentAnchorLevel = 1;
-        }
 
         // Updating the total amount of anchors in the user config
         int totalUserAnchors = 0;
