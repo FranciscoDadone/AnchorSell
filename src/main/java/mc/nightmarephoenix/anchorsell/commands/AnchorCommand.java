@@ -76,6 +76,10 @@ public class AnchorCommand implements CommandExecutor {
                 player.sendMessage(Utils.Color("&ePlugin made by: &fMatiasME and DadoGamer13"));
                 player.sendMessage(Utils.Color("&eGithub:&f https://github.com/FranciscoDadone/AnchorSell.git"));
                 player.sendMessage(Utils.Color("&7&m----------------------------"));
+            }  else if (args[0].equalsIgnoreCase("show upgrades")) {
+                player.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor &7&m----------"));
+
+                player.sendMessage(Utils.Color("&7&m----------------------------"));
             }
         }
         return true;
