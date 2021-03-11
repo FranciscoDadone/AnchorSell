@@ -3,6 +3,7 @@ package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
+import mc.nightmarephoenix.anchorsell.worldguard.RegionManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -23,6 +24,12 @@ public class AnchorPlace implements Listener {
         Block block = e.getBlock();
         World anchorInWorld = block.getWorld();
         boolean isInWorld = false;
+
+        if(!new RegionManager().canBuild(e.getPlayer(), e.getBlock().getLocation()) && e.getBlock().getType() == Material.RESPAWN_ANCHOR) {// if it is in a protected land, the user can't place the anchor
+            if(!e.getPlayer().isOp()) { // si no es op
+                return;
+            }
+        }
 
         int currentAnchorLevel = -1;
         boolean creativeAnchor = false;

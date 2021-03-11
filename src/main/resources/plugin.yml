@@ -3,6 +3,7 @@ version: 1.0-RC
 main: mc.nightmarephoenix.anchorsell.AnchorSell
 api-version: 1.16
 depend: [ Vault ]
+softdepend: [ WorldGuard ]
 authors: [ DadoGamer13, MatiasME ]
 description: Minecraft plugin to get money using a Respawn Anchor for FactionsX.
 commands:

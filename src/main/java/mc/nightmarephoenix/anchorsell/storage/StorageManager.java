@@ -211,7 +211,6 @@ public class StorageManager {
 
         generalData.saveConfig();
         userData.saveConfig();
-        return;
     }
 
     public static GeneralStorage getGeneralStorage() {
