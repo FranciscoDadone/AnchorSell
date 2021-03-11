@@ -1,6 +1,5 @@
 package mc.nightmarephoenix.anchorsell;
 
-import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import mc.nightmarephoenix.anchorsell.commands.AnchorCommand;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;

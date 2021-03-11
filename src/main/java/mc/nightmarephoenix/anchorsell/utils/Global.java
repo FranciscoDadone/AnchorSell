@@ -1,7 +1,8 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
 enum WorldGuard {
-    ACTIVE,NOT_ACTIVE;
+    ACTIVE,
+    NOT_ACTIVE;
 }
 
 public class Global {

@@ -45,15 +45,15 @@ public class Utils {
     public static String getAnchorOreLevelString(AnchorSell plugin, int level) {
         if(level > 64)
             return Color(plugin.getConfig().getString("levels.maxed-out-level"));
-        if(level > 0 && level < 16)
+        else if(level < 16)
             return Color(plugin.getConfig().getString("levels.1"));
-        else if(level >= 16 && level < 24)
+        else if(level < 24)
             return Color(plugin.getConfig().getString("levels.2"));
-        else if(level >= 24 && level < 32)
+        else if(level < 32)
             return Color(plugin.getConfig().getString("levels.3"));
-        else if(level >= 32 && level < 48)
+        else if(level < 48)
             return Color(plugin.getConfig().getString("levels.4"));
-        else if(level >= 32 && level <= 64)
+        else if(level <= 64)
             return Color(plugin.getConfig().getString("levels.5"));
         else
             return null;
@@ -75,11 +75,11 @@ public class Utils {
     }
 
     public static double getMoneyPerSecond(int anchorLevel) {
-        return Math.round(0.1 * anchorLevel + Math.pow(anchorLevel, 0.8));
+        return 0.1 * anchorLevel + Math.pow(anchorLevel, 0.8);
     }
 
     public static double getMoneyPerMinute(int anchorLevel) {
-        return getMoneyPerSecond(anchorLevel) * 60;
+        return Math.round(getMoneyPerSecond(anchorLevel) * 60);
     }
 
     public static double getMoneyToUpgrade(int anchorLevel, AnchorSell plugin) {

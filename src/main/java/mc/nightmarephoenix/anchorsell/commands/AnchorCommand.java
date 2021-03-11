@@ -76,8 +76,16 @@ public class AnchorCommand implements CommandExecutor {
                 player.sendMessage(Utils.Color("&ePlugin made by: &fMatiasME and DadoGamer13"));
                 player.sendMessage(Utils.Color("&eGithub:&f https://github.com/FranciscoDadone/AnchorSell.git"));
                 player.sendMessage(Utils.Color("&7&m----------------------------"));
-            }  else if (args[0].equalsIgnoreCase("show upgrades")) {
+            }  else if (sender.hasPermission("anchorsell.admin.upgrades") && args[0].equalsIgnoreCase("upgrades")) {
                 player.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor &7&m----------"));
+
+                for (int i = 1; i <= 64; i++) {
+                    player.sendMessage(Utils.Color(
+                            "Level: " + i
+                            + " | MToUpgrade: " + Utils.getMoneyToUpgrade(i, plugin)
+                            + " | MPerMinute: " + Utils.getMoneyPerMinute(i)
+                    ));
+                }
 
                 player.sendMessage(Utils.Color("&7&m----------------------------"));
             }
