@@ -33,7 +33,7 @@ public class AnchorPlace implements Listener {
         }
 
         // Si no esta en enable-in-worlds se sale del método
-        if (!isInWorld) {
+        if (!isInWorld && e.getBlock().getType() == Material.RESPAWN_ANCHOR) {
             e.setCancelled(true);
             return;
         }
