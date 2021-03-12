@@ -83,6 +83,8 @@ anchor:
       - "&eNivel: %level%"
       - ""
   cantaccess: "Necesitas contacto directo con el anchor para usarlo."
+  onlyPlaceInFactionTerritory: true
+  notInFaction: "&4Solo pueded poner anchors en tu faction!"
 
 anchorbuy:
   title: "&5Comprar un anchor"
