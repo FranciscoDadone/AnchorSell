@@ -25,7 +25,7 @@ public class AnchorPlace implements Listener {
         World anchorInWorld = block.getWorld();
         boolean isInWorld = false;
 
-        if(!new RegionManager().canBuild(e.getPlayer(), e.getBlock().getLocation()) && e.getBlock().getType() == Material.RESPAWN_ANCHOR) {// if it is in a protected land, the user can't place the anchor
+        if(!new RegionManager().canBuild(e.getBlock().getLocation()) && e.getBlock().getType() == Material.RESPAWN_ANCHOR) {// if it is in a protected land, the user can't place the anchor
             if(!e.getPlayer().isOp()) { // si no es op
                 return;
             }
