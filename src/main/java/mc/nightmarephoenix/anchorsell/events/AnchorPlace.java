@@ -31,14 +31,7 @@ public class AnchorPlace implements Listener {
             return;
         }
 
-
-
-        //e.getPlayer().sendMessage(String.valueOf(String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(FactionManager.INSTANCE.getFaction("tests").getLeader()))));
-
-//        if(block.getType() == Material.RESPAWN_ANCHOR && !Utils.stillExists(plugin, block.getLocation())) { // checks if the anchor still exists (this is a fix for placing in factions claimed land and saving to the config)
-//            return;
-//        }
-
+        // World Guard check
         if((!new RegionManager().canBuild(e.getBlock().getLocation())) && (e.getBlock().getType() == Material.RESPAWN_ANCHOR)) {// if it is in a protected land, the user can't place the anchor
             if(!e.getPlayer().isOp()) { // si no es op
                 return;

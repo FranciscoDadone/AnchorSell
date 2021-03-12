@@ -5,7 +5,7 @@ api-version: 1.16
 depend: [ Vault ]
 softdepend: [ WorldGuard, FactionsX ]
 authors: [ DadoGamer13, MatiasME ]
-description: Minecraft plugin to get money using a Respawn Anchor for FactionsX.
+description: Minecraft plugin to get money using a Respawn Anchor.
 commands:
   anchor:
     description: Buy an anchor
