@@ -161,10 +161,10 @@ public class Utils {
         return item;
     }
 
-    public static boolean isPlayerInHisFaction(Block block) {
-//        if(String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(FactionManager.INSTANCE.getFaction().getLeader()))) {
-//            return true;
-//        }
+    public static boolean isPlayerInHisFaction(Block block, Player p) {
+        if(String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()))) {
+            return true;
+        }
         return false;
     }
 

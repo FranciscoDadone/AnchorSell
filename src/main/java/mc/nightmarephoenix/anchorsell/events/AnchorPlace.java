@@ -30,7 +30,7 @@ public class AnchorPlace implements Listener {
         boolean isInWorld = false;
 
         // Anchors can only be placed in faction territory
-        if(!Utils.isPlayerInHisFaction(block) && plugin.getConfig().getBoolean("anchor.onlyPlaceInFactionTerritory") && block.getType() == Material.RESPAWN_ANCHOR) {
+        if(!Utils.isPlayerInHisFaction(block, e.getPlayer()) && plugin.getConfig().getBoolean("anchor.onlyPlaceInFactionTerritory") && block.getType() == Material.RESPAWN_ANCHOR) {
             e.getPlayer().sendMessage(Utils.Color(plugin.getConfig().getString("anchor.notInFaction")));
             e.setCancelled(true);
             return;
