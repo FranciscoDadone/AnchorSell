@@ -21,16 +21,14 @@ You can upgrade the anchors to earn more money!
 
 ## Commands and permissions
 ### Player
-
-/anchor (anchorsell.player.help)
-/anchor buy (anchorsell.player.help)
-/anchor list (anchorsell.player.list)
+- /anchor (anchorsell.player.help)
+- /anchor buy (anchorsell.player.help)
+- /anchor list (anchorsell.player.list)
 
 ### Admin
-
-/anchor reload (anchorsell.admin.reload)
-/anchor give [player] [quantity] [level] (anchorsell.admin.give)
-/anchor upgrades (anchorsell.admin.upgrades)
+- /anchor reload (anchorsell.admin.reload)
+- /anchor give [player] [quantity] [level] (anchorsell.admin.give)
+- /anchor upgrades (anchorsell.admin.upgrades)
 
 
 ## Screenshots // Gifs
@@ -58,5 +56,5 @@ You can upgrade the anchors to earn more money!
 http://bit.ly/nightmarediscord
 
 ## Authors
-Francisco Dadone (https://github.com/FranciscoDadone)
-MatiasME (https://github.com/MatiasvME)
++ [Francisco Dadone](https://github.com/FranciscoDadone)
++ [MatiasME](https://github.com/MatiasvME)
