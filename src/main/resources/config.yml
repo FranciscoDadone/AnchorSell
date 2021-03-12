@@ -82,6 +82,7 @@ anchor:
       - "&eLocation:&f %location%"
       - "&eLevel: %level%"
       - ""
+  cantaccess: "You need direct contact with the anchor to use it."
 
 anchorbuy:
   title: "&5Buy Anchor Sell"

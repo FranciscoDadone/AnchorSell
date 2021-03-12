@@ -60,15 +60,15 @@ public class Utils {
     }
 
     public static Material getAnchorOreLevel(int level) {
-        if(level > 0 && level < 16)
+        if(level < 16)
             return Material.COAL;
-        else if(level >= 16 && level < 24)
+        else if(level < 24)
             return Material.IRON_INGOT;
-        else if(level >= 24 && level < 32)
+        else if(level < 32)
             return Material.GOLD_INGOT;
-        else if(level >= 32 && level < 48)
+        else if(level < 48)
             return Material.DIAMOND;
-        else if(level >= 32 && level <= 64)
+        else if(level <= 64)
             return Material.NETHERITE_INGOT;
         else
             return null;

@@ -82,6 +82,7 @@ anchor:
       - "&eLocalización:&f %location%"
       - "&eNivel: %level%"
       - ""
+  cantaccess: "Necesitas contacto directo con el anchor para usarlo."
 
 anchorbuy:
   title: "&5Comprar un anchor"

@@ -32,6 +32,12 @@ public class GuiAnchorEvents implements Listener {
         Block block = p.getTargetBlock(null, 5);
         Location location = block.getLocation();
 
+        if (block.getType() != Material.RESPAWN_ANCHOR) {
+            plugin.getConfig().getStringList("anchor.cantaccess");
+            p.closeInventory();
+            return;
+        }
+
         // Main anchor screen
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof AnchorScreen) {
             e.setCancelled(true);
