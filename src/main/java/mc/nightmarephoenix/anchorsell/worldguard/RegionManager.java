@@ -6,8 +6,8 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
-import mc.nightmarephoenix.anchorsell.utils.Global;
-import mc.nightmarephoenix.anchorsell.utils.WG;
+import mc.nightmarephoenix.anchorsell.hooks.Global;
+import mc.nightmarephoenix.anchorsell.hooks.WG;
 import org.bukkit.Location;
 
 public class RegionManager {

@@ -2,13 +2,8 @@ package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
-import mc.nightmarephoenix.anchorsell.utils.Global;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
-import mc.nightmarephoenix.anchorsell.utils.WG;
 import mc.nightmarephoenix.anchorsell.worldguard.RegionManager;
-import net.prosavage.factionsx.manager.FactionManager;
-import net.prosavage.factionsx.manager.GridManager;
-import net.prosavage.factionsx.manager.PlayerManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;

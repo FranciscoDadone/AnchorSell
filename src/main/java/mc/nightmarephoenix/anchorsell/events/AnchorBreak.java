@@ -24,6 +24,10 @@ public class AnchorBreak implements Listener {
         if(block.getType() == Material.RESPAWN_ANCHOR) {
             Location location = block.getLocation();
 
+            if(!Utils.isPlayerInHisFaction(block, p) && !Utils.isBlockInWilderness(block)) {
+                return;
+            }
+
             // Si no esta registrado el anchor no hace nada
             if (!StorageManager.isARegisterAnchor(plugin, location)) {
                 return;

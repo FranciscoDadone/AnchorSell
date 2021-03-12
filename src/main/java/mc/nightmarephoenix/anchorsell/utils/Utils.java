@@ -168,4 +168,11 @@ public class Utils {
         return false;
     }
 
+    public static boolean isBlockInWilderness(Block block) {
+        if(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null) {
+            return true;
+        }
+        return false;
+    }
+
 }

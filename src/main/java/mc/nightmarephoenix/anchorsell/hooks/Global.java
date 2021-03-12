@@ -1,4 +1,4 @@
-package mc.nightmarephoenix.anchorsell.utils;
+package mc.nightmarephoenix.anchorsell.hooks;
 
 public class Global {
 
