@@ -7,11 +7,13 @@ import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.hooks.Global;
+import net.prosavage.factionsx.manager.FactionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class AnchorSell extends JavaPlugin {
+
     @Override
     public void onEnable() {
         // Vault check
@@ -20,15 +22,25 @@ public final class AnchorSell extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
-
         // World guard check - soft depend
         try {
             WorldGuard.getInstance();
             Global.setWorldGuard(true);
         } catch (NoClassDefFoundError e) {
-            System.out.println("No WorldGuard detected.");
+            this.getLogger().fine("No WorldGuard detected.");
             Global.setWorldGuard(false);
         }
+        // FactionsX check - soft depend
+        try {
+            FactionManager.INSTANCE.getFactions();
+            Global.setFactionsX(true);
+        } catch (NoClassDefFoundError e) {
+            this.getLogger().fine("No FactionsX detected.");
+            Global.setFactionsX(false);
+        }
+
+
+
 
         // Config
         this.saveDefaultConfig();

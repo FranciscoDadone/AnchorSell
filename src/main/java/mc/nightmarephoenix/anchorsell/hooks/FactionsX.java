@@ -1,6 +1,6 @@
 package mc.nightmarephoenix.anchorsell.hooks;
 
-public enum WG {
+public enum FactionsX {
     ACTIVE,
     NOT_ACTIVE
 }
