@@ -2,7 +2,9 @@ package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.utils.Global;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
+import mc.nightmarephoenix.anchorsell.utils.WG;
 import mc.nightmarephoenix.anchorsell.worldguard.RegionManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -11,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import sun.awt.X11.XSystemTrayPeer;
 
 
 public class AnchorPlace implements Listener {
@@ -25,7 +28,11 @@ public class AnchorPlace implements Listener {
         World anchorInWorld = block.getWorld();
         boolean isInWorld = false;
 
-        if(!new RegionManager().canBuild(e.getPlayer(), e.getBlock().getLocation()) && e.getBlock().getType() == Material.RESPAWN_ANCHOR) {// if it is in a protected land, the user can't place the anchor
+//        if(block.getType() == Material.RESPAWN_ANCHOR && !Utils.stillExists(plugin, block.getLocation())) { // checks if the anchor still exists (this is a fix for placing in factions claimed land and saving to the config)
+//            return;
+//        }
+
+        if((!new RegionManager().canBuild(e.getBlock().getLocation())) && (e.getBlock().getType() == Material.RESPAWN_ANCHOR)) {// if it is in a protected land, the user can't place the anchor
             if(!e.getPlayer().isOp()) { // si no es op
                 return;
             }
