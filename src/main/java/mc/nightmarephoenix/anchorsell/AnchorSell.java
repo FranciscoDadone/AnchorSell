@@ -1,12 +1,15 @@
 package mc.nightmarephoenix.anchorsell;
 
+import com.sk89q.worldguard.WorldGuard;
 import mc.nightmarephoenix.anchorsell.commands.AnchorCommand;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.utils.Global;
+import mc.nightmarephoenix.anchorsell.worldguard.RegionManager;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -22,7 +25,7 @@ public final class AnchorSell extends JavaPlugin {
 
         // World guard check - soft depend
         try {
-
+            WorldGuard.getInstance();
             Global.setWorldGuard(true);
         } catch (NoClassDefFoundError e) {
             System.out.println("No WorldGuard detected.");

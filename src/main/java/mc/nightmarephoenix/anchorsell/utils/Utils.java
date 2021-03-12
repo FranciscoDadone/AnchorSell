@@ -3,6 +3,7 @@ package mc.nightmarephoenix.anchorsell.utils;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Utils {
 
@@ -154,5 +156,17 @@ public class Utils {
         item.setItemMeta(meta);
         return item;
     }
+
+//    public static boolean stillExists(AnchorSell plugin, Location location) {
+//        AtomicBoolean tmp = new AtomicBoolean(false);
+//        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+//            if(location.getBlock().getType() == Material.RESPAWN_ANCHOR) {
+//                tmp.set(true);
+//                Bukkit.broadcastMessage("adentro del sheduler");
+//            }
+//        }, 20L);
+//        Bukkit.broadcastMessage("afuera del sheduler");
+//        return tmp.get();
+//    }
 
 }

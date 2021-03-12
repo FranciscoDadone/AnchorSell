@@ -1,13 +1,8 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
-enum WorldGuard {
-    ACTIVE,
-    NOT_ACTIVE;
-}
-
 public class Global {
 
-    private static WorldGuard wg;
+    private static WG wg;
 
     public static void setWorldGuard(boolean value) {
         if(value)
@@ -16,7 +11,7 @@ public class Global {
             wg = wg.NOT_ACTIVE;
     }
 
-    public static WorldGuard getWorldGuard() {
+    public static WG getWorldGuard() {
         return wg;
     }
 }
