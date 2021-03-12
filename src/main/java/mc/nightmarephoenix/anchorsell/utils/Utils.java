@@ -2,6 +2,8 @@ package mc.nightmarephoenix.anchorsell.utils;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
+import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
+import mc.nightmarephoenix.anchorsell.hooks.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import net.prosavage.factionsx.manager.GridManager;
 import net.prosavage.factionsx.manager.PlayerManager;
@@ -158,15 +160,21 @@ public class Utils {
     }
 
     public static boolean isPlayerInHisFaction(Block block, Player p) {
-        if(String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()))) {
-            return true;
+        if(Global.getFactionsX() == FactionsX.ACTIVE) {
+            if(String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()))) {
+                return true;
+            }
+            return false;
         }
         return false;
     }
 
     public static boolean isBlockInWilderness(Block block) {
-        if(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null) {
-            return true;
+        if(Global.getFactionsX() == FactionsX.ACTIVE) {
+            if(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null) {
+                return true;
+            }
+            return false;
         }
         return false;
     }

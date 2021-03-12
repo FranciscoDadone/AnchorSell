@@ -32,8 +32,9 @@ public class GuiAnchorEvents implements Listener {
         Block block = p.getTargetBlock(null, 5);
         Location location = block.getLocation();
 
+        // Checks if the player is in direct contact with the anchor
         if (block.getType() != Material.RESPAWN_ANCHOR && (e.getCurrentItem().getItemMeta().getDisplayName().equals(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt"))))) { // ARREGLAR
-            p.sendMessage(plugin.getConfig().getString("anchor.cantaccess"));
+            p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.cantaccess")));
             p.closeInventory();
             return;
         }
