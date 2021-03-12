@@ -6,6 +6,9 @@ import mc.nightmarephoenix.anchorsell.utils.Global;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import mc.nightmarephoenix.anchorsell.utils.WG;
 import mc.nightmarephoenix.anchorsell.worldguard.RegionManager;
+import net.prosavage.factionsx.manager.FactionManager;
+import net.prosavage.factionsx.manager.GridManager;
+import net.prosavage.factionsx.manager.PlayerManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.RespawnAnchor;
@@ -13,8 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
-import sun.awt.X11.XSystemTrayPeer;
-
 
 public class AnchorPlace implements Listener {
 
@@ -27,6 +28,9 @@ public class AnchorPlace implements Listener {
         Block block = e.getBlock();
         World anchorInWorld = block.getWorld();
         boolean isInWorld = false;
+
+//        e.getPlayer().sendMessage(GridManager.INSTANCE.getFactionAt(block.getChunk()).toString());
+//        e.getPlayer().sendMessage(FactionManager.INSTANCE.getFaction("tests").toString());
 
 //        if(block.getType() == Material.RESPAWN_ANCHOR && !Utils.stillExists(plugin, block.getLocation())) { // checks if the anchor still exists (this is a fix for placing in factions claimed land and saving to the config)
 //            return;

@@ -157,16 +157,16 @@ public class Utils {
         return item;
     }
 
-//    public static boolean stillExists(AnchorSell plugin, Location location) {
-//        AtomicBoolean tmp = new AtomicBoolean(false);
-//        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-//            if(location.getBlock().getType() == Material.RESPAWN_ANCHOR) {
-//                tmp.set(true);
-//                Bukkit.broadcastMessage("adentro del sheduler");
-//            }
-//        }, 20L);
-//        Bukkit.broadcastMessage("afuera del sheduler");
-//        return tmp.get();
-//    }
+    public static boolean stillExists(AnchorSell plugin, Location location) {
+        AtomicBoolean tmp = new AtomicBoolean(false);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+            if(location.getBlock().getType() == Material.RESPAWN_ANCHOR) {
+                tmp.set(true);
+                Bukkit.broadcastMessage("adentro del sheduler");
+            }
+        }, 20L);
+        Bukkit.broadcastMessage("afuera del sheduler");
+        return tmp.get();
+    }
 
 }
