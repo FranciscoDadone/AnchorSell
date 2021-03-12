@@ -82,7 +82,9 @@ anchor:
       - "&eLocation:&f %location%"
       - "&eLevel: %level%"
       - ""
-  cantaccess: "You need direct contact with the anchor to use it."
+  cantaccess: "&4You need direct contact with the anchor to use it."
+  onlyPlaceInFactionTerritory: true
+  notInFaction: "&4You can only place anchors in your faction"
 
 anchorbuy:
   title: "&5Buy Anchor Sell"

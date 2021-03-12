@@ -29,8 +29,16 @@ public class AnchorPlace implements Listener {
         World anchorInWorld = block.getWorld();
         boolean isInWorld = false;
 
-//        e.getPlayer().sendMessage(GridManager.INSTANCE.getFactionAt(block.getChunk()).toString());
-//        e.getPlayer().sendMessage(FactionManager.INSTANCE.getFaction("tests").toString());
+        // Anchors can only be placed in faction territory
+        if(!Utils.isPlayerInHisFaction(block) && plugin.getConfig().getBoolean("anchor.onlyPlaceInFactionTerritory") && block.getType() == Material.RESPAWN_ANCHOR) {
+            e.getPlayer().sendMessage(Utils.Color(plugin.getConfig().getString("anchor.notInFaction")));
+            e.setCancelled(true);
+            return;
+        }
+
+
+
+        //e.getPlayer().sendMessage(String.valueOf(String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(FactionManager.INSTANCE.getFaction("tests").getLeader()))));
 
 //        if(block.getType() == Material.RESPAWN_ANCHOR && !Utils.stillExists(plugin, block.getLocation())) { // checks if the anchor still exists (this is a fix for placing in factions claimed land and saving to the config)
 //            return;

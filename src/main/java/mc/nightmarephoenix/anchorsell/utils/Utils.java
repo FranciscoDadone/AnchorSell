@@ -3,10 +3,14 @@ package mc.nightmarephoenix.anchorsell.utils;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import net.prosavage.factionsx.manager.FactionManager;
+import net.prosavage.factionsx.manager.GridManager;
+import net.prosavage.factionsx.manager.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -157,16 +161,11 @@ public class Utils {
         return item;
     }
 
-    public static boolean stillExists(AnchorSell plugin, Location location) {
-        AtomicBoolean tmp = new AtomicBoolean(false);
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
-            if(location.getBlock().getType() == Material.RESPAWN_ANCHOR) {
-                tmp.set(true);
-                Bukkit.broadcastMessage("adentro del sheduler");
-            }
-        }, 20L);
-        Bukkit.broadcastMessage("afuera del sheduler");
-        return tmp.get();
+    public static boolean isPlayerInHisFaction(Block block) {
+//        if(String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(FactionManager.INSTANCE.getFaction().getLeader()))) {
+//            return true;
+//        }
+        return false;
     }
 
 }
