@@ -163,7 +163,7 @@ public class StorageManager {
         return res;
     }
 
-    public static void getAnchorUserList(AnchorSell plugin, Player p, int page) throws InvalidConfigurationException {
+    public static void getAnchorUserList(AnchorSell plugin, Player p) throws InvalidConfigurationException {
         userData = new PerUSerStorage(plugin, p);
 
         p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.first-message")));
@@ -213,10 +213,25 @@ public class StorageManager {
         userData.saveConfig();
     }
 
+    public static void changeUpgradeMultiplier(AnchorSell plugin, int multiplier) {
+        plugin.getConfig().set("anchor.upgrade-multiplier", multiplier);
+        plugin.saveConfig();
+    }
+
+    public static void changePrice(AnchorSell plugin, int price) {
+        plugin.getConfig().set("anchor-value", price);
+        plugin.saveConfig();
+    }
+
+    public static void changeSafeZone(AnchorSell plugin, int zone) {
+        plugin.getConfig().set("safe-anchor-area", zone);
+        plugin.saveConfig();
+    }
+
+
     public static GeneralStorage getGeneralStorage() {
         return generalData;
     }
-
     public static PerUSerStorage getUserData(AnchorSell plugin, Player p) {
         return new PerUSerStorage(plugin, p);
     }

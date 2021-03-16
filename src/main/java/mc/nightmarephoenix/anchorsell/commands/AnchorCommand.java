@@ -24,10 +24,16 @@ public class AnchorCommand implements CommandExecutor {
         Player player = sender.getServer().getPlayerExact(sender.getName());
 
         if (isAnchorCommand) { // sender instanceof Player
-            if (sender.hasPermission("anchorsell.player.help") && (args.length == 0)) {
-                // /anchor
-                for(String msg: plugin.getConfig().getStringList("help-message")) {
-                    sender.sendMessage(Utils.Color(msg));
+            // /anchor
+            if(args.length == 0) {
+                if(sender.hasPermission("anchorsell.admin.help")) {
+                    for(String msg: plugin.getConfig().getStringList("help-message-admin")) {
+                        sender.sendMessage(Utils.Color(msg));
+                    }
+                } else if(sender.hasPermission("anchorsell.player.help")) {
+                    for(String msg: plugin.getConfig().getStringList("help-message")) {
+                        sender.sendMessage(Utils.Color(msg));
+                    }
                 }
             } else if(sender.hasPermission("anchorsell.admin.reload") && (args.length > 0) && (args[0].equalsIgnoreCase("reload"))) {
                 // /anchor reload
@@ -62,14 +68,18 @@ public class AnchorCommand implements CommandExecutor {
                 player.openInventory(new BuyScreen(player, plugin).getInventory());
             } else if (sender.hasPermission("anchorsell.player.list")
                     && args[0].equalsIgnoreCase("list")) {
-                try {
-                    if(args.length == 1) {
-                        StorageManager.getAnchorUserList(plugin, player, 1);
-                    } else if(args.length == 2) {
-                        StorageManager.getAnchorUserList(plugin, player, Integer.parseInt(args[2]));
+                if(args[1].length() > 0 && sender.hasPermission("anchorsell.admin.list")) {
+                    try {
+                        StorageManager.getAnchorUserList(plugin, Bukkit.getPlayer(args[1]));
+                    } catch (InvalidConfigurationException e) {
+                        player.sendMessage("An error happened. Contact an administrator.");
                     }
-                } catch (InvalidConfigurationException e) {
-                    e.printStackTrace();
+                } else {
+                    try {
+                        StorageManager.getAnchorUserList(plugin, player);
+                    } catch (InvalidConfigurationException e) {
+                        player.sendMessage("An error happened. Contact an administrator.");
+                    }
                 }
             } else if (args[0].equalsIgnoreCase("authors")) {
                 player.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor &7&m----------"));
@@ -78,7 +88,6 @@ public class AnchorCommand implements CommandExecutor {
                 player.sendMessage(Utils.Color("&7&m----------------------------"));
             }  else if (sender.hasPermission("anchorsell.admin.upgrades") && args[0].equalsIgnoreCase("upgrades")) {
                 player.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor &7&m----------"));
-
                 for (int i = 1; i <= 64; i++) {
                     player.sendMessage(Utils.Color(
                             "Level: " + i
@@ -86,8 +95,18 @@ public class AnchorCommand implements CommandExecutor {
                             + " | MPerMinute: " + Utils.getMoneyPerMinute(i)
                     ));
                 }
-
                 player.sendMessage(Utils.Color("&7&m----------------------------"));
+            } else if(sender.hasPermission("anchorsell.admin.changeUpgradeMultiplier") && args.length == 1 && args[1].equalsIgnoreCase("changeupgrademultiplier")) {
+                StorageManager.changeUpgradeMultiplier(plugin, Integer.parseInt(args[1]));
+                player.sendMessage(Utils.Color("&aMultiplier changed to &c" + Integer.parseInt(args[1])));
+            } else if(sender.hasPermission("anchorsell.admin.changePrice") && args.length == 1 && args[1].equalsIgnoreCase("changeprice")) {
+                StorageManager.changePrice(plugin, Integer.parseInt(args[1]));
+                player.sendMessage(Utils.Color("&aPrice for anchors changed to &c$" + Integer.parseInt(args[1])));
+            } else if(sender.hasPermission("anchorsell.admin.changeSafeZone") && args.length == 1 && args[1].equalsIgnoreCase("changeSafeZone")) {
+                StorageManager.changeSafeZone(plugin, Integer.parseInt(args[1]));
+                player.sendMessage(Utils.Color("&aSafe zone changed to &c$" + Integer.parseInt(args[1])));
+            } else {
+                player.sendMessage(Utils.Color(plugin.getConfig().getString("unknown-command")));
             }
         }
         return true;
