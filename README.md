@@ -31,6 +31,8 @@ You can upgrade the anchors to earn more money!
 - /anchor give [player] [quantity] [level] (anchorsell.admin.give)
 - /anchor upgrades (anchorsell.admin.upgrades)
 - /anchor list [playername] (anchorsell.admin.list)
+- /anchor changeUpgradeMultiplier [multiplier] (anchorsell.admin.changeUpgradeMultiplier)
+- /anchor changeSafeZone [safeZone] (anchorsell.admin.changeSafeZone)
 
 
 ## Screenshots // Gifs
