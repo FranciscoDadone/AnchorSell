@@ -29,6 +29,7 @@ You can upgrade the anchors to earn more money!
 - /anchor reload (anchorsell.admin.reload)
 - /anchor give [player] [quantity] [level] (anchorsell.admin.give)
 - /anchor upgrades (anchorsell.admin.upgrades)
+- /anchor list [playername] (anchorsell.admin.list)
 
 
 ## Screenshots // Gifs
