@@ -20,10 +20,10 @@ help-message:
 
 help-message-admin:
   - "&7&m----------&r &5&lAnchor &7&m----------"
-  - "&e/anchor reload &f Recarga la config (solo Admin)"
-  - "&e/anchor give [nombre] [cantidad] [level] &fDa un anchor a un jugador (solo Admin)"
+  - "&e/anchor reload &f Recarga la config"
+  - "&e/anchor give [nombre] [cantidad] [level] &fDa un anchor a un jugador"
   - "&e/anchor list [username] &fMuestra una lista de los anchors que puso un jugador."
-  - "&e/anchor upgrades &fMUestra el coste de la progresión de los anchors."
+  - "&e/anchor upgrades &fMuestra el coste de la progresión de los anchors."
   - "&e/anchor changeUpgradeMultiplier [multiplier] &fCambia el multiplicador de dinero. Esto afecta el precio de las mejoras."
   - "&e/anchor changePrice [price] &fCambia el precio de los anchors."
   - "&e/anchor changeSafeZone [zone] &fCambia el radio mínimo para poner un anchor."

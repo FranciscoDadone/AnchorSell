@@ -96,13 +96,13 @@ public class AnchorCommand implements CommandExecutor {
                     ));
                 }
                 player.sendMessage(Utils.Color("&7&m----------------------------"));
-            } else if(sender.hasPermission("anchorsell.admin.changeUpgradeMultiplier") && args.length == 1 && args[1].equalsIgnoreCase("changeupgrademultiplier")) {
+            } else if(sender.hasPermission("anchorsell.admin.changeUpgradeMultiplier") && args.length == 1 && args[0].equalsIgnoreCase("changeupgrademultiplier")) {
                 StorageManager.changeUpgradeMultiplier(plugin, Integer.parseInt(args[1]));
                 player.sendMessage(Utils.Color("&aMultiplier changed to &c" + Integer.parseInt(args[1])));
-            } else if(sender.hasPermission("anchorsell.admin.changePrice") && args.length == 1 && args[1].equalsIgnoreCase("changeprice")) {
+            } else if(sender.hasPermission("anchorsell.admin.changePrice") && args.length == 1 && args[0].equalsIgnoreCase("changeprice")) {
                 StorageManager.changePrice(plugin, Integer.parseInt(args[1]));
                 player.sendMessage(Utils.Color("&aPrice for anchors changed to &c$" + Integer.parseInt(args[1])));
-            } else if(sender.hasPermission("anchorsell.admin.changeSafeZone") && args.length == 1 && args[1].equalsIgnoreCase("changeSafeZone")) {
+            } else if(sender.hasPermission("anchorsell.admin.changeSafeZone") && args.length == 1 && args[0].equalsIgnoreCase("changeSafeZone")) {
                 StorageManager.changeSafeZone(plugin, Integer.parseInt(args[1]));
                 player.sendMessage(Utils.Color("&aSafe zone changed to &c$" + Integer.parseInt(args[1])));
             } else {
