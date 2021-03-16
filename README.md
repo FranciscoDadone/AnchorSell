@@ -33,6 +33,8 @@ You can upgrade the anchors to earn more money!
 - /anchor list [playername] (anchorsell.admin.list)
 - /anchor changeUpgradeMultiplier [multiplier] (anchorsell.admin.changeUpgradeMultiplier)
 - /anchor changeSafeZone [safeZone] (anchorsell.admin.changeSafeZone)
+- /anchor getUserFileName [username] (anchorsell.admin.getUserFileName)
+- /anchor revalidate [username] (anchorsell.admin.revalidate)
 
 
 ## Screenshots // Gifs
