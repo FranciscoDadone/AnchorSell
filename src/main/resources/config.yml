@@ -20,12 +20,13 @@ help-message:
 
 help-message-admin:
   - "&7&m----------&r &5&lAnchor &7&m----------"
-  - "&e/anchor reload &f Reloads the config file"
-  - "&e/anchor give [name] [quantity] [level] &fGives an anchor to a player"
-  - "&e/anchor list [username] &fGives a list of the placed anchors in the world"
-  - "&e/anchor upgrades &fShows the cost in money of the anchor progression"
+  - "&e/anchor reload &f Reloads the config file."
+  - "&e/anchor give [name] [quantity] [level] &fGives an anchor to a player."
+  - "&e/anchor list [username] &fGives a list of the placed anchors in the world."
+  - "&e/anchor upgrades &fShows the cost in money of the anchor progression."
   - "&e/anchor changeUpgradeMultiplier [multiplier] &fChanges the upgrade multiplier. This affects the price of the anchor upgrade."
   - "&e/anchor changePrice [price] &fChanges the anchor price."
+  - "&e/anchor changeSafeZone [zone] &fChanges the minimum radius to place an anchor."
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
