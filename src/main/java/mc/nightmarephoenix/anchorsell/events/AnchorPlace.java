@@ -79,7 +79,7 @@ public class AnchorPlace implements Listener {
         Location loc = new Location(anchorInWorld, block.getX(), block.getY(), block.getZ());
 
         if(block.getType() == Material.RESPAWN_ANCHOR) {
-            if(analyzeLocation(new Location(block.getWorld(), block.getX() - 3, block.getY() - 3, block.getZ() - 3), loc, plugin.getConfig().getInt("safe-anchor-area"))) {
+            if(analyzeLocation(new Location(block.getWorld(), block.getX() - plugin.getConfig().getInt("safe-anchor-area"), block.getY() - plugin.getConfig().getInt("safe-anchor-area"), block.getZ() - plugin.getConfig().getInt("safe-anchor-area")), loc, plugin.getConfig().getInt("safe-anchor-area"))) {
                 if(!StorageManager.anchorPlace(plugin, e, p, loc, currentAnchorLevel)) {
                     return;
                 }
