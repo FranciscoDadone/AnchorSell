@@ -106,6 +106,33 @@ public class AnchorCommand implements CommandExecutor {
                 }
                 sender.sendMessage(Utils.Color("&7&m----------------------------"));
 
+            } else if(sender.hasPermission("anchorsell.admin.getUserFileName") && args[0].equalsIgnoreCase("getuserfilename")) {
+            // anchor getUserFileName
+                if(args[1] != null && args[1] != "") {
+                    sender.sendMessage(Utils.Color("&aUser file name: &c" + Bukkit.getPlayer(args[1]).getUniqueId() + ".yml"));
+                } else {
+                    sender.sendMessage(Utils.Color("Usage: &e/anchor getuserfilename [username]"));
+                }
+
+            } else if(sender.hasPermission("anchorsell.admin.changeTotalAnchorsUserCanHave") && args[0].equalsIgnoreCase("changeTotalAnchorsUserCanHave")) {
+            // anchor changetotalanchorsusercanhave
+                if(args[1] != null && args[1] != "") {
+                    StorageManager.changeTotalAnchorsUserCanHave(plugin, Integer.parseInt(args[1]));
+                    sender.sendMessage(Utils.Color("&aTotal anchors per user changed to &c" + args[1]));
+                } else {
+                    sender.sendMessage(Utils.Color("Usage: &e/anchor changeTotalAnchorsUserCanHave [number]"));
+                }
+
+            } else if(sender.hasPermission("anchorsell.admin.revalidate") && args[0].equalsIgnoreCase("revalidate")) {
+            // anchor revalidate
+                if(args[1] != null && args[1] != "") {
+
+                    StorageManager.revalidateUser(plugin, Bukkit.getPlayer(args[1]));
+
+                } else {
+                    sender.sendMessage(Utils.Color("Usage: &e/anchor revalidate [username]"));
+                }
+
             } else {
                 if (args[0].equalsIgnoreCase("authors")) {
                     sender.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor &7&m----------"));

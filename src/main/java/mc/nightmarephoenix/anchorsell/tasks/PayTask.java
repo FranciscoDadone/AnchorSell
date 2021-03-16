@@ -19,6 +19,9 @@ public class PayTask extends BukkitRunnable {
     @Override
     public void run() {
         Collection<Player> onlinePlayers = (Collection<org.bukkit.entity.Player>) Bukkit.getOnlinePlayers();
+
+        StorageManager.revalidateAll(plugin);
+
         for(Player p: onlinePlayers) {
             double totalAmount = 0;
             for(int i = 1; i <= StorageManager.getPlayerTotalAnchors(plugin, p); i++) {

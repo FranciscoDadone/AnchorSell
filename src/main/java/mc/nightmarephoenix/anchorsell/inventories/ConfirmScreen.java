@@ -50,7 +50,7 @@ public class ConfirmScreen implements InventoryHolder {
         inv.setItem(16, noGlass);
 
         // anchor
-        ItemStack anchor = Utils.createItem(Utils.Color(plugin.getConfig().getString("confirmscreen.item")), Material.RESPAWN_ANCHOR, true);
+        ItemStack anchor = Utils.createItem(Utils.Color("&f$&e" + plugin.getConfig().getInt("anchor-value")), Material.RESPAWN_ANCHOR, true);
         inv.setItem(13, anchor);
     }
 

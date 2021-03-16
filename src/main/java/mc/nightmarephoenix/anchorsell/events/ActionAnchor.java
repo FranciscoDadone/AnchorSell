@@ -21,6 +21,7 @@ public class ActionAnchor implements Listener {
         Player p = e.getPlayer();
         try {
             if(e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR && (p.isSneaking() && e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+                e.setCancelled(true);
                 return;
             }
             if((e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) && !p.isSneaking()) {
@@ -34,6 +35,7 @@ public class ActionAnchor implements Listener {
             }
             return;
         } catch (Exception e1) {
+            e.setCancelled(true);
             return;
         }
     }

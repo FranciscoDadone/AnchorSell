@@ -4,6 +4,7 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -40,6 +41,7 @@ public class StorageManager {
                 userData.getConfig().set("anchors." + i + ".location.x", location.getX());
                 userData.getConfig().set("anchors." + i + ".location.y", location.getY());
                 userData.getConfig().set("anchors." + i + ".location.z", location.getZ());
+                userData.getConfig().set("anchors." + i + ".location.world", location.getWorld().getName());
                 userData.getConfig().set("anchors." + i + ".level", currentAnchorLevel);
                 break;
             }
@@ -49,6 +51,7 @@ public class StorageManager {
         generalData.getConfig().set("all_anchors." + anchorID + ".location.x", location.getX());
         generalData.getConfig().set("all_anchors." + anchorID + ".location.y", location.getY());
         generalData.getConfig().set("all_anchors." + anchorID + ".location.z", location.getZ());
+        generalData.getConfig().set("all_anchors." + anchorID + ".location.world", location.getWorld().getName());
         generalData.getConfig().set("all_anchors." + anchorID + ".owner", p.getUniqueId().toString());
         generalData.getConfig().set("all_anchors." + anchorID + ".level", currentAnchorLevel);
 
@@ -228,6 +231,74 @@ public class StorageManager {
         plugin.saveConfig();
     }
 
+    public static void changeTotalAnchorsUserCanHave(AnchorSell plugin, int n) {
+        plugin.getConfig().set("total-anchors-user-can-have", n);
+        plugin.saveConfig();
+    }
+
+    public static void revalidateAll(AnchorSell plugin) {
+        generalData = new GeneralStorage(plugin);
+        for(Player p: Bukkit.getOnlinePlayers()) {
+            userData = new PerUSerStorage(plugin, p);
+            for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
+                if(userData.getConfig().contains("anchors." + i)) {
+                    Location loc;
+                    if(userData.getConfig().contains("anchors." + i + ".location.world")) {
+                        loc = new Location(Bukkit.getWorld(userData.getConfig().getString("anchors." + i + ".location.world")),
+                                userData.getConfig().getInt("anchors." + i + ".location.x"),
+                                userData.getConfig().getInt("anchors." + i + ".location.y"),
+                                userData.getConfig().getInt("anchors." + i + ".location.z"));
+                    } else {
+                        loc = new Location(Bukkit.getWorld("world"),
+                                userData.getConfig().getInt("anchors." + i + ".location.x"),
+                                userData.getConfig().getInt("anchors." + i + ".location.y"),
+                                userData.getConfig().getInt("anchors." + i + ".location.z"));
+                    }
+
+                    if(loc.getBlock().getType() != Material.RESPAWN_ANCHOR) {
+                        userData.getConfig().set("anchors." + i, null);
+                        userData.getConfig().set("total", userData.getConfig().getInt("total") - 1);
+                        if(generalData.getConfig().contains("all_anchors." + StorageManager.getAnchorUUID(loc))) {
+                            generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(loc), null);
+                        }
+                        userData.saveConfig();
+                        generalData.saveConfig();
+                    }
+                }
+            }
+        }
+    }
+
+    public static void revalidateUser(AnchorSell plugin, Player p) {
+        generalData = new GeneralStorage(plugin);
+        userData = new PerUSerStorage(plugin, p);
+        for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
+            if(userData.getConfig().contains("anchors." + i)) {
+                Location loc;
+                if(userData.getConfig().contains("anchors." + i + ".location.world")) {
+                    loc = new Location(Bukkit.getWorld(userData.getConfig().getString("anchors." + i + ".location.world")),
+                            userData.getConfig().getInt("anchors." + i + ".location.x"),
+                            userData.getConfig().getInt("anchors." + i + ".location.y"),
+                            userData.getConfig().getInt("anchors." + i + ".location.z"));
+                } else {
+                    loc = new Location(Bukkit.getWorld("world"),
+                            userData.getConfig().getInt("anchors." + i + ".location.x"),
+                            userData.getConfig().getInt("anchors." + i + ".location.y"),
+                            userData.getConfig().getInt("anchors." + i + ".location.z"));
+                }
+
+                if(loc.getBlock().getType() != Material.RESPAWN_ANCHOR) {
+                    userData.getConfig().set("anchors." + i, null);
+                    userData.getConfig().set("total", userData.getConfig().getInt("total") - 1);
+                    if(generalData.getConfig().contains("all_anchors." + StorageManager.getAnchorUUID(loc))) {
+                        generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(loc), null);
+                    }
+                    userData.saveConfig();
+                    generalData.saveConfig();
+                }
+            }
+        }
+    }
 
     public static GeneralStorage getGeneralStorage() {
         return generalData;

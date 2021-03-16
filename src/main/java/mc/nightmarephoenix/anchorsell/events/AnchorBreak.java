@@ -24,13 +24,21 @@ public class AnchorBreak implements Listener {
         if(block.getType() == Material.RESPAWN_ANCHOR) {
             Location location = block.getLocation();
 
-            // Check if the player is in his faction and let it break the anchor
-            if(!Utils.isPlayerInHisFaction(block, p) && !Utils.isBlockInWilderness(block) && !p.isOp()) {
+            // Si no esta registrado el anchor no hace nada
+            if (!StorageManager.isARegisterAnchor(plugin, location)) {
                 return;
             }
 
-            // Si no esta registrado el anchor no hace nada
-            if (!StorageManager.isARegisterAnchor(plugin, location)) {
+            // Check if the player is in his faction and let it break the anchor
+            if(!Utils.isPlayerInHisFaction(block, p) && !Utils.isBlockInWilderness(block) && !p.isOp()) {
+                e.setCancelled(true);
+                return;
+            }
+
+            // Checks if is a faction member
+            if(Utils.isAFactionMember(plugin, p, block) && !plugin.getConfig().getBoolean("can-faction-members-destroy-members-anchors")) {
+                e.setCancelled(true);
+                p.sendMessage(Utils.Color(plugin.getConfig().getString("cannot-break-members-anchors")));
                 return;
             }
 

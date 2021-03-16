@@ -5,8 +5,10 @@ import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
 import mc.nightmarephoenix.anchorsell.hooks.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import net.prosavage.factionsx.core.FPlayer;
 import net.prosavage.factionsx.manager.GridManager;
 import net.prosavage.factionsx.manager.PlayerManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -179,4 +181,16 @@ public class Utils {
         return false;
     }
 
+    public static boolean isAFactionMember(AnchorSell plugin, Player breaker, Block block) {
+        if(Global.getFactionsX() == FactionsX.ACTIVE) {
+            for(FPlayer p: GridManager.INSTANCE.getFactionAt(block.getChunk()).getMembers()) {
+                if(breaker.getName().equals(p.getName())) {
+                    if(!StorageManager.isMyAnchor(block.getLocation(), breaker, plugin)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }

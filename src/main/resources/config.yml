@@ -27,6 +27,9 @@ help-message-admin:
   - "&e/anchor changeUpgradeMultiplier [multiplier] &fChanges the upgrade multiplier. This affects the price of the anchor upgrade."
   - "&e/anchor changePrice [price] &fChanges the anchor price."
   - "&e/anchor changeSafeZone [zone] &fChanges the minimum radius to place an anchor."
+  - "&e/anchor changeTotalAnchorsUserCanHave [number] &fChanges the total anchors one user can have."
+  - "&e/anchor getUserFileName [username] &fShows the archive where the user information is stored."
+  - "&e/anchor revalidate [username] &fRevalidates the anchors of that player."
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
@@ -37,9 +40,11 @@ cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 10
 safe-anchor-area: 3
 anchor-value: 100000
+can-faction-members-destroy-members-anchors: false # this is if a faction member can destroy another member's anchor
 radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
 you-dont-own-this-anchor: "&4You don't own this anchor"
+cannot-break-members-anchors: "&4You can not break your faction members anchors."
 
 enable-in-worlds:
   - world
@@ -118,7 +123,6 @@ confirmscreen:
   you-cant-afford: "&5You can't afford this."
   cancel: "&4&lCancel"
   confirm: "&a&lConfirm"
-  item: "&f$&e100.000"
 
 anchor-place:
   - "&7&m----------&r &5&lAnchor &7&m----------"
