@@ -66,7 +66,7 @@ public class AnchorCommand implements CommandExecutor {
             } else if (sender.hasPermission("anchorsell.player.list") && args[0].equalsIgnoreCase("list") && args.length == 1) {
             // anchor list
                 try {
-                    StorageManager.getAnchorUserList(plugin, Bukkit.getPlayer(sender.getName()));
+                    StorageManager.getAnchorUserList(plugin, Bukkit.getPlayer(sender.getName()), Bukkit.getPlayer(sender.getName()));
                 } catch (InvalidConfigurationException e) {
                     sender.sendMessage("An error happened. Contact an administrator.");
                 }
@@ -74,7 +74,7 @@ public class AnchorCommand implements CommandExecutor {
             } else if (sender.hasPermission("anchorsell.admin.list") && args[0].equalsIgnoreCase("list") && args.length == 2) {
             // anchor list username
                 try {
-                    StorageManager.getAnchorUserList(plugin, Bukkit.getPlayer(args[1]));
+                    StorageManager.getAnchorUserList(plugin, Bukkit.getPlayer(args[1]), Bukkit.getPlayer(sender.getName()));
                 } catch (InvalidConfigurationException e) {
                     sender.sendMessage("An error happened. Contact an administrator.");
                 }

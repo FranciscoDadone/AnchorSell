@@ -166,17 +166,17 @@ public class StorageManager {
         return res;
     }
 
-    public static void getAnchorUserList(AnchorSell plugin, Player p) throws InvalidConfigurationException {
+    public static void getAnchorUserList(AnchorSell plugin, Player p, Player toSendBack) throws InvalidConfigurationException {
         userData = new PerUSerStorage(plugin, p);
 
-        p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.first-message")));
+        toSendBack.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.first-message")));
 
         for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
 
                 int finalI = i;
                 Utils.Color(plugin.getConfig().getStringList("anchor.list.message")).forEach((str) -> {
-                    p.sendMessage(
+                    toSendBack.sendMessage(
                             str.replaceAll("%location%", "X: " + userData.getConfig().getInt("anchors."+ finalI + ".location.x")
                                             + " Y: " + userData.getConfig().getInt("anchors."+ finalI + ".location.y")
                                             + " Z: " + userData.getConfig().getInt("anchors."+ finalI + ".location.z"))
@@ -185,7 +185,7 @@ public class StorageManager {
                 });
             }
         }
-        p.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.last-message")));
+        toSendBack.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.last-message")));
     }
 
     public static void upgradeAnchor(AnchorSell plugin, Location location, Player p) {
