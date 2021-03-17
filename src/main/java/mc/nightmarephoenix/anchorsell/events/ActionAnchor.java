@@ -35,7 +35,6 @@ public class ActionAnchor implements Listener {
             }
             return;
         } catch (Exception e1) {
-            e.setCancelled(true);
             return;
         }
     }
