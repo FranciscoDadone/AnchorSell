@@ -150,12 +150,22 @@ public class AnchorCommand implements CommandExecutor {
                 } catch (Exception e1) {}
 
                 int n = 1 + (1 * (10 * (page - 1)));
+                boolean skipFirst = page != 1;
                 sender.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor TOP &r&5&o(" + page + "/" + (int) maxPages + ") &7&m----------"));
                 for(int i = (top.size() - (10 * (page - 1))); i > (top.size() - (10 * page) - 1); i--) {
-                    try {
-                        sender.sendMessage(Utils.Color("&7#" + n + " &b" + Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[i].toString())).getName() + "&7 - &f" + top.get(top.keySet().toArray()[i])));
-                        n++;
-                    } catch (Exception e) {}
+                    if(skipFirst) {
+                        if((top.size() - (10 * (page - 1))) != i){
+                            try {
+                                sender.sendMessage(Utils.Color("&7#" + n + " &b" + Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[i].toString())).getName() + "&7 - &f" + top.get(top.keySet().toArray()[i])));
+                                n++;
+                            } catch (Exception e) {}
+                        }
+                    } else {
+                        try {
+                            sender.sendMessage(Utils.Color("&7#" + n + " &b" + Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[i].toString())).getName() + "&7 - &f" + top.get(top.keySet().toArray()[i])));
+                            n++;
+                        } catch (Exception e) {}
+                    }
                 }
                 sender.sendMessage(Utils.Color("&7&m-------------------------------------"));
             } else {
