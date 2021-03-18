@@ -10,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -28,18 +29,15 @@ public class AnchorCommand implements CommandExecutor {
                 for(String msg: plugin.getConfig().getStringList("help-message-admin")) {
                     sender.sendMessage(Utils.Color(msg));
                 }
-
             } else if(sender.hasPermission("anchorsell.player.help") && args.length == 0) {
             // anchor (player)
                 for(String msg: plugin.getConfig().getStringList("help-message")) {
                     sender.sendMessage(Utils.Color(msg));
                 }
-
             } else if(sender.hasPermission("anchorsell.admin.reload") && args[0].equalsIgnoreCase("reload")) {
             // anchor reload
                 plugin.reloadConfig();
                 sender.sendMessage(Utils.Color(plugin.getConfig().getString("reload-message")));
-
             } else if(sender.hasPermission("anchorsell.admin.give") && args.length > 0 && args[0].equalsIgnoreCase("give")) {
             // anchor give
                 // Anchor give without argument
@@ -49,23 +47,33 @@ public class AnchorCommand implements CommandExecutor {
                 // Give one Anchor
                 else if (args.length == 2) {
                     Player p = sender.getServer().getPlayer(args[1]);
-                    p.getInventory().addItem(Utils.getAnchor(1, 1));
+                    if(!p.getInventory().addItem(Utils.getAnchor(1, 1)).isEmpty()) {
+                        sender.sendMessage(Utils.Color("&c" + p.getName() + " has their inventory full."));
+                    } else {
+                        sender.sendMessage(Utils.Color("&aGave &c1 &aAnchor to &c" + p.getName()));
+                    }
                 }
                 // Give Anchor with quantity argument
                 else if (args.length == 3) {
                     Player p = sender.getServer().getPlayer(args[1]);
-                    p.getInventory().addItem(Utils.getAnchor(1, Integer.parseInt(args[2])));
+                    if(!p.getInventory().addItem(Utils.getAnchor(1, Integer.parseInt(args[2]))).isEmpty()) {
+                        sender.sendMessage(Utils.Color("&c" + p.getName() + " has their inventory full."));
+                    } else {
+                        sender.sendMessage(Utils.Color("&aGave &c" + args[2] + " &aAnchor to &c" + p.getName()));
+                    }
                 }
                 // Give Anchor with quantity and level argument
                 else if (args.length == 4) {
                     Player p = sender.getServer().getPlayer(args[1]);
-                    p.getInventory().addItem(Utils.getAnchor(Integer.parseInt(args[3]), Integer.parseInt(args[2])));
+                    if(!p.getInventory().addItem(Utils.getAnchor(Integer.parseInt(args[3]), Integer.parseInt(args[2]))).isEmpty()) {
+                        sender.sendMessage(Utils.Color("&c" + p.getName() + " has their inventory full."));
+                    } else {
+                        sender.sendMessage(Utils.Color("&aGave &c" + args[2] + " &aAnchor to &c" + p.getName() + " &a(level " + Integer.parseInt(args[3]) + ")"));
+                    }
                 }
-
             } else if (sender.hasPermission("anchorsell.player.buy") && args[0].equalsIgnoreCase("buy") && args.length == 1) {
             // anchor buy
                 Bukkit.getPlayer(sender.getName()).openInventory(new BuyScreen(Bukkit.getPlayer(sender.getName()), plugin).getInventory());
-
             } else if (sender.hasPermission("anchorsell.player.list") && args[0].equalsIgnoreCase("list") && args.length == 1) {
             // anchor list
                 try {
@@ -73,7 +81,6 @@ public class AnchorCommand implements CommandExecutor {
                 } catch (InvalidConfigurationException e) {
                     sender.sendMessage("An error happened. Contact an administrator.");
                 }
-
             } else if (sender.hasPermission("anchorsell.admin.list") && args[0].equalsIgnoreCase("list") && args.length == 2) {
             // anchor list username
                 try {
@@ -81,22 +88,18 @@ public class AnchorCommand implements CommandExecutor {
                 } catch (InvalidConfigurationException e) {
                     sender.sendMessage("An error happened. Contact an administrator.");
                 }
-
             } else if (sender.hasPermission("anchorsell.admin.changeUpgradeMultiplier") && args[0].equalsIgnoreCase("changeupgrademultiplier")) {
             // anchor changeupgrademultiplier
                 StorageManager.changeUpgradeMultiplier(plugin, Integer.parseInt(args[1]));
                 sender.sendMessage(Utils.Color("&aMultiplier changed to &c" + Integer.parseInt(args[1])));
-
             } else if (sender.hasPermission("anchorsell.admin.changePrice") && args[0].equalsIgnoreCase("changeprice")) {
             // anchor changeprice
                 StorageManager.changePrice(plugin, Integer.parseInt(args[1]));
                 sender.sendMessage(Utils.Color("&aPrice for anchors changed to &c$" + Integer.parseInt(args[1])));
-
             } else if (sender.hasPermission("anchorsell.admin.changeSafeZone") && args[0].equalsIgnoreCase("changeSafeZone")) {
             // anchor changesafezone
                 StorageManager.changeSafeZone(plugin, Integer.parseInt(args[1]));
                 sender.sendMessage(Utils.Color("&aSafe zone changed to &c" + Integer.parseInt(args[1])));
-
             } else if (sender.hasPermission("anchorsell.admin.upgrades") && args[0].equalsIgnoreCase("upgrades")) {
             // anchor upgrades
                 sender.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor &7&m----------"));
@@ -108,7 +111,6 @@ public class AnchorCommand implements CommandExecutor {
                     ));
                 }
                 sender.sendMessage(Utils.Color("&7&m----------------------------"));
-
             } else if(sender.hasPermission("anchorsell.admin.getUserFileName") && args[0].equalsIgnoreCase("getuserfilename")) {
             // anchor getUserFileName
                 if(args[1] != null && args[1] != "") {
@@ -116,7 +118,6 @@ public class AnchorCommand implements CommandExecutor {
                 } else {
                     sender.sendMessage(Utils.Color("Usage: &e/anchor getuserfilename [username]"));
                 }
-
             } else if(sender.hasPermission("anchorsell.admin.changeTotalAnchorsUserCanHave") && args[0].equalsIgnoreCase("changeTotalAnchorsUserCanHave")) {
             // anchor changetotalanchorsusercanhave
                 if(args[1] != null && args[1] != "") {
@@ -125,17 +126,14 @@ public class AnchorCommand implements CommandExecutor {
                 } else {
                     sender.sendMessage(Utils.Color("Usage: &e/anchor changeTotalAnchorsUserCanHave [number]"));
                 }
-
             } else if(sender.hasPermission("anchorsell.admin.revalidate") && args[0].equalsIgnoreCase("revalidate")) {
             // anchor revalidate
                 if(args[1] != null && args[1] != "") {
-
                     StorageManager.revalidateUser(plugin, Bukkit.getPlayer(args[1]));
-
+                    sender.sendMessage(Utils.Color("&aRevalidated &c" + args[1] + " &afiles."));
                 } else {
                     sender.sendMessage(Utils.Color("Usage: &e/anchor revalidate [username]"));
                 }
-
             } else if(args[0].equalsIgnoreCase("top")) {
             // anchor top
                 HashMap<String, Integer> top = StorageManager.getAnchorTop(plugin);
