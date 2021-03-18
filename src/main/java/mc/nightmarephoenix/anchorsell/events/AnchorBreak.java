@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
 
 public class AnchorBreak implements Listener {
 
@@ -60,7 +63,10 @@ public class AnchorBreak implements Listener {
             });
 
             e.setDropItems(false);
-            p.getWorld().dropItem(location, Utils.getAnchor(StorageManager.getAnchorLevel(plugin, location), 1)).setInvulnerable(true);
+            HashMap<Integer, ItemStack> inv = p.getInventory().addItem(Utils.getAnchor(StorageManager.getAnchorLevel(plugin, location), 1));
+            if(!inv.isEmpty()) {
+                p.getWorld().dropItem(location, Utils.getAnchor(StorageManager.getAnchorLevel(plugin, location), 1)).setInvulnerable(true);
+            }
             StorageManager.anchorBreak(plugin, location);
         }
     }
