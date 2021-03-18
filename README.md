@@ -24,6 +24,7 @@ You can upgrade the anchors to earn more money!
 - /anchor (anchorsell.player.help)
 - /anchor buy (anchorsell.player.help)
 - /anchor list (anchorsell.player.list)
+- /anchor top
 
 ### Admin
 - /anchor (anchorsell.admin.help)
@@ -57,7 +58,7 @@ You can upgrade the anchors to earn more money!
 ## Config file
 
 ```yaml
-version: 0.0.0
+version: 0.1.0
 
 ##
 # AnchorSell plugin
@@ -70,24 +71,45 @@ version: 0.0.0
 
 reload-message: "&aConfig reloaded."
 help-message:
- - "&7&m----------&r &5&lAnchor &7&m----------"
-  - "&e/anchor reload &f Reloads the config file"
-  - "&e/anchor give [name] [quantity] [level] &fGives an anchor to a player"
+  - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&e/anchor buy &fTo buy an anchor"
   - "&e/anchor list &fGives a list of the placed anchors in the world"
+  - "&e/anchor top [number] &fReturns the top."
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
+
+help-message-admin:
+  - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&e/anchor reload &f Reloads the config file."
+  - "&e/anchor give [name] [quantity] [level] &fGives an anchor to a player."
+  - "&e/anchor list [username] &fGives a list of the placed anchors in the world."
+  - "&e/anchor top [number] &fReturns the top."
+  - "&e/anchor upgrades &fShows the cost in money of the anchor progression."
+  - "&e/anchor changeUpgradeMultiplier [multiplier] &fChanges the upgrade multiplier. This affects the price of the anchor upgrade."
+  - "&e/anchor changePrice [price] &fChanges the anchor price."
+  - "&e/anchor changeSafeZone [zone] &fChanges the minimum radius to place an anchor."
+  - "&e/anchor changeTotalAnchorsUserCanHave [number] &fChanges the total anchors one user can have."
+  - "&e/anchor getUserFileName [username] &fShows the archive where the user information is stored."
+  - "&e/anchor revalidate [username] &fRevalidates the anchors of that player."
+  - ""
+  - "&e/anchor authors"
+  - "&7&m----------------------------"
+
+unknown-command: "&5&lAnchor &7- &fUnknown command."
 
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 10
 safe-anchor-area: 3
 anchor-value: 100000
+can-faction-members-destroy-members-anchors: false # this is if a faction member can destroy another member's anchor
 radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
 you-dont-own-this-anchor: "&4You don't own this anchor"
+cannot-break-members-anchors: "&4You can not break your faction members anchors."
 
 enable-in-worlds:
- - world
+  - world
 
 pay-timer-in-minutes: 15
 
@@ -101,13 +123,13 @@ anchor:
       - "&eMoney per minute: &f$%moneyPerMinute%"
   player:
     lore:
-     - "&eBalance:&f %playerBalance%"
+      - "&eBalance:&f %playerBalance%"
       - "&eNumber of anchors:&f %playerAnchors% / %maxPlayerAnchors%"
       - "&eTotal money per 15 minutes: &f%playerMoneyPer15Minutes%"
   upgrades:
     txt: "&6&lUpgrades"
     lore:
-     - "&eFrom:&f %level% (%oreLevel%&f)"
+      - "&eFrom:&f %level% (%oreLevel%&f)"
       - "&eTo: &f%nextLevel% (%nextLevelOre%&f)"
       - "&ePrice: &f$%priceOfUpgrade%"
   upgrade-menu:
@@ -115,7 +137,7 @@ anchor:
     current-level:
       txt: "%currentLevel%"
       lore:
-       - "&7&m----------------------------"
+        - "&7&m----------------------------"
         - "&ePrice: &r$%priceOfUpgrade%"
         - "&7&m----------------------------"
     upgrade-button:
@@ -123,12 +145,12 @@ anchor:
       lore: "Upgrade current anchor"
     back: "&cGo back"
     upgrade-success:
-     - "&7&m----------&r &5&lAnchor &7&m----------"
+      - "&7&m----------&r &5&lAnchor &7&m----------"
       - "&aSuccessfully upgraded the anchor"
       - "%previusLevel% -> %currentLevel%"
       - "&7&m----------------------------"
     upgrade-fail:
-     - "&7&m----------&r &5&lAnchor &7&m----------"
+      - "&7&m----------&r &5&lAnchor &7&m----------"
       - "&cYou don't have money to upgrade :("
       - "&7&m----------------------------"
   explotion-raius-break: "1" # to set as default minecraft, change to "mc-default"
@@ -137,7 +159,7 @@ anchor:
     first-message: "&7&m----------&r &5&lAnchors &7&m----------"
     last-message: "&7&m-----------------------------"
     message:
-     - ""
+      - ""
       - "&eLocation:&f %location%"
       - "&eLevel: %level%"
       - ""
@@ -150,7 +172,7 @@ anchorbuy:
   anchor-info:
     txt: "What is an Anchor Sell?"
     lore:
-     - "&eAn Anchor Sell is a block with which"
+      - "&eAn Anchor Sell is a block with which"
       - "&eyou can earn money automatically, from"
       - "&etime to time, by placing it."
   buy:
@@ -163,17 +185,16 @@ confirmscreen:
   you-cant-afford: "&5You can't afford this."
   cancel: "&4&lCancel"
   confirm: "&a&lConfirm"
-  item: "&f$&e100.000"
 
 anchor-place:
- - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&aNew anchor placed"
   - ""
   - "&eLevel: &f%level%"
   - "&7&m----------------------------"
 
 anchor-break:
- - "&7&m----------&r &5&lAnchor &7&m----------"
+  - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&cAnchor removed"
   - ""
   - "&eLevel: &f%level%"
