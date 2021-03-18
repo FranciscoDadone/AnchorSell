@@ -5,11 +5,13 @@ import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class StorageManager {
     public static boolean anchorPlace(AnchorSell plugin, BlockPlaceEvent e, Player p, Location location, int currentAnchorLevel) {
@@ -300,15 +302,49 @@ public class StorageManager {
         }
     }
 
+    public static HashMap<String, Integer> getAnchorTop(AnchorSell plugin) {
+        generalData = new GeneralStorage(plugin);
+        ArrayList<String> ownersUUID = new ArrayList<>();
+        ArrayList<Integer> levels = new ArrayList<>();
+        ArrayList<String> ownersUUIDNotRepeated = new ArrayList<>();
+        HashMap<String, Integer> top = new HashMap<>();
+
+        // filtering from the general data
+        for(String s: generalData.getConfig().getKeys(true)) {
+            if(s.contains("owner")) {
+                ownersUUID.add(generalData.getConfig().getString(s));
+            }
+            if(s.contains("level")) {
+                levels.add(generalData.getConfig().getInt(s));
+            }
+        }
+
+        // leaving one arraylist as the list of all owners not repeated
+        for(String s: ownersUUID){
+            if(!ownersUUIDNotRepeated.contains(s))
+                ownersUUIDNotRepeated.add(s);
+        }
+
+        // computing the top
+        for(String owner: ownersUUIDNotRepeated) {
+            int sum = 0;
+            for(int i = 0; i < ownersUUID.size(); i++) {
+                if(owner.equals(ownersUUID.get(i))) {
+                    sum += levels.get(i);
+                }
+            }
+            top.put(owner, sum);
+        }
+        return Utils.sortHashMapByValue(top);
+    }
+
+
     public static GeneralStorage getGeneralStorage() {
         return generalData;
     }
     public static PerUSerStorage getUserData(AnchorSell plugin, Player p) {
         return new PerUSerStorage(plugin, p);
     }
-
-
-
     public static PerUSerStorage userData;
     public static GeneralStorage generalData;
 }

@@ -11,6 +11,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 public class AnchorCommand implements CommandExecutor {
 
     public AnchorCommand(AnchorSell plugin) {
@@ -133,6 +136,29 @@ public class AnchorCommand implements CommandExecutor {
                     sender.sendMessage(Utils.Color("Usage: &e/anchor revalidate [username]"));
                 }
 
+            } else if(args[0].equalsIgnoreCase("top")) {
+                HashMap<String, Integer> top = StorageManager.getAnchorTop(plugin);
+                int page = 1;
+                double a = top.size();
+                double maxPages = Math.ceil(a / 10);
+                try {
+                    if(Integer.parseInt(args[1]) > 0 && Integer.parseInt(args[1]) <= maxPages) {
+                        page = Integer.parseInt(args[1]);
+                    } else if(Integer.parseInt(args[1]) > maxPages) {
+                        page = (int) maxPages;
+                    }
+                } catch (Exception e1) {}
+
+                int n = 1 + (1 * (10 * (page - 1)));
+                sender.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor TOP &r&5&o(" + page + "/" + (int) maxPages + ") &7&m----------"));
+                for(int i = (top.size() - (10 * (page - 1))); i > (top.size() - (10 * page) - 1); i--) {
+                    sender.sendMessage(String.valueOf(i));
+                    try {
+                        sender.sendMessage(Utils.Color("&7#" + n + " &b" + Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[i].toString())).getName() + "&7 - &f" + top.get(top.keySet().toArray()[i])));
+                        n++;
+                    } catch (Exception e) {}
+                }
+                sender.sendMessage(Utils.Color("&7&m-------------------------------------"));
             } else {
                 if (args[0].equalsIgnoreCase("authors")) {
                     sender.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor &7&m----------"));
