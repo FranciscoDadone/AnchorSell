@@ -54,6 +54,9 @@ You can upgrade the anchors to earn more money!
 #### Anchor menu
 ![](github/gifs/showing_menu.gif)
 
+#### Anchor top
+![](github/imgs/anchorTop.png)
+
 
 ## Config file
 
