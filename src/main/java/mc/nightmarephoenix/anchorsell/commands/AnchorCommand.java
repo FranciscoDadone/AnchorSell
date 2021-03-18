@@ -137,6 +137,7 @@ public class AnchorCommand implements CommandExecutor {
                 }
 
             } else if(args[0].equalsIgnoreCase("top")) {
+            // anchor top
                 HashMap<String, Integer> top = StorageManager.getAnchorTop(plugin);
                 int page = 1;
                 double a = top.size();
