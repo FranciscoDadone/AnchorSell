@@ -1,6 +1,6 @@
-# AnchorSell Minecraft Plugin for Spigot
+# AnchorSell - Plugin for Spigot
 
-Minecraft plugin to get money using a Respawn anchor. 
+Spigot plugin to get money using a Respawn anchor. 
 
 You can earn money automatically by buying an Anchor Sell, ideal for faction servers.
 
