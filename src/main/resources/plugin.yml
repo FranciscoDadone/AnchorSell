@@ -1,7 +1,7 @@
 name: AnchorSell
 version: 1.2
 main: mc.nightmarephoenix.anchorsell.AnchorSell
-api-version: 1.16
+api-version: 1.17
 depend: [ Vault ]
 softdepend: [ WorldGuard, FactionsX ]
 authors: [ DadoGamer13, MatiasME ]

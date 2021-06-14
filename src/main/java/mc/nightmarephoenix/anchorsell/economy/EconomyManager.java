@@ -1,8 +1,6 @@
 package mc.nightmarephoenix.anchorsell.economy;
 
-import mc.nightmarephoenix.anchorsell.AnchorSell;
 import net.milkbowl.vault.economy.Economy;
-import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;

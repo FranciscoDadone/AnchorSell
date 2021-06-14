@@ -30,7 +30,7 @@ public final class AnchorSell extends JavaPlugin {
             this.getLogger().fine("No WorldGuard detected.");
             Global.setWorldGuard(false);
         }
-        // FactionsX check - soft depend
+         // FactionsX check - soft depend
         try {
             FactionManager.INSTANCE.getFactions();
             Global.setFactionsX(true);
