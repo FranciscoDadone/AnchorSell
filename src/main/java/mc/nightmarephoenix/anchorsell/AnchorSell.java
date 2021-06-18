@@ -16,6 +16,9 @@ public final class AnchorSell extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        /**
+         * Loading dependencies
+         */
         // Vault check
         if (!EconomyManager.setupEconomy()) {
             this.getLogger().severe("Disabled due to no Vault dependency found!");
@@ -40,23 +43,35 @@ public final class AnchorSell extends JavaPlugin {
         }
 
 
-
-
-        // Config
+        /**
+         * Saving config
+         */
         this.saveDefaultConfig();
 
-        // Listeners
+        /**
+         * Loading listeners
+         */
         getServer().getPluginManager().registerEvents(new ActionAnchor(this), this);     // enabling the listener
         getServer().getPluginManager().registerEvents(new GuiAnchorEvents(this), this); // gui click events
         getServer().getPluginManager().registerEvents(new AnchorPlace(this), this);      // detects where the anchor has been placed and stores all the data
         getServer().getPluginManager().registerEvents(new AnchorBreak(this), this);     // detects where the anchor has been removed and stores all the data
         getServer().getPluginManager().registerEvents(new AnchorBlow(this), this);     // detects where the anchor has been blown and stores all the data
 
-        // Commands
+        /**
+         * Loading commands
+         */
         this.getCommand("anchor").setExecutor(new AnchorCommand(this));
-        
-        // Tasks
-        new PayTask(this).runTaskTimer(this, 0, 20 * this.getConfig().getInt("pay-timer-in-minutes") * 60); // starts the timer to pay the player
+
+        /**
+         * Loading the pay task
+         *
+         * (starts the timer to pay the player)
+         */
+        new PayTask(this).runTaskTimer(
+                this,
+                0,
+                20 * this.getConfig().getInt("pay-timer-in-minutes") * 60
+        );
     }
 
     @Override

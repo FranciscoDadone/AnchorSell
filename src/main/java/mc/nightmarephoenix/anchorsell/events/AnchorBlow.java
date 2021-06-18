@@ -24,7 +24,7 @@ public class AnchorBlow implements Listener {
         ArrayList<Block> anchors = new ArrayList<>();
         Entity entity = e.getEntity();
         int r = Math.round(e.getRadius());
-        String radius = plugin.getConfig().getString("anchor.explotion-raius-break");
+        String radius = plugin.getConfig().getString("anchor.explotion-radius-break");
         if(!radius.equals("mc-default"))
             r = Integer.parseInt(radius);
         ArrayList<Block> possibleAnchors = getNearbyAnchors(entity.getLocation(), r);
