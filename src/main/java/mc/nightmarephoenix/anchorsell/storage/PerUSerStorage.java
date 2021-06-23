@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.storage;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -12,7 +13,7 @@ import java.util.logging.Level;
 
 public class PerUSerStorage {
 
-    public PerUSerStorage(AnchorSell plugin, Player p) {
+    public PerUSerStorage(AnchorSell plugin, OfflinePlayer p) {
         this.plugin = plugin;
         this.p = p;
         saveDefaultConfig(p);
@@ -49,18 +50,23 @@ public class PerUSerStorage {
         }
     }
 
-    public void saveDefaultConfig(Player p) {
+    public void saveDefaultConfig(OfflinePlayer p) {
 
         if(this.configFile == null) {
-            this.configFile = new File(this.plugin.getDataFolder() + File.separator + "playerdata", p.getUniqueId() + ".yml");
+            this.configFile = new File(
+                    this.plugin.getDataFolder() + File.separator + "playerdata",
+                    p.getUniqueId() + ".yml"
+            );
         }
         if(!this.configFile.exists()) {
-            new File(this.plugin.getDataFolder() + File.separator + "playerdata", p.getUniqueId() + ".yml");
+            new File(this.plugin.getDataFolder() + File.separator + "playerdata",
+                    p.getUniqueId() + ".yml"
+            );
         }
     }
 
     private AnchorSell plugin;
     private FileConfiguration dataConfig = null;
     private File configFile = null;
-    private Player p;
+    private OfflinePlayer p;
 }

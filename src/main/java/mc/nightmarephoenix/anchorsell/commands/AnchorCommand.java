@@ -84,7 +84,7 @@ public class AnchorCommand implements CommandExecutor {
             } else if (sender.hasPermission("anchorsell.admin.list") && args[0].equalsIgnoreCase("list") && args.length == 2) {
             // anchor list username
                 try {
-                    StorageManager.getAnchorUserList(plugin, Bukkit.getPlayer(args[1]), Bukkit.getPlayer(sender.getName()));
+                    StorageManager.getAnchorUserList(plugin, Bukkit.getOfflinePlayer(args[1]), sender);
                 } catch (InvalidConfigurationException e) {
                     sender.sendMessage("An error happened. Contact an administrator.");
                 }
@@ -129,7 +129,7 @@ public class AnchorCommand implements CommandExecutor {
             } else if(sender.hasPermission("anchorsell.admin.revalidate") && args[0].equalsIgnoreCase("revalidate")) {
             // anchor revalidate
                 if(args[1] != null && args[1] != "") {
-                    StorageManager.revalidateUser(plugin, Bukkit.getPlayer(args[1]));
+                    StorageManager.revalidateUser(plugin, Bukkit.getOfflinePlayer(args[1]));
                     sender.sendMessage(Utils.Color("&aRevalidated &c" + args[1] + " &afiles."));
                 } else {
                     sender.sendMessage(Utils.Color("Usage: &e/anchor revalidate [username]"));

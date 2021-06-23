@@ -6,12 +6,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class StorageManager {
     public static boolean anchorPlace(AnchorSell plugin, BlockPlaceEvent e, Player p, Location location, int currentAnchorLevel) {
@@ -168,7 +168,7 @@ public class StorageManager {
         return res;
     }
 
-    public static void getAnchorUserList(AnchorSell plugin, Player p, Player toSendBack) throws InvalidConfigurationException {
+    public static void getAnchorUserList(AnchorSell plugin, OfflinePlayer p, CommandSender toSendBack) throws InvalidConfigurationException {
         userData = new PerUSerStorage(plugin, p);
 
         toSendBack.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.first-message")));
@@ -271,7 +271,7 @@ public class StorageManager {
         }
     }
 
-    public static void revalidateUser(AnchorSell plugin, Player p) {
+    public static void revalidateUser(AnchorSell plugin, OfflinePlayer p) {
         generalData = new GeneralStorage(plugin);
         userData = new PerUSerStorage(plugin, p);
         for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
