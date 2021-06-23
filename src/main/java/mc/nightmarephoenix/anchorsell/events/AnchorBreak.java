@@ -1,6 +1,8 @@
 package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
+import mc.nightmarephoenix.anchorsell.hooks.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.*;
@@ -29,11 +31,13 @@ public class AnchorBreak implements Listener {
 
             // Si no esta registrado el anchor no hace nada
             if (!StorageManager.isARegisterAnchor(plugin, location)) {
+                System.out.println("error 1");
                 return;
             }
 
             // Check if the player is in his faction and let it break the anchor
-            if(!Utils.isPlayerInHisFaction(block, p) && !Utils.isBlockInWilderness(block) && !p.isOp()) {
+            if(!Utils.isPlayerInHisFaction(block, p) && !Utils.isBlockInWilderness(block) && !p.isOp() && Global.getFactionsX() == FactionsX.ACTIVE) {
+                System.out.println("error 2");
                 e.setCancelled(true);
                 return;
             }

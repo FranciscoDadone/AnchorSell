@@ -13,10 +13,8 @@ public class Global {
     }
 
     public static void setFactionsX(boolean value) {
-        if(value)
-            fX = fX.ACTIVE;
-        else
-            fX = fX.NOT_ACTIVE;
+        if(value) fX = fX.ACTIVE;
+        else      fX = fX.NOT_ACTIVE;
     }
 
     public static WG getWorldGuard() {

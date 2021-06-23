@@ -4,3 +4,4 @@ public enum WG {
     ACTIVE,
     NOT_ACTIVE
 }
+
