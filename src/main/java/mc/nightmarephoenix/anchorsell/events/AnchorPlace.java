@@ -13,6 +13,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
 
 public class AnchorPlace implements Listener {
 
@@ -24,6 +27,12 @@ public class AnchorPlace implements Listener {
     public void place(BlockPlaceEvent e) {
         Block block = e.getBlock();
         World anchorInWorld = block.getWorld();
+        Player p = e.getPlayer();
+        Location loc = new Location(anchorInWorld, block.getX(), block.getY(), block.getZ());
+
+
+
+        boolean creativeAnchor = false;
         boolean isInWorld = false;
 
         // Anchors can only be placed in faction territory
@@ -39,24 +48,6 @@ public class AnchorPlace implements Listener {
                 return;
             }
         }
-
-        int currentAnchorLevel = -1;
-        boolean creativeAnchor = false;
-
-        // Getting the current anchor level before placing the block
-        try {
-            currentAnchorLevel = Integer.parseInt(e.getItemInHand().getItemMeta().getLore().get(2).substring(18));
-        } catch (NullPointerException ex) {
-            // Creative respawn anchor will not work as a interactuable anchor
-            creativeAnchor = true;
-        }
-
-        if (currentAnchorLevel == 0) {
-            currentAnchorLevel = 1;
-        } else if(currentAnchorLevel > 64) {
-            currentAnchorLevel = 64;
-        }
-
 
         // Busca si el bloque esta en enable-in-worlds
         for (String world : plugin.getConfig().getStringList("enable-in-worlds")) {
@@ -75,45 +66,69 @@ public class AnchorPlace implements Listener {
         if(creativeAnchor)  // if is a creative anchor it will not continue
             return;
 
-        Player p = e.getPlayer();
-        Location loc = new Location(anchorInWorld, block.getX(), block.getY(), block.getZ());
+        int currentAnchorLevel = -1;
 
-        if(block.getType() == Material.RESPAWN_ANCHOR) {
-            if(analyzeLocation(new Location(block.getWorld(), block.getX() - plugin.getConfig().getInt("safe-anchor-area"), block.getY() - plugin.getConfig().getInt("safe-anchor-area"), block.getZ() - plugin.getConfig().getInt("safe-anchor-area")), loc, plugin.getConfig().getInt("safe-anchor-area"))) {
-                if(!StorageManager.anchorPlace(plugin, e, p, loc, currentAnchorLevel)) {
-                    return;
+
+        // Getting the current anchor level before placing the block
+        try {
+            currentAnchorLevel = Integer.parseInt(e.getItemInHand().getItemMeta().getLore().get(2).substring(18));
+        } catch (NullPointerException ex) {
+            // Creative respawn anchor will not work as a interactuable anchor
+            creativeAnchor = true;
+        }
+
+        if (currentAnchorLevel == 0) {
+            currentAnchorLevel = 1;
+        } else if(currentAnchorLevel > 64) {
+            currentAnchorLevel = 64;
+        }
+
+        if(analyzeLocation(new Location(block.getWorld(), block.getX() - plugin.getConfig().getInt("safe-anchor-area"), block.getY() - plugin.getConfig().getInt("safe-anchor-area"), block.getZ() - plugin.getConfig().getInt("safe-anchor-area")), loc, plugin.getConfig().getInt("safe-anchor-area"))) {
+
+            /**
+             * Waits 1sec to check if the block is actually placed and not removed by a protection plugin.
+             */
+            int finalCurrentAnchorLevel = currentAnchorLevel;
+            Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+                if(block.getType().equals(Material.RESPAWN_ANCHOR)) {
+                    if(!StorageManager.anchorPlace(plugin, e, p, loc, finalCurrentAnchorLevel)) {
+                        return;
+                    }
+
+                    if(block.getType() == Material.RESPAWN_ANCHOR) {
+                        // generate sound on place
+                        p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1f, 1f);
+
+                        // generate particles around on place
+                        for(int i = 0; i < 360; i += 5) {
+                            Location flameloc = new Location(loc.getWorld(), loc.getX(), loc.getY(), loc.getZ());
+                            flameloc.setZ(flameloc.getZ() + Math.cos(i) * 5);
+                            flameloc.setX(flameloc.getX() + Math.sin(i) * 5);
+                            loc.getWorld().playEffect(flameloc, Effect.POTION_BREAK, 51);
+                        }
+
+                        // Determines witch level of glowstone the anchor needs
+                        Material i = Utils.getAnchorOreLevel(StorageManager.getAnchorLevel(plugin, loc));
+                        int charges = 0;
+                        if(i == Material.IRON_INGOT)
+                            charges = 1;
+                        else if(i == Material.GOLD_INGOT)
+                            charges = 2;
+                        else if(i == Material.DIAMOND)
+                            charges = 3;
+                        else if(i == Material.NETHERITE_INGOT)
+                            charges = 4;
+                        Block b = loc.getBlock();
+                        RespawnAnchor anchor = (RespawnAnchor) b.getBlockData();
+                        anchor.setCharges(charges);
+                        b.setBlockData(anchor);
+                    }
                 }
+            }, 20L);
 
-                // generate sound on place
-                p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1f, 1f);
-
-                // generate particles around on place
-                for(int i = 0; i < 360; i += 5) {
-                    Location flameloc = new Location(loc.getWorld(), loc.getX(), loc.getY(), loc.getZ());
-                    flameloc.setZ(flameloc.getZ() + Math.cos(i) * 5);
-                    flameloc.setX(flameloc.getX() + Math.sin(i) * 5);
-                    loc.getWorld().playEffect(flameloc, Effect.POTION_BREAK, 51);
-                }
-
-                // Determines witch level of glowstone the anchor needs
-                Material i = Utils.getAnchorOreLevel(StorageManager.getAnchorLevel(plugin, loc));
-                int charges = 0;
-                if(i == Material.IRON_INGOT)
-                    charges = 1;
-                else if(i == Material.GOLD_INGOT)
-                    charges = 2;
-                else if(i == Material.DIAMOND)
-                    charges = 3;
-                else if(i == Material.NETHERITE_INGOT)
-                    charges = 4;
-                Block b = loc.getBlock();
-                RespawnAnchor anchor = (RespawnAnchor) b.getBlockData();
-                anchor.setCharges(charges);
-                b.setBlockData(anchor);
-            } else {
-                p.sendMessage(Utils.Color(plugin.getConfig().getString("radius-error")));
-                e.setCancelled(true);
-            }
+        } else {
+            p.sendMessage(Utils.Color(plugin.getConfig().getString("radius-error")));
+            e.setCancelled(true);
         }
     }
 

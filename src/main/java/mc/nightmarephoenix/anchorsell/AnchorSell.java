@@ -7,6 +7,7 @@ import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.hooks.Global;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import net.prosavage.factionsx.manager.FactionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +17,11 @@ public final class AnchorSell extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+//        GriefPrevention g = GriefPrevention.instance;
+//        g.allowBreak()
+
+
         /**
          * Loading dependencies
          */
@@ -61,6 +67,7 @@ public final class AnchorSell extends JavaPlugin {
          * Loading commands
          */
         this.getCommand("anchor").setExecutor(new AnchorCommand(this));
+
 
         /**
          * Loading the pay task
