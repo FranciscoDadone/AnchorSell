@@ -37,8 +37,6 @@ dependencies {
     compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.0'
     implementation 'net.prosavage:BasePlugin:1.9.1'
     implementation 'net.prosavage.factionsx:FactionsX:1.0.8-RC'
-
-    implementation files('lib/GriefPrevention.jar')
 }
 
 processResources {
