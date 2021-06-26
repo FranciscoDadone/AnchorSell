@@ -1,5 +1,5 @@
 name: AnchorSell
-version: 1.3.2
+version: 1.3.3
 main: mc.nightmarephoenix.anchorsell.AnchorSell
 api-version: 1.17
 depend: [ Vault ]
