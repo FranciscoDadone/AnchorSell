@@ -20,11 +20,21 @@ public class ActionAnchor implements Listener {
     public void onBlockClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         try {
-            if(e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR && (p.isSneaking() && e.getAction() == Action.RIGHT_CLICK_BLOCK)) {
+            /**
+             * If the player is sneaking, don't open the inventory.
+             */
+            if(e.getClickedBlock().getType().equals(Material.RESPAWN_ANCHOR) && (p.isSneaking() && e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
                 e.setCancelled(true);
                 return;
             }
-            if((e.getClickedBlock().getType() == Material.RESPAWN_ANCHOR) && (e.getAction() == Action.RIGHT_CLICK_BLOCK) && (e.getAction() != null) && !p.isSneaking()) {
+
+            /**
+             * If the player isn't sneaking...
+             */
+            if((e.getClickedBlock().getType().equals(Material.RESPAWN_ANCHOR)) && (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) && (e.getAction() != null) && !p.isSneaking()) {
+                /**
+                 * Checks if it's my anchor and opens the inventory.
+                 */
                 if(StorageManager.isMyAnchor(e.getClickedBlock().getLocation(), p, plugin)) {
                     e.setCancelled(true);
                     p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
