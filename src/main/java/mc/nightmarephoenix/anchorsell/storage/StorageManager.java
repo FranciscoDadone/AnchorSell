@@ -72,6 +72,14 @@ public class StorageManager {
         return true;
     }
 
+    public static boolean userCanPlaceMoreAnchors(AnchorSell plugin, Player p) {
+        if(userData.getConfig().contains("total")) {
+            return userData.getConfig().getInt("total") < plugin.getConfig().getInt("total-anchors-user-can-have");
+        }
+        return true;
+    }
+
+
     public static void anchorBreak(AnchorSell plugin, Location location) {
         generalData = new GeneralStorage(plugin);
 

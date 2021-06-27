@@ -47,6 +47,8 @@ public class AnchorBreak implements Listener {
                 return;
             }
 
+            e.setDropItems(false);
+
             /**
              * Delays the task to check if the block hasn't been removed by other plugin.
              * AKA: Protection plugin.
@@ -71,7 +73,6 @@ public class AnchorBreak implements Listener {
                                 replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, location))));
                     });
 
-                    e.setDropItems(false);
                     HashMap<Integer, ItemStack> inv = p.getInventory().addItem(Utils.getAnchor(StorageManager.getAnchorLevel(plugin, location), 1));
                     if(!inv.isEmpty()) {
                         p.getWorld().dropItem(location, Utils.getAnchor(StorageManager.getAnchorLevel(plugin, location), 1)).setInvulnerable(true);

@@ -17,10 +17,6 @@ public final class AnchorSell extends JavaPlugin {
     @Override
     public void onEnable() {
 
-//        GriefPrevention g = GriefPrevention.instance;
-//        g.allowBreak()
-
-
         /**
          * Loading dependencies
          */
