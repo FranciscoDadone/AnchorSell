@@ -16,6 +16,9 @@ public class GeneralStorage {
         saveDefaultConfig();
     }
 
+    /**
+     * Reloads the general config file with the all anchors.
+     */
     public void reloadConfig() {
         if(this.configFile == null) {
             this.configFile = new File(this.plugin.getDataFolder(), "all_anchors.yml");
@@ -29,6 +32,10 @@ public class GeneralStorage {
         }
     }
 
+    /**
+     * Returns the config.
+     * @return
+     */
     public FileConfiguration getConfig() {
         if(this.dataConfig == null) {
             reloadConfig();
@@ -36,6 +43,9 @@ public class GeneralStorage {
         return this.dataConfig;
     }
 
+    /**
+     * Saves the config.
+     */
     public void saveConfig() {
         if(this.dataConfig == null || this.configFile == null) {
             return;
@@ -47,6 +57,9 @@ public class GeneralStorage {
         }
     }
 
+    /**
+     * Saves a default config.
+     */
     public void saveDefaultConfig() {
 
         if(this.configFile == null) {
