@@ -19,6 +19,9 @@ public class PerUserStorage {
         saveDefaultConfig(p);
     }
 
+    /**
+     * Reloads a user config.
+     */
     public void reloadConfig() {
         if(this.configFile == null) {
             this.configFile = new File(this.plugin.getDataFolder() + File.separator + "playerdata", p.getUniqueId() + ".yml");
@@ -32,6 +35,10 @@ public class PerUserStorage {
         }
     }
 
+    /**
+     * Gets a user config.
+     * @return
+     */
     public FileConfiguration getConfig() {
         if(this.dataConfig == null) {
             reloadConfig();
@@ -39,6 +46,9 @@ public class PerUserStorage {
         return this.dataConfig;
     }
 
+    /**
+     * Saves a user config.
+     */
     public void saveConfig() {
         if(this.dataConfig == null || this.configFile == null) {
             return;
@@ -50,6 +60,10 @@ public class PerUserStorage {
         }
     }
 
+    /**
+     * Saves a new user config.
+     * @param p
+     */
     public void saveDefaultConfig(OfflinePlayer p) {
 
         if(this.configFile == null) {
