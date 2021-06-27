@@ -22,14 +22,28 @@ public class AnchorBlow implements Listener {
     @EventHandler
     public void onExplosion(ExplosionPrimeEvent e) {
         ArrayList<Block> anchors = new ArrayList<>();
-        Entity entity = e.getEntity();
+        Entity entity = e.getEntity(); // (primed tnt)
         int r = Math.round(e.getRadius());
-        String radius = plugin.getConfig().getString("anchor.explotion-radius-break");
-        if(!radius.equals("mc-default"))
-            r = Integer.parseInt(radius);
+        String radius = plugin.getConfig().getString("anchor.explosion-radius-break");
+
+        if(!radius.equals("mc-default")) r = Integer.parseInt(radius);
+
+        /**
+         * Gets the nearby anchors within the explosion radius (vanilla radius).
+         */
         ArrayList<Block> possibleAnchors = getNearbyAnchors(entity.getLocation(), r);
 
+        /**
+         * Loops throw the possible anchors in that explosion.
+         */
         for(Block b: possibleAnchors) {
+            /**
+             * If it is an anchor in the explosion:
+             *  - it adds it to the array list of anchors
+             *  - breaks it not dropping anything
+             *  - plays a sound
+             *  - generates particles
+             */
             if(b.getType().equals(Material.RESPAWN_ANCHOR)) {
 
                 anchors.add(b);
@@ -48,11 +62,18 @@ public class AnchorBlow implements Listener {
             }
         }
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> { // waiting 20 ticks to spawn the item because it can break during the explotion
+        /**
+         * Waiting 20 ticks to spawn the item because it can break during the explosion
+         */
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             if(!anchors.isEmpty()) {
                 for(Block anchor: anchors) {
                     int level = StorageManager.getAnchorLevel(plugin, anchor.getLocation());
                     world.dropItem(new Location(anchor.getWorld(), anchor.getX(), anchor.getY(), anchor.getZ()), Utils.getAnchor(level, 1)).setInvulnerable(true);
+
+                    /**
+                     * Saves the broken anchor to the database.
+                     */
                     StorageManager.anchorBreak(plugin, anchor.getLocation());
                 }
             }
@@ -60,6 +81,13 @@ public class AnchorBlow implements Listener {
         }, 20L);
     }
 
+    /**
+     * Gets the anchors around the explosion.
+     *
+     * @param location
+     * @param radius
+     * @return ArrayList
+     */
     public ArrayList<Block> getNearbyAnchors(Location location, int radius) {
         ArrayList<Block> blocks = new ArrayList<Block>();
         for(int x = location.getBlockX() - radius; x <= location.getBlockX() + radius; x++) {
