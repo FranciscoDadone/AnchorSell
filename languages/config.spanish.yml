@@ -1,4 +1,4 @@
-version: 0.1.0
+version: 0.3.0
 
 ##
 # AnchorSell plugin
@@ -9,51 +9,54 @@ version: 0.1.0
 ##
 
 
-reload-message: "&aConfig reloaded."
+reload-message: "&aSe ha recargado la configuracion existosamente."
 help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&e/anchor buy &fPara comprar un anchor"
-  - "&e/anchor list &fMuestra una lista con todos tus anchors"
-  - "&e/anchor top [number] &fDevuelve el top."
+  - "&e/anchor list &fDa un listado de todos los anchors en su poder"
+  - "&e/anchor top [number] &fTop anchors en el servidor."
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
 
 help-message-admin:
   - "&7&m----------&r &5&lAnchor &7&m----------"
-  - "&e/anchor reload &f Recarga la config"
-  - "&e/anchor give [nombre] [cantidad] [level] &fDa un anchor a un jugador"
-  - "&e/anchor list [username] &fMuestra una lista de los anchors que puso un jugador."
-  - "&e/anchor top [number] &fDevuelve el top."
-  - "&e/anchor upgrades &fMuestra el coste de la progresión de los anchors."
-  - "&e/anchor changeUpgradeMultiplier [multiplier] &fCambia el multiplicador de dinero. Esto afecta el precio de las mejoras."
-  - "&e/anchor changePrice [price] &fCambia el precio de los anchors."
-  - "&e/anchor changeSafeZone [zone] &fCambia el radio mínimo para poner un anchor."
-  - "&e/anchor changeTotalAnchorsUserCanHave [number] &fCambia el total de anchors que puede tener un usuario."
-  - "&e/anchor getUserFileName [username] &fMuestra el archivo donde se guarda la información del usuario."
-  - "&e/anchor revalidate [username] &fComprueba los anchors de ese jugador."
+  - "&e/anchor reload &f Recarga la configuracion."
+  - "&e/anchor give [name] [quantity] [level] &fDa un anchor al jugador."
+  - "&e/anchor list [username] &fDa un listado de todos los anchor en su poder."
+  - "&e/anchor top [number] &fTop anchors en el servidor."
+  - "&e/anchor upgrades &fMuestra el coste para mejorar un anchor."
+  - "&e/anchor changeUpgradeMultiplier [multiplier] &fCambia el multiplicador de mejora, esto afecta al precio de mejora."
+  - "&e/anchor changePrice [price] &fCambia el precio de compra del anchor."
+  - "&e/anchor changeSafeZone [zone] &fCambia el radio minimo donde se pueden poner anchors."
+  - "&e/anchor changeTotalAnchorsUserCanHave [number] &fCambia el total de anchors que un usuario puede tener."
+  - "&e/anchor getUserFileName [username] &fMuestra donde esta la informacion del usuario."
+  - "&e/anchor revalidate [username] &fRevalidacion de los anchors de un jugador."
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
 
-unknown-command: "&5&lAnchor &7- &fUnknown command."
+unknown-command: "&5&lAnchor &7- &fComando desconocido."
 
-cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
-total-anchors-user-can-have: 10
+cant-give-anchor-message: "&fUtilice: &e/anchor give [name] [quantity] [level]"
+total-anchors-user-can-have: 5
 safe-anchor-area: 3
 anchor-value: 100000
 can-faction-members-destroy-members-anchors: false # this is if a faction member can destroy another member's anchor
-radius-error: "&4No puedes poner anchors tan cerca de cada uno."
-cannot-place-more-anchors: "&4No puedes tener más de %quantity% anchors."
-you-dont-own-this-anchor: "&4Este no es tu anchor!"
+radius-error: "&4No puedes colocar anchors tan cerca de otros."
+cannot-place-more-anchors: "&4No puedes tener mas de %quantity% anchors."
+you-dont-own-this-anchor: "&4No eres el dueño de este anchor"
+cannot-break-members-anchors: "&4No puedes romper los anchors de los miembros de tu faction."
 
 enable-in-worlds:
   - world
+  - nightmare_temp
+  - nightmare_1
 
 pay-timer-in-minutes: 15
 
 anchor:
-  title: "&5&lAnchor"
+  title: "&5Anchor"
   current-anchor-info:
     txt: "&6&lEste anchor"
     lore:
@@ -62,17 +65,17 @@ anchor:
       - "&eDinero por minuto: &f$%moneyPerMinute%"
   player:
     lore:
-      - "&eDinero:&f %playerBalance%"
-      - "&eNúmero de anchors:&f %playerAnchors% / %maxPlayerAnchors%"
-      - "&eDinero total cada 15 minutos: &f%playerMoneyPer15Minutes%"
+      - "&eDinero disponible:&f %playerBalance%"
+      - "&eNumero total de anchors:&f %playerAnchors% / %maxPlayerAnchors%"
+      - "&eDinero total obtenido cada 15 minutos: &f%playerMoneyPer15Minutes%"
   upgrades:
     txt: "&6&lMejoras"
     lore:
-      - "&eDe:&f %level% (%oreLevel%&f)"
-      - "&eA: &f%nextLevel% (%nextLevelOre%&f)"
+      - "&eNivel actual:&f %level% (%oreLevel%&f)"
+      - "&eSiguiente mejora: &f%nextLevel% (%nextLevelOre%&f)"
       - "&ePrecio: &f$%priceOfUpgrade%"
   upgrade-menu:
-    title: "&5&lAnchor - Mejoras"
+    title: "&5Anchor - Mejoras"
     current-level:
       txt: "%currentLevel%"
       lore:
@@ -80,54 +83,54 @@ anchor:
         - "&ePrecio: &r$%priceOfUpgrade%"
         - "&7&m----------------------------"
     upgrade-button:
-      txt: "&6&lMejorar"
-      lore: "Mejora este anchor"
-    back: "&cIr para atrás"
+      txt: "&6&lMejora"
+      lore: "Mejorar el anchor"
+    back: "&cVolver"
     upgrade-success:
       - "&7&m----------&r &5&lAnchor &7&m----------"
-      - "&aAnchor exitosamente mejorado"
+      - "&aAnchor mejorado con exito"
       - "%previusLevel% -> %currentLevel%"
       - "&7&m----------------------------"
     upgrade-fail:
       - "&7&m----------&r &5&lAnchor &7&m----------"
-      - "&cNo tienes suficiente dinero para actualizar este anchor :("
+      - "&cNo tienes suficiente dinero :("
       - "&7&m----------------------------"
-  explotion-raius-break: "1" # to set as default minecraft, change to "mc-default"
+  explosion-radius-break: "0" # to set as default minecraft, change to "mc-default"
   upgrade-multiplier: 6 # this is how much the upgrade cost depending of the money that the anchor gives per hour in the next level. For example... upgrade-multiplier: 8. Next level reward per hour: 10. The cost of the upgrade will be 80.
   list:
     first-message: "&7&m----------&r &5&lAnchors &7&m----------"
     last-message: "&7&m-----------------------------"
     message:
       - ""
-      - "&eLocalización:&f %location%"
-      - "&eNivel: %level%"
+      - "&eLocation:&f %location%"
+      - "&eLevel: %level%"
       - ""
-  cantaccess: "Necesitas contacto directo con el anchor para usarlo."
+  cantaccess: "&4Necesitas contacto directo con el anchor para acceder a el."
   onlyPlaceInFactionTerritory: true
-  notInFaction: "&4Solo pueded poner anchors en tu faction!"
+  notInFaction: "&4Solo puedes poner anchors en tu territorio."
 
 anchorbuy:
   title: "&5Comprar un anchor"
   anchor-info:
-    txt: "¿Qué es un anchor?"
+    txt: "Que es un anchor?"
     lore:
-      - "&eUn anchor es un bloque que se coloca en"
-      - "&ecualquier parte del que puedes ganar"
-      - "&edinero automáticamente cada 15 minutos."
+      - "&eUn anchor es un bloque en el cual"
+      - "&epuedes obtener dinero, cada cierto"
+      - "&etiempo solo colocandolo."
   buy:
     title: "&5&lComprar un anchor"
     lore: "&ePrecio: &f$%price%"
 
 confirmscreen:
-  title: "&5¿Estás seguro de que quieres comprar?"
-  you-have-an-anchor: "&5Compraste un Anchor."
-  you-cant-afford: "&5No tienes suficiente dinero para hacer esto."
+  title: "&5Esta seguro que quiere comprar un anchor?"
+  you-have-an-anchor: "&5Usted compro un anchor."
+  you-cant-afford: "&5No tienes suficiente dinero."
   cancel: "&4&lCancelar"
   confirm: "&a&lConfirmar"
 
 anchor-place:
   - "&7&m----------&r &5&lAnchor &7&m----------"
-  - "&aAnchor puesto"
+  - "&aNuevo anchor colocado"
   - ""
   - "&eNivel: &f%level%"
   - "&7&m----------------------------"
@@ -140,12 +143,12 @@ anchor-break:
   - "&7&m----------------------------"
 
 
-paying-message: "&aRecibiste &c$%amount% &ade los &5&lAnchors"
+paying-message: "&aHas recibido &c$%amount% &ade &5&&lAnchors"
 
 levels:
-  1: "&8Carbón"
+  1: "&8Carbon"
   2: "&7Hierro"
   3: "&eOro"
   4: "&bDiamante"
   5: "&6&lNETHERITE"
-  maxed-out-level: "&c&lNivel máximo!"
+  maxed-out-level: "&c&lNivel maximo!"
