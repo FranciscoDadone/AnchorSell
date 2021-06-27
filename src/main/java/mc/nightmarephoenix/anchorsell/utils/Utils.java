@@ -21,10 +21,20 @@ import java.util.*;
 
 public class Utils {
 
+    /**
+     * Translates the color codes.
+     * @param str
+     * @return
+     */
     public static String Color(String str) {
         return ChatColor.translateAlternateColorCodes('§', str.replace("&", "§"));
     }
 
+    /**
+     * Same as above but with a list.
+     * @param strList
+     * @return
+     */
     public static List<String> Color(List<String> strList) {
         for(String string: strList) {
             strList.set(strList.indexOf(string), Color(string));
@@ -32,6 +42,12 @@ public class Utils {
         return strList;
     }
 
+    /**
+     * Returns a new anchor with a given level and the quantity.
+     * @param level
+     * @param quantity
+     * @return ItemStack
+     */
     public static ItemStack getAnchor(int level, int quantity) {
         ItemStack item = new ItemStack(Material.RESPAWN_ANCHOR, quantity);
         ArrayList<String> Lore = new ArrayList<String>();
@@ -47,6 +63,12 @@ public class Utils {
         return item;
     }
 
+    /**
+     * Returns the anchor level but with the ore.
+     * @param plugin
+     * @param level
+     * @return
+     */
     public static String getAnchorOreLevelString(AnchorSell plugin, int level) {
         if(level > 64)
             return Color(plugin.getConfig().getString("levels.maxed-out-level"));
@@ -64,6 +86,11 @@ public class Utils {
             return null;
     }
 
+    /**
+     * Anchor level translated to ores.
+     * @param level
+     * @return
+     */
     public static Material getAnchorOreLevel(int level) {
         if(level < 16)
             return Material.COAL;
@@ -79,18 +106,42 @@ public class Utils {
             return null;
     }
 
+    /**
+     * Money per second with a given anchor level.
+     * @param anchorLevel
+     * @return double
+     */
     public static double getMoneyPerSecond(int anchorLevel) {
         return 0.1 * anchorLevel + Math.pow(anchorLevel, 0.8);
     }
 
+    /**
+     * Money per minute with a given anchor level.
+     * @param anchorLevel
+     * @return double
+     */
     public static double getMoneyPerMinute(int anchorLevel) {
         return Math.round(getMoneyPerSecond(anchorLevel) * 60);
     }
 
+    /**
+     * Money to the next upgrade.
+     * @param anchorLevel
+     * @param plugin
+     * @return double
+     */
     public static double getMoneyToUpgrade(int anchorLevel, AnchorSell plugin) {
         return getMoneyPerMinute(anchorLevel + 1) * 60 * plugin.getConfig().getInt("anchor.upgrade-multiplier"); // the money that gives the next level multiplied by 16hs
     }
 
+    /**
+     * Gets the lore of a given anchor.
+     * @param path
+     * @param plugin
+     * @param location
+     * @param player
+     * @return
+     */
     public static  List<String> getLore(String path, AnchorSell plugin, Location location, Player player) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
@@ -117,6 +168,13 @@ public class Utils {
         return res;
     }
 
+    /**
+     * Gets the lore of an anchor but without the player.
+     * @param path
+     * @param plugin
+     * @param location
+     * @return
+     */
     public static  List<String> getLore(String path, AnchorSell plugin, Location location) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
@@ -139,6 +197,13 @@ public class Utils {
         return res;
     }
 
+    /**
+     * Creates a determined item.
+     * @param name
+     * @param material
+     * @param enchanted
+     * @return ItemStack
+     */
     public static ItemStack createItem(String name, Material material, boolean enchanted) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
@@ -149,6 +214,14 @@ public class Utils {
         return item;
     }
 
+    /**
+     * Creates a item with lore.
+     * @param name
+     * @param material
+     * @param lore
+     * @param enchanted
+     * @return ItemStack
+     */
     public static ItemStack createItem(String name, Material material, List<String> lore, boolean enchanted) {
         ItemStack item = new ItemStack(material, 1);
         ItemMeta meta = item.getItemMeta();
@@ -160,26 +233,40 @@ public class Utils {
         return item;
     }
 
+    /**
+     * Returns if the player is inside his Faction claim.
+     * (FactionsX hook)
+     * @param block
+     * @param p
+     * @return boolean
+     */
     public static boolean isPlayerInHisFaction(Block block, Player p) {
         if(Global.getFactionsX() == FactionsX.ACTIVE) {
-            if(String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()))) {
-                return true;
-            }
-            return false;
+            return String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()));
         }
         return false;
     }
 
+    /**
+     * Returns if a block is in wilderness.
+     * (FactionsX hook)
+     * @param block
+     * @return
+     */
     public static boolean isBlockInWilderness(Block block) {
         if(Global.getFactionsX() == FactionsX.ACTIVE) {
-            if(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null) {
-                return true;
-            }
-            return false;
+            return GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null;
         }
         return false;
     }
 
+    /**
+     * Returns if is from a faction member.
+     * @param plugin
+     * @param breaker
+     * @param block
+     * @return boolean
+     */
     public static boolean isAFactionMember(AnchorSell plugin, Player breaker, Block block) {
         if(Global.getFactionsX() == FactionsX.ACTIVE) {
             for(FPlayer p: GridManager.INSTANCE.getFactionAt(block.getChunk()).getMembers()) {
@@ -193,9 +280,12 @@ public class Utils {
         return false;
     }
 
-    // function to sort hashmap by values
-    public static HashMap<String, Integer> sortHashMapByValue(HashMap<String, Integer> hm)
-    {
+    /**
+     * Sort hashmap by values (TOP)
+     * @param hm
+     * @return
+     */
+    public static HashMap<String, Integer> sortHashMapByValue(HashMap<String, Integer> hm) {
         // Create a list from elements of HashMap
         List<Map.Entry<String, Integer> > list =
                 new LinkedList<Map.Entry<String, Integer> >(hm.entrySet());
@@ -203,14 +293,13 @@ public class Utils {
         // Sort the list
         Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
             public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2)
-            {
+                               Map.Entry<String, Integer> o2) {
                 return (o1.getValue()).compareTo(o2.getValue());
             }
         });
 
         // put data from sorted list to hashmap
-        HashMap<String, Integer> temp = new LinkedHashMap<String, Integer>();
+        HashMap<String, Integer> temp = new LinkedHashMap<>();
         for (Map.Entry<String, Integer> aa : list) {
             temp.put(aa.getKey(), aa.getValue());
         }
