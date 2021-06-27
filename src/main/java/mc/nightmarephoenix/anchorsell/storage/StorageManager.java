@@ -344,35 +344,8 @@ public class StorageManager {
      * @param plugin
      */
     public static void revalidateAll(AnchorSell plugin) {
-        generalData = new GeneralStorage(plugin);
         for(Player p: Bukkit.getOnlinePlayers()) {
-            userData = new PerUserStorage(plugin, p);
-            for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
-                if(userData.getConfig().contains("anchors." + i)) {
-                    Location loc;
-                    if(userData.getConfig().contains("anchors." + i + ".location.world")) {
-                        loc = new Location(Bukkit.getWorld(userData.getConfig().getString("anchors." + i + ".location.world")),
-                                userData.getConfig().getInt("anchors." + i + ".location.x"),
-                                userData.getConfig().getInt("anchors." + i + ".location.y"),
-                                userData.getConfig().getInt("anchors." + i + ".location.z"));
-                    } else {
-                        loc = new Location(Bukkit.getWorld("world"),
-                                userData.getConfig().getInt("anchors." + i + ".location.x"),
-                                userData.getConfig().getInt("anchors." + i + ".location.y"),
-                                userData.getConfig().getInt("anchors." + i + ".location.z"));
-                    }
-
-                    if(loc.getBlock().getType() != Material.RESPAWN_ANCHOR) {
-                        userData.getConfig().set("anchors." + i, null);
-                        userData.getConfig().set("total", userData.getConfig().getInt("total") - 1);
-                        if(generalData.getConfig().contains("all_anchors." + StorageManager.getAnchorUUID(loc))) {
-                            generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(loc), null);
-                        }
-                        userData.saveConfig();
-                        generalData.saveConfig();
-                    }
-                }
-            }
+            revalidateUser(plugin, p);
         }
     }
 
@@ -384,22 +357,36 @@ public class StorageManager {
     public static void revalidateUser(AnchorSell plugin, OfflinePlayer p) {
         generalData = new GeneralStorage(plugin);
         userData = new PerUserStorage(plugin, p);
+        int totalUserAnchors = 0;
         for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
                 Location loc;
                 if(userData.getConfig().contains("anchors." + i + ".location.world")) {
-                    loc = new Location(Bukkit.getWorld(userData.getConfig().getString("anchors." + i + ".location.world")),
+                    loc = new Location(
+                            Bukkit.getWorld(userData.getConfig().getString("anchors." + i + ".location.world")),
                             userData.getConfig().getInt("anchors." + i + ".location.x"),
                             userData.getConfig().getInt("anchors." + i + ".location.y"),
-                            userData.getConfig().getInt("anchors." + i + ".location.z"));
+                            userData.getConfig().getInt("anchors." + i + ".location.z")
+                    );
                 } else {
-                    loc = new Location(Bukkit.getWorld("world"),
+                    loc = new Location(
+                            Bukkit.getWorld("world"),
                             userData.getConfig().getInt("anchors." + i + ".location.x"),
                             userData.getConfig().getInt("anchors." + i + ".location.y"),
-                            userData.getConfig().getInt("anchors." + i + ".location.z"));
+                            userData.getConfig().getInt("anchors." + i + ".location.z")
+                    );
                 }
 
-                if(loc.getBlock().getType() != Material.RESPAWN_ANCHOR) {
+                if(!loc.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
+
+                    System.out.println("[AnchorSell] Revalidation found an error: " +
+                            "Player: " + p.getName() +
+                            ". Anchor location: " + "[" +
+                            loc.getBlockX() + ", " +
+                            loc.getBlockY() + ", " +
+                            loc.getBlockZ() + "]"
+                    );
+
                     userData.getConfig().set("anchors." + i, null);
                     userData.getConfig().set("total", userData.getConfig().getInt("total") - 1);
                     if(generalData.getConfig().contains("all_anchors." + StorageManager.getAnchorUUID(loc))) {
@@ -407,8 +394,25 @@ public class StorageManager {
                     }
                     userData.saveConfig();
                     generalData.saveConfig();
+                } else {
+                    totalUserAnchors++;
                 }
             }
+        }
+
+        /**
+         * Total anchors the user has check.
+         */
+        if(userData.getConfig().getInt("total") != totalUserAnchors) {
+            System.out.println("[AnchorSell] Revalidation found an error (total of anchors): " +
+                    "Player: " + p.getName() +
+                    ". Total rectified from " +
+                    userData.getConfig().getInt("total") +
+                    " to " +
+                    totalUserAnchors
+            );
+            userData.getConfig().set("total", totalUserAnchors);
+            userData.saveConfig();
         }
     }
 
