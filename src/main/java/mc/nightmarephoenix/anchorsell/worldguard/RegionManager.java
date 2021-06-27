@@ -11,8 +11,13 @@ import mc.nightmarephoenix.anchorsell.hooks.WG;
 import org.bukkit.Location;
 
 public class RegionManager {
+    /**
+     * Returns if in the region the user can build.
+     * @param location
+     * @return
+     */
     public boolean canBuild(Location location) {
-        if(Global.getWorldGuard() == WG.ACTIVE) {
+        if(Global.getWorldGuard().equals(WG.ACTIVE)) {
             com.sk89q.worldedit.util.Location wgLocation = BukkitAdapter.adapt(location);
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
             RegionQuery query = container.createQuery();
