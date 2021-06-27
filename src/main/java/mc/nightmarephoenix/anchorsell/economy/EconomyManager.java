@@ -1,6 +1,5 @@
 package mc.nightmarephoenix.anchorsell.economy;
 
-import mc.nightmarephoenix.anchorsell.AnchorSell;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -8,8 +7,11 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class EconomyManager {
 
+    /**
+     * Sets up Vault hook.
+     * @return
+     */
     public static boolean setupEconomy() {
-        System.out.println(Bukkit.getPluginManager().getPlugin("Vault"));
         if (Bukkit.getPluginManager().getPlugin("Vault").equals(null)) {
             return false;
         }
@@ -24,6 +26,12 @@ public class EconomyManager {
         return (econ != null);
     }
 
+    /**
+     * Withdraw money from user.
+     * @param p
+     * @param toWithdraw
+     * @return
+     */
     public static boolean withdrawFromUser(Player p, double toWithdraw) {
         if (EconomyManager.getEconomy().getBalance(p) >= toWithdraw) {
             if(econ.getBalance(p) >= toWithdraw) {
@@ -39,6 +47,4 @@ public class EconomyManager {
     }
 
     private static Economy econ;
-    private static AnchorSell plugin;
-
 }
