@@ -12,6 +12,12 @@ import java.util.Collection;
 
 public class PayTask extends BukkitRunnable {
 
+    /**
+     *
+     * Handles the pay to all users online from a given minutes in the config file.
+     *
+     */
+
     public PayTask(AnchorSell plugin) {
         this.plugin = plugin;
     }
@@ -20,8 +26,14 @@ public class PayTask extends BukkitRunnable {
     public void run() {
         Collection<Player> onlinePlayers = (Collection<org.bukkit.entity.Player>) Bukkit.getOnlinePlayers();
 
+        /**
+         * Revalidates all the anchors.
+         */
         StorageManager.revalidateAll(plugin);
 
+        /**
+         * Pays to all online players.
+         */
         for(Player p: onlinePlayers) {
             double totalAmount = 0;
             for(int i = 1; i <= StorageManager.getPlayerTotalAnchors(plugin, p); i++) {
