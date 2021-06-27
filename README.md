@@ -61,7 +61,7 @@ You can upgrade the anchors to earn more money!
 ## Config file
 
 ```yaml
-version: 0.1.0
+version: 0.3.0
 
 ##
 # AnchorSell plugin
@@ -156,7 +156,7 @@ anchor:
       - "&7&m----------&r &5&lAnchor &7&m----------"
       - "&cYou don't have money to upgrade :("
       - "&7&m----------------------------"
-  explotion-raius-break: "1" # to set as default minecraft, change to "mc-default"
+  explosion-radius-break: "3" # to set as default minecraft, change to "mc-default"
   upgrade-multiplier: 6 # this is how much the upgrade cost depending of the money that the anchor gives per hour in the next level. For example... upgrade-multiplier: 8. Next level reward per hour: 10. The cost of the upgrade will be 80.
   list:
     first-message: "&7&m----------&r &5&lAnchors &7&m----------"
@@ -214,7 +214,7 @@ levels:
   5: "&6&lNETHERITE"
   maxed-out-level: "&c&lMaxed out!"
 ```
-
+You can find a SPANISH translated config file in languages folder.
 
 
 
