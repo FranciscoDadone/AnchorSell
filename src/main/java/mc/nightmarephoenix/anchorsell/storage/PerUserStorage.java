@@ -11,9 +11,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 
-public class PerUSerStorage {
+public class PerUserStorage {
 
-    public PerUSerStorage(AnchorSell plugin, OfflinePlayer p) {
+    public PerUserStorage(AnchorSell plugin, OfflinePlayer p) {
         this.plugin = plugin;
         this.p = p;
         saveDefaultConfig(p);

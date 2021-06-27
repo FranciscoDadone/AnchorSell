@@ -14,8 +14,19 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import java.util.*;
 
 public class StorageManager {
+
+    /**
+     * Handles the save of a new anchor being placed.
+     *
+     * @param plugin
+     * @param e
+     * @param p
+     * @param location
+     * @param currentAnchorLevel
+     * @return
+     */
     public static boolean anchorPlace(AnchorSell plugin, BlockPlaceEvent e, Player p, Location location, int currentAnchorLevel) {
-        userData = new PerUSerStorage(plugin, p);
+        userData = new PerUserStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
 
         // Updating the total amount of anchors in the user config
@@ -72,6 +83,13 @@ public class StorageManager {
         return true;
     }
 
+    /**
+     * Determines if a user can place more anchors based on the total it has.
+     *
+     * @param plugin
+     * @param p
+     * @return boolean
+     */
     public static boolean userCanPlaceMoreAnchors(AnchorSell plugin, Player p) {
         if(userData.getConfig().contains("total")) {
             return userData.getConfig().getInt("total") < plugin.getConfig().getInt("total-anchors-user-can-have");
@@ -79,7 +97,12 @@ public class StorageManager {
         return true;
     }
 
-
+    /**
+     * Saves to the config the anchor break.
+     *
+     * @param plugin
+     * @param location
+     */
     public static void anchorBreak(AnchorSell plugin, Location location) {
         generalData = new GeneralStorage(plugin);
 
@@ -91,7 +114,7 @@ public class StorageManager {
         try {
             String uuid = generalData.getConfig().getString("all_anchors." + anchorID + ".owner");
             p = Bukkit.getPlayer(UUID.fromString(uuid));
-            userData = new PerUSerStorage(plugin, p);
+            userData = new PerUserStorage(plugin, p);
         } catch (Exception exception) {
             exception.printStackTrace();
             return;
@@ -125,11 +148,23 @@ public class StorageManager {
 
     }
 
+    /**
+     * Returns if an anchor is registered and not from creative.
+     * @param plugin
+     * @param location
+     * @return boolean
+     */
     public static boolean anchorIsRegistered(AnchorSell plugin, Location location) {
         generalData = new GeneralStorage(plugin);
         return generalData.getConfig().contains("all_anchors." + getAnchorUUID(location));
     }
 
+    /**
+     * Returns the level of an anchor.
+     * @param plugin
+     * @param location
+     * @return int
+     */
     public static int getAnchorLevel(AnchorSell plugin, Location location) {
         generalData = new GeneralStorage(plugin);
         // Getting the current anchor level
@@ -140,33 +175,56 @@ public class StorageManager {
         return currentAnchorLevel;
     }
 
+    /**
+     * Returns the anchor UUID
+     * UUID: X_Y_Z
+     *
+     * @param location
+     * @return String
+     */
     public static String getAnchorUUID(Location location) {
         return (int)location.getX() + "_" + (int)location.getY() + "_" + (int)location.getZ();
     }
 
+    /**
+     * Determines if an anchor is from that user or not.
+     * @param location
+     * @param p
+     * @param plugin
+     * @return boolean
+     */
     public static boolean isMyAnchor(Location location, Player p, AnchorSell plugin) {
-        userData = new PerUSerStorage(plugin, p);
+        userData = new PerUserStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
 
         try {
             Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(
-                    generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner")));
-
-            if(p.getUniqueId().toString().equals(actualPlayerAnchor.getUniqueId().toString())) {
-                return true;
-            }
-            return false;
+                    generalData.getConfig().getString("all_anchors." + getAnchorUUID(location) + ".owner"))
+            );
+            return p.getUniqueId().toString().equals(actualPlayerAnchor.getUniqueId().toString());
         } catch (Exception e) {
             return false;
         }
     }
 
+    /**
+     * Returns the total anchors of a player.
+     * @param plugin
+     * @param p
+     * @return int
+     */
     public static int getPlayerTotalAnchors(AnchorSell plugin, Player p) {
         return getUserData(plugin, p).getConfig().getInt("total");
     }
 
+    /**
+     * Returns the money return in minutes from a player.
+     * @param plugin
+     * @param p
+     * @return
+     */
     public static double getPlayerMoneyPerMinute(AnchorSell plugin, Player p) {
-        userData = new PerUSerStorage(plugin, p);
+        userData = new PerUserStorage(plugin, p);
         double res = 0;
         for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
@@ -176,8 +234,15 @@ public class StorageManager {
         return res;
     }
 
+    /**
+     * Prints the list of anchors of a user.
+     * @param plugin
+     * @param p
+     * @param toSendBack
+     * @throws InvalidConfigurationException
+     */
     public static void getAnchorUserList(AnchorSell plugin, OfflinePlayer p, CommandSender toSendBack) throws InvalidConfigurationException {
-        userData = new PerUSerStorage(plugin, p);
+        userData = new PerUserStorage(plugin, p);
 
         toSendBack.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.first-message")));
 
@@ -198,8 +263,14 @@ public class StorageManager {
         toSendBack.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.last-message")));
     }
 
+    /**
+     * Saves the anchor upgrade to the config.
+     * @param plugin
+     * @param location
+     * @param p
+     */
     public static void upgradeAnchor(AnchorSell plugin, Location location, Player p) {
-        userData = new PerUSerStorage(plugin, p);
+        userData = new PerUserStorage(plugin, p);
         generalData = new GeneralStorage(plugin);
 
         // Updating user data...
@@ -226,30 +297,56 @@ public class StorageManager {
         userData.saveConfig();
     }
 
+    /**
+     * Handles the change of the upgrade multiplier.
+     * @param plugin
+     * @param multiplier
+     */
     public static void changeUpgradeMultiplier(AnchorSell plugin, int multiplier) {
         plugin.getConfig().set("anchor.upgrade-multiplier", multiplier);
         plugin.saveConfig();
     }
 
+    /**
+     * Handles the price change.
+     * @param plugin
+     * @param price
+     */
     public static void changePrice(AnchorSell plugin, int price) {
         plugin.getConfig().set("anchor-value", price);
         plugin.saveConfig();
     }
 
+    /**
+     * Handles the change of the area that anchors cannot be placed nearby.
+     * @param plugin
+     * @param zone
+     */
     public static void changeSafeZone(AnchorSell plugin, int zone) {
         plugin.getConfig().set("safe-anchor-area", zone);
         plugin.saveConfig();
     }
 
+    /**
+     * Handles the change of the total of anchors a user can have.
+     * @param plugin
+     * @param n
+     */
     public static void changeTotalAnchorsUserCanHave(AnchorSell plugin, int n) {
         plugin.getConfig().set("total-anchors-user-can-have", n);
         plugin.saveConfig();
     }
 
+    /**
+     * Revalidates all the anchors on the server.
+     * Revalidates means that it checks if the anchor is still there in the world.
+     * If not, it removes it from the config.
+     * @param plugin
+     */
     public static void revalidateAll(AnchorSell plugin) {
         generalData = new GeneralStorage(plugin);
         for(Player p: Bukkit.getOnlinePlayers()) {
-            userData = new PerUSerStorage(plugin, p);
+            userData = new PerUserStorage(plugin, p);
             for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
                 if(userData.getConfig().contains("anchors." + i)) {
                     Location loc;
@@ -279,9 +376,14 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Same as revalidateAll but now from a specific user.
+     * @param plugin
+     * @param p
+     */
     public static void revalidateUser(AnchorSell plugin, OfflinePlayer p) {
         generalData = new GeneralStorage(plugin);
-        userData = new PerUSerStorage(plugin, p);
+        userData = new PerUserStorage(plugin, p);
         for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
                 Location loc;
@@ -310,6 +412,13 @@ public class StorageManager {
         }
     }
 
+    /**
+     * Returns a HashMap of the anchor top.
+     * Anchor TOP: Player name and the sum of all the anchors with theirs levels.
+     *
+     * @param plugin
+     * @return
+     */
     public static HashMap<String, Integer> getAnchorTop(AnchorSell plugin) {
         generalData = new GeneralStorage(plugin);
         ArrayList<String> ownersUUID = new ArrayList<>();
@@ -347,12 +456,17 @@ public class StorageManager {
     }
 
 
+
+
     public static GeneralStorage getGeneralStorage() {
         return generalData;
     }
-    public static PerUSerStorage getUserData(AnchorSell plugin, Player p) {
-        return new PerUSerStorage(plugin, p);
+    public static PerUserStorage getUserData(AnchorSell plugin, Player p) {
+        return new PerUserStorage(plugin, p);
     }
-    public static PerUSerStorage userData;
+
+
+
+    public static PerUserStorage userData;
     public static GeneralStorage generalData;
 }
