@@ -1,4 +1,4 @@
-# AnchorSell - Plugin for Spigot
+# AnchorSell - Spigot plugin
 
 Spigot plugin to get money using a Respawn anchor. 
 
