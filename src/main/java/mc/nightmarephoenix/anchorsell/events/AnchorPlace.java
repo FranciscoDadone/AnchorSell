@@ -119,11 +119,13 @@ public class AnchorPlace implements Listener {
                  * Checks if the user can place more anchors
                  * (if it has a limit)
                  */
-                if(!StorageManager.userCanPlaceMoreAnchors(plugin, p)) {
-                    e.setCancelled(true);
-                    p.sendMessage(Utils.Color(plugin.getConfig().getString("cannot-place-more-anchors").replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
-                    return;
-                }
+                try {
+                    if(!StorageManager.userCanPlaceMoreAnchors(plugin, p)) {
+                        e.setCancelled(true);
+                        p.sendMessage(Utils.Color(plugin.getConfig().getString("cannot-place-more-anchors").replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
+                        return;
+                    }
+                } catch(Exception e1) {}
 
                 /**
                  * Waits 1sec to check if the block is actually placed and not removed by a protection plugin.
