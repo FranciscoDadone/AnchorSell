@@ -37,27 +37,6 @@ You can upgrade the anchors to earn more money!
 - /anchor getUserFileName [username] (anchorsell.admin.getUserFileName)
 - /anchor revalidate [username] (anchorsell.admin.revalidate)
 
-
-## Screenshots // Gifs
-#### Placing an anchor
-![](github/gifs/place.gif)
-
-#### Breaking an anchor
-![](github/gifs/break.gif)
-
-#### Blowing an anchor
-![](github/gifs/blow.gif)
-
-#### Blowing underwater
-![](github/gifs/tnt_under_water.gif)
-
-#### Anchor menu
-![](github/gifs/showing_menu.gif)
-
-#### Anchor top
-![](github/imgs/anchorTop.png)
-
-
 ## Config file
 
 ```yaml
