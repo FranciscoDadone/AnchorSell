@@ -91,6 +91,7 @@ public class StorageManager {
      * @return boolean
      */
     public static boolean userCanPlaceMoreAnchors(AnchorSell plugin, Player p) {
+        userData = new PerUserStorage(plugin, p);
         if(userData.getConfig().contains("total")) {
             return userData.getConfig().getInt("total") < plugin.getConfig().getInt("total-anchors-user-can-have");
         }
