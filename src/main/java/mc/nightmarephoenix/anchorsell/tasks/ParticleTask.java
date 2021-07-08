@@ -22,8 +22,13 @@ public class ParticleTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        /**
+         * Gets all the cached anchors.
+         * Sees if a player is near that anchor.
+         * If yes, it ticks a particle effect.
+         * If no, breaks and continues with another player.
+         */
         for(Location loc : Cache.getAllAnchors()) {
-
             for(Player p : Bukkit.getOnlinePlayers()) {
                 if(p.getWorld().equals(loc.getWorld())) {
                     if(p.getLocation().distanceSquared(loc) < 30 * 30) {
