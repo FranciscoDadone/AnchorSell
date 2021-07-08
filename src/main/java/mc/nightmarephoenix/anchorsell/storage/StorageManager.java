@@ -110,10 +110,10 @@ public class StorageManager {
         String anchorID = getAnchorUUID(location);
 
         // Figuring out who's the anchor owner
-        Player p;
+        OfflinePlayer p;
         try {
             String uuid = generalData.getConfig().getString("all_anchors." + anchorID + ".owner");
-            p = Bukkit.getPlayer(UUID.fromString(uuid));
+            p = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
             userData = new PerUserStorage(plugin, p);
         } catch (Exception exception) {
             exception.printStackTrace();
