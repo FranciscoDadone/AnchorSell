@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.storage.Cache;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.*;
@@ -54,7 +55,13 @@ public class AnchorBlow implements Listener {
                 // Playing sound on anchor break
                 world.playSound(b.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1f, 1f);
 
-                // generate particles around on place
+                /**
+                 * Removes anchor from cache.
+                 */
+                Cache.removeAnchor(b.getLocation());
+
+
+                // generate particles around on blow
                 for(int i = 0; i < 360; i += 3) {
                     Location flameloc = new Location(b.getLocation().getWorld(), b.getLocation().getX(), b.getLocation().getY(), b.getLocation().getZ());
                     flameloc.getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, new Location(b.getWorld(), flameloc.getX() + Math.sin(i) * 3, b.getLocation().getY(), flameloc.getZ() + Math.cos(i) * 3),10);

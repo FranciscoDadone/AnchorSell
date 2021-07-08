@@ -1,11 +1,10 @@
 package mc.nightmarephoenix.anchorsell.storage;
 
+import com.sk89q.util.StringUtil;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
+import org.apache.commons.lang.StringUtils;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
@@ -461,6 +460,39 @@ public class StorageManager {
     }
 
 
+    public static void cacheAllAnchors(AnchorSell plugin) {
+        generalData = new GeneralStorage(plugin);
+        Set<String> a = generalData.getConfig().getKeys(true);
+
+
+
+        int x = -1, y = -1, z = -1;
+        for(String str : a) {
+            World world = null;
+
+            if(StringUtils.countMatches(str, ".") == 1) {
+                x = Integer.parseInt(StringUtils.split(str, "all_anchors.")[0]);
+                y = Integer.parseInt(StringUtils.split(str, "all_anchors.")[1]);
+                z = Integer.parseInt(StringUtils.split(str, "all_anchors.")[2]);
+            }
+            if(StringUtils.countMatches(str, ".world") == 1) {
+                world = Bukkit.getServer().getWorld(generalData.getConfig().getString(str));
+                Cache.addAnchor(
+                        new Location(
+                                world,
+                                x,
+                                y,
+                                z
+
+                        ));
+            }
+
+        }
+
+
+
+
+    }
 
 
     public static GeneralStorage getGeneralStorage() {

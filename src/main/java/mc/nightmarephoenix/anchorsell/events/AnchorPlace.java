@@ -3,6 +3,7 @@ package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
 import mc.nightmarephoenix.anchorsell.hooks.Global;
+import mc.nightmarephoenix.anchorsell.storage.Cache;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import mc.nightmarephoenix.anchorsell.worldguard.RegionManager;
@@ -159,6 +160,12 @@ public class AnchorPlace implements Listener {
                             flameloc.setX(flameloc.getX() + Math.sin(i) * 5);
                             loc.getWorld().playEffect(flameloc, Effect.POTION_BREAK, 51);
                         }
+
+                        /**
+                         * Caching anchor
+                         */
+                        Cache.addAnchor(loc);
+
 
                         /**
                          * Determines witch level of glowstone the anchor needs
