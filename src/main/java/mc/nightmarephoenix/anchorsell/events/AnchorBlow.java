@@ -72,6 +72,17 @@ public class AnchorBlow implements Listener {
                     world.dropItem(new Location(anchor.getWorld(), anchor.getX(), anchor.getY(), anchor.getZ()), Utils.getAnchor(level, 1)).setInvulnerable(true);
 
                     /**
+                     Log to console the anchor blow
+                     */
+                    Bukkit.getLogger().info("[AnchorSell] " +
+                            "Anchor blew " +
+                            "(" +
+                                    anchor.getX() + ", " +
+                                    anchor.getY() + ", " +
+                                    anchor.getZ() +
+                            ")");
+
+                    /**
                      * Saves the broken anchor to the database.
                      */
                     StorageManager.anchorBreak(plugin, anchor.getLocation());

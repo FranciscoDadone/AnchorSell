@@ -70,6 +70,18 @@ public class AnchorBreak implements Listener {
                 if(!location.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
 
                     /**
+                     Log to console the anchor break
+                     */
+                    Bukkit.getLogger().info("[AnchorSell] "
+                            + p.getName() + " broke a level " + StorageManager.getAnchorLevel(plugin, location) + " Anchor. " +
+                            "(" +
+                                    location.getX() + ", " +
+                                    location.getY() + ", " +
+                                    location.getZ() +
+                            ")");
+
+
+                    /**
                      * Playing sound on anchor break.
                      */
                     p.playSound(p.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1f, 1f);

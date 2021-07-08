@@ -136,6 +136,16 @@ public class AnchorPlace implements Listener {
                         if(!StorageManager.anchorPlace(plugin, e, p, loc, finalCurrentAnchorLevel)) return;
 
                         /**
+                        Log to console the anchor place
+                         */
+                        Bukkit.getLogger().info("[AnchorSell] "
+                                + p.getName() + " placed a level " + finalCurrentAnchorLevel + " Anchor. " +
+                                "(" +
+                                block.getX() + ", " +
+                                block.getY() + ", " +
+                                block.getZ() +
+                                ")");
+                        /**
                          * Plays the sound on placement.
                          */
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1f, 1f);

@@ -8,6 +8,7 @@ import mc.nightmarephoenix.anchorsell.inventories.ConfirmScreen;
 import mc.nightmarephoenix.anchorsell.inventories.UpgradesScreen;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -74,6 +75,17 @@ public class GuiAnchorEvents implements Listener {
 
                 if(EconomyManager.withdrawFromUser(p, Utils.getMoneyToUpgrade(level, plugin))) {
                     /**
+                     Log to console the anchor upgrade event
+                     */
+                    Bukkit.getLogger().info("[AnchorSell] " +
+                            p.getName() + " upgraded an anchor. (" +
+                            location.getX() + ", " +
+                            location.getY() + ", " +
+                            location.getZ() + ") (" +
+                                    (level - 1) + " -> " + level
+                            );
+
+                    /**
                      * Saves the upgrade to config.
                      */
                     StorageManager.upgradeAnchor(plugin, location, p);
@@ -138,6 +150,13 @@ public class GuiAnchorEvents implements Listener {
                  * Takes the money from the user.
                  */
                 if(EconomyManager.withdrawFromUser(p, anchorValue)) {
+                    /**
+                     Log to console the anchor buy event
+                     */
+                    Bukkit.getLogger().info("[AnchorSell] " +
+                            p.getName() + " bought an Anchor."
+                    );
+
                     p.getInventory().addItem(Utils.getAnchor(1, 1));
                     p.sendMessage(Utils.Color(plugin.getConfig().getString("confirmscreen.you-have-an-anchor")));
                 } else {
