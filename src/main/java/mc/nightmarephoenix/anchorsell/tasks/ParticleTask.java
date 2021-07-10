@@ -47,19 +47,24 @@ public class ParticleTask extends BukkitRunnable {
                                     5);
 
                             for (int a = 0; a < 360; a += 10) {
-                                Location flameloc = new Location(block.getLocation().getWorld(), block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ());
-                                flameloc.setX(flameloc.getX() + 0.5 + Math.sin(a) * 0.3);
-                                flameloc.setZ(flameloc.getZ() + 0.5 + Math.cos(a) * 0.3);
-                                flameloc.setY(flameloc.getY() + 2.2);
+                                Location particlesLoc = new Location(block.getLocation().getWorld(), block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ());
+                                particlesLoc.setX(particlesLoc.getX() + 0.5 + Math.sin(a) * 0.3);
+                                particlesLoc.setZ(particlesLoc.getZ() + 0.5 + Math.cos(a) * 0.3);
+                                particlesLoc.setY(particlesLoc.getY() + 2.2);
 
                                 block.getLocation().getWorld().spawnParticle(
                                         Particle.END_ROD,
-                                        flameloc,
+                                        particlesLoc,
                                         0
                                 );
                                 block.getLocation().getWorld().spawnParticle(
                                         Particle.DRIPPING_OBSIDIAN_TEAR,
-                                        new Location(flameloc.getWorld(), flameloc.getX(), flameloc.getY() - 1.2, flameloc.getZ()),
+                                        new Location(
+                                                particlesLoc.getWorld(),
+                                                particlesLoc.getX(),
+                                                particlesLoc.getY() - 1.2,
+                                                particlesLoc.getZ()
+                                        ),
                                         0
                                 );
                             }

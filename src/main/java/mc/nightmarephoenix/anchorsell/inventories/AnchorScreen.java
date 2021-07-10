@@ -5,10 +5,13 @@ import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+
 import java.util.Collections;
 
 public class AnchorScreen implements InventoryHolder {
@@ -43,9 +46,18 @@ public class AnchorScreen implements InventoryHolder {
                 Material.BOOK, Utils.getLore("anchor.current-anchor-info.lore", plugin, location, p), false);
         inv.setItem(11, info);
 
-        // Player
-        ItemStack player = Utils.createItem(p.getName(), Material.SKELETON_SKULL, Utils.getLore("anchor.player.lore", plugin, location, p), false);
-        inv.setItem(13, player);
+        // Player head
+        ItemStack skull = Utils.createItem(
+                p.getName(),
+                Material.PLAYER_HEAD,
+                Utils.getLore("anchor.player.lore", plugin, location, p),
+                false
+        );
+        SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+        skullMeta.setDisplayName(p.getName());
+        skullMeta.setOwningPlayer(p);
+        skull.setItemMeta(skullMeta);
+        inv.setItem(13, skull);
 
         // Upgrades
         ItemStack upgrades = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Utils.getLore("anchor.upgrades.lore", plugin, location, p), false);
