@@ -28,71 +28,72 @@ public class ParticleTask extends BukkitRunnable {
          * If yes, it ticks a particle effect.
          * If no, breaks and continues with another player.
          */
-        for(Location loc : Cache.getAllAnchors()) {
-            for(Player p : Bukkit.getOnlinePlayers()) {
-                if(p.getWorld().equals(loc.getWorld())) {
-                    if(p.getLocation().distanceSquared(loc) < 30 * 30) {
+        Location loc = Cache.getNextAnchor();
+        if (loc == null) return;
 
-                        Block block = loc.getBlock();
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            if(p.getWorld().equals(loc.getWorld())) {
+                if(p.getLocation().distanceSquared(loc) < 30 * 30) {
 
-                        if (block.getType().equals(Material.RESPAWN_ANCHOR)) {
-                            block.getLocation().getWorld().spawnParticle(
-                                    Particle.PORTAL,
-                                    new Location(
-                                            block.getWorld(),
-                                            block.getX() + 0.5,
-                                            block.getY() + 1,
-                                            block.getZ() + 0.5
-                                    ),
-                                    5);
+                    Block block = loc.getBlock();
 
-                            for (int a = 0; a < 360; a += 10) {
-                                Location particlesLoc = new Location(block.getLocation().getWorld(), block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ());
-                                particlesLoc.setX(particlesLoc.getX() + 0.5 + Math.sin(a) * 0.3);
-                                particlesLoc.setZ(particlesLoc.getZ() + 0.5 + Math.cos(a) * 0.3);
-                                particlesLoc.setY(particlesLoc.getY() + 2.2);
+                    if (block.getType().equals(Material.RESPAWN_ANCHOR)) {
+                        block.getLocation().getWorld().spawnParticle(
+                                Particle.PORTAL,
+                                new Location(
+                                        block.getWorld(),
+                                        block.getX() + 0.5,
+                                        block.getY() + 1,
+                                        block.getZ() + 0.5
+                                ),
+                                5);
 
-                                block.getLocation().getWorld().spawnParticle(
-                                        Particle.END_ROD,
-                                        particlesLoc,
-                                        0
-                                );
-                                block.getLocation().getWorld().spawnParticle(
-                                        Particle.DRIPPING_OBSIDIAN_TEAR,
-                                        new Location(
-                                                particlesLoc.getWorld(),
-                                                particlesLoc.getX(),
-                                                particlesLoc.getY() - 1.2,
-                                                particlesLoc.getZ()
-                                        ),
-                                        0
-                                );
-                            }
+                        for (int a = 0; a < 360; a += 10) {
+                            Location particlesLoc = new Location(block.getLocation().getWorld(), block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ());
+                            particlesLoc.setX(particlesLoc.getX() + 0.5 + Math.sin(a) * 0.3);
+                            particlesLoc.setZ(particlesLoc.getZ() + 0.5 + Math.cos(a) * 0.3);
+                            particlesLoc.setY(particlesLoc.getY() + 2.2);
 
                             block.getLocation().getWorld().spawnParticle(
-                                    Particle.SOUL,
-                                    new Location(
-                                            block.getWorld(),
-                                            block.getX() + 0.5,
-                                            block.getY() + 1.6,
-                                            block.getZ() + 0.5
-                                    ),
-                                    0, 0, 0, 0
+                                    Particle.END_ROD,
+                                    particlesLoc,
+                                    0
                             );
-
                             block.getLocation().getWorld().spawnParticle(
-                                    Particle.FLAME,
+                                    Particle.DRIPPING_OBSIDIAN_TEAR,
                                     new Location(
-                                            block.getWorld(),
-                                            block.getX() + 0.5,
-                                            block.getY() + 1.1,
-                                            block.getZ() + 0.5
+                                            particlesLoc.getWorld(),
+                                            particlesLoc.getX(),
+                                            particlesLoc.getY() - 1.2,
+                                            particlesLoc.getZ()
                                     ),
-                                    0, 0, 0, 0
+                                    0
                             );
                         }
-                        break;
+
+                        block.getLocation().getWorld().spawnParticle(
+                                Particle.SOUL,
+                                new Location(
+                                        block.getWorld(),
+                                        block.getX() + 0.5,
+                                        block.getY() + 1.6,
+                                        block.getZ() + 0.5
+                                ),
+                                0, 0, 0, 0
+                        );
+
+                        block.getLocation().getWorld().spawnParticle(
+                                Particle.FLAME,
+                                new Location(
+                                        block.getWorld(),
+                                        block.getX() + 0.5,
+                                        block.getY() + 1.1,
+                                        block.getZ() + 0.5
+                                ),
+                                0, 0, 0, 0
+                        );
                     }
+                    break;
                 }
             }
         }

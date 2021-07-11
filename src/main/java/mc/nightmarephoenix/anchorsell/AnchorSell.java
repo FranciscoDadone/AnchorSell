@@ -5,6 +5,7 @@ import mc.nightmarephoenix.anchorsell.commands.AnchorCommand;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
+import mc.nightmarephoenix.anchorsell.storage.Cache;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.tasks.ParticleTask;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
@@ -84,6 +85,11 @@ public final class AnchorSell extends JavaPlugin {
         );
 
 
+        int periodTicks = 40 * Cache.getAllAnchors().size();
+        if (periodTicks == 0) {
+            periodTicks = 100;
+        }
+
         /**
          * Loading the particle task
          *
@@ -92,7 +98,7 @@ public final class AnchorSell extends JavaPlugin {
         new ParticleTask(this).runTaskTimer(
                 this,
                 0,
-                10
+                periodTicks
         );
 
     }
