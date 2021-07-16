@@ -28,77 +28,79 @@ public class ParticleTask extends BukkitRunnable {
          * If yes, it ticks a particle effect.
          * If no, breaks and continues with another player.
          */
-        Location loc = Cache.getNextAnchor();
-        if (loc == null) return;
+        if(!Cache.particlesStatus.equalsIgnoreCase("off")) {
+            for(Location loc : Cache.getAllAnchors()) {
+                for(Player p : Bukkit.getOnlinePlayers()) {
+                    if(p.getWorld().equals(loc.getWorld())) {
+                        if(p.getLocation().distanceSquared(loc) < 30 * 30) {
 
-        for(Player p : Bukkit.getOnlinePlayers()) {
-            if(p.getWorld().equals(loc.getWorld())) {
-                if(p.getLocation().distanceSquared(loc) < 30 * 30) {
+                            Block block = loc.getBlock();
 
-                    Block block = loc.getBlock();
+                            if (block.getType().equals(Material.RESPAWN_ANCHOR)) {
+                                block.getLocation().getWorld().spawnParticle(
+                                        Particle.PORTAL,
+                                        new Location(
+                                                block.getWorld(),
+                                                block.getX() + 0.5,
+                                                block.getY() + 1,
+                                                block.getZ() + 0.5
+                                        ),
+                                        5);
 
-                    if (block.getType().equals(Material.RESPAWN_ANCHOR)) {
-                        block.getLocation().getWorld().spawnParticle(
-                                Particle.PORTAL,
-                                new Location(
-                                        block.getWorld(),
-                                        block.getX() + 0.5,
-                                        block.getY() + 1,
-                                        block.getZ() + 0.5
-                                ),
-                                5);
+                                if(Cache.particlesStatus.equalsIgnoreCase("all")) {
+                                    for (int a = 0; a < 360; a += 10) {
+                                        Location particlesLoc = new Location(block.getLocation().getWorld(), block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ());
+                                        particlesLoc.setX(particlesLoc.getX() + 0.5 + Math.sin(a) * 0.3);
+                                        particlesLoc.setZ(particlesLoc.getZ() + 0.5 + Math.cos(a) * 0.3);
+                                        particlesLoc.setY(particlesLoc.getY() + 2.2);
 
-                        for (int a = 0; a < 360; a += 10) {
-                            Location particlesLoc = new Location(block.getLocation().getWorld(), block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ());
-                            particlesLoc.setX(particlesLoc.getX() + 0.5 + Math.sin(a) * 0.3);
-                            particlesLoc.setZ(particlesLoc.getZ() + 0.5 + Math.cos(a) * 0.3);
-                            particlesLoc.setY(particlesLoc.getY() + 2.2);
+                                        block.getLocation().getWorld().spawnParticle(
+                                                Particle.END_ROD,
+                                                particlesLoc,
+                                                0
+                                        );
+                                        block.getLocation().getWorld().spawnParticle(
+                                                Particle.DRIPPING_OBSIDIAN_TEAR,
+                                                new Location(
+                                                        particlesLoc.getWorld(),
+                                                        particlesLoc.getX(),
+                                                        particlesLoc.getY() - 1.2,
+                                                        particlesLoc.getZ()
+                                                ),
+                                                0
+                                        );
+                                    }
 
-                            block.getLocation().getWorld().spawnParticle(
-                                    Particle.END_ROD,
-                                    particlesLoc,
-                                    0
-                            );
-                            block.getLocation().getWorld().spawnParticle(
-                                    Particle.DRIPPING_OBSIDIAN_TEAR,
-                                    new Location(
-                                            particlesLoc.getWorld(),
-                                            particlesLoc.getX(),
-                                            particlesLoc.getY() - 1.2,
-                                            particlesLoc.getZ()
-                                    ),
-                                    0
-                            );
+                                    block.getLocation().getWorld().spawnParticle(
+                                            Particle.SOUL,
+                                            new Location(
+                                                    block.getWorld(),
+                                                    block.getX() + 0.5,
+                                                    block.getY() + 1.6,
+                                                    block.getZ() + 0.5
+                                            ),
+                                            0, 0, 0, 0
+                                    );
+
+                                    block.getLocation().getWorld().spawnParticle(
+                                            Particle.FLAME,
+                                            new Location(
+                                                    block.getWorld(),
+                                                    block.getX() + 0.5,
+                                                    block.getY() + 1.1,
+                                                    block.getZ() + 0.5
+                                            ),
+                                            0, 0, 0, 0
+                                    );
+
+                                }
+                            }
+                            break;
                         }
-
-                        block.getLocation().getWorld().spawnParticle(
-                                Particle.SOUL,
-                                new Location(
-                                        block.getWorld(),
-                                        block.getX() + 0.5,
-                                        block.getY() + 1.6,
-                                        block.getZ() + 0.5
-                                ),
-                                0, 0, 0, 0
-                        );
-
-                        block.getLocation().getWorld().spawnParticle(
-                                Particle.FLAME,
-                                new Location(
-                                        block.getWorld(),
-                                        block.getX() + 0.5,
-                                        block.getY() + 1.1,
-                                        block.getZ() + 0.5
-                                ),
-                                0, 0, 0, 0
-                        );
                     }
-                    break;
                 }
             }
         }
     }
-
     private AnchorSell plugin;
-
 }

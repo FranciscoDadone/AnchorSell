@@ -33,32 +33,6 @@ public class Cache {
         return anchors;
     }
 
-    public static Location getNextAnchor() {
-        Location result;
-
-        if (getAllAnchors().isEmpty()) return null;
-
-        float calc;
-
-        try {
-            calc = currentAnchorIndex % (getAllAnchors().size());
-        } catch (ArithmeticException e) {
-            return null;
-        }
-
-        if (calc == 0f) {
-            currentAnchorIndex = 0;
-        }
-
-        result = getAllAnchors().get(currentAnchorIndex);
-
-        currentAnchorIndex += 1;
-
-        return result;
-    }
-
     private static ArrayList<Location> anchors = new ArrayList<>();
-
-    private static Location currentAnchor;
-    private static int currentAnchorIndex = 0;
+    public static String particlesStatus;
 }

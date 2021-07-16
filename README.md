@@ -40,7 +40,7 @@ You can upgrade the anchors to earn more money!
 ## Config file
 
 ```yaml
-version: 0.3.0
+version: 0.3.1
 
 ##
 # AnchorSell plugin
@@ -74,6 +74,7 @@ help-message-admin:
   - "&e/anchor changeTotalAnchorsUserCanHave [number] &fChanges the total anchors one user can have."
   - "&e/anchor getUserFileName [username] &fShows the archive where the user information is stored."
   - "&e/anchor revalidate [username] &fRevalidates the anchors of that player."
+  - "&e/anchor particles [all/low/off] &fChanges the particles on all anchors."
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
@@ -192,6 +193,9 @@ levels:
   4: "&bDiamond"
   5: "&6&lNETHERITE"
   maxed-out-level: "&c&lMaxed out!"
+
+# particles can be [ all / low / off ]
+particles: "all"
 ```
 You can find a SPANISH translated config file in languages folder.
 

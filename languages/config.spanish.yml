@@ -1,4 +1,4 @@
-version: 0.3.0
+version: 0.3.1
 
 ##
 # AnchorSell plugin
@@ -9,11 +9,11 @@ version: 0.3.0
 ##
 
 
-reload-message: "&aSe ha recargado la configuracion existosamente."
+reload-message: "&aSe ha recargado la configuración existosamente."
 help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"
-  - "&e/anchor buy &fPara comprar un anchor"
-  - "&e/anchor list &fDa un listado de todos los anchors en su poder"
+  - "&e/anchor buy &fPara comprar un anchor."
+  - "&e/anchor list &fDa un listado de todos los anchors en su poder."
   - "&e/anchor top [number] &fTop anchors en el servidor."
   - ""
   - "&e/anchor authors"
@@ -21,17 +21,18 @@ help-message:
 
 help-message-admin:
   - "&7&m----------&r &5&lAnchor &7&m----------"
-  - "&e/anchor reload &f Recarga la configuracion."
+  - "&e/anchor reload &f Recarga la configuración."
   - "&e/anchor give [name] [quantity] [level] &fDa un anchor al jugador."
   - "&e/anchor list [username] &fDa un listado de todos los anchor en su poder."
   - "&e/anchor top [number] &fTop anchors en el servidor."
   - "&e/anchor upgrades &fMuestra el coste para mejorar un anchor."
   - "&e/anchor changeUpgradeMultiplier [multiplier] &fCambia el multiplicador de mejora, esto afecta al precio de mejora."
   - "&e/anchor changePrice [price] &fCambia el precio de compra del anchor."
-  - "&e/anchor changeSafeZone [zone] &fCambia el radio minimo donde se pueden poner anchors."
+  - "&e/anchor changeSafeZone [zone] &fCambia el radio mínimo donde se pueden poner anchors."
   - "&e/anchor changeTotalAnchorsUserCanHave [number] &fCambia el total de anchors que un usuario puede tener."
-  - "&e/anchor getUserFileName [username] &fMuestra donde esta la informacion del usuario."
-  - "&e/anchor revalidate [username] &fRevalidacion de los anchors de un jugador."
+  - "&e/anchor getUserFileName [username] &fMuestra donde esta la información del usuario."
+  - "&e/anchor revalidate [username] &fRevalidación de los anchors de un jugador."
+  - "&e/anchor particles [all/low/off] &fCambia las partículas de todos los anchors."
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
@@ -112,18 +113,18 @@ anchor:
 anchorbuy:
   title: "&5Comprar un anchor"
   anchor-info:
-    txt: "Que es un anchor?"
+    txt: "¿Qué es un anchor?"
     lore:
-      - "&eUn anchor es un bloque en el cual"
+      - "&eUn anchor es un bloque del cual"
       - "&epuedes obtener dinero, cada cierto"
-      - "&etiempo solo colocandolo."
+      - "&etiempo solo colocándolo."
   buy:
     title: "&5&lComprar un anchor"
     lore: "&ePrecio: &f$%price%"
 
 confirmscreen:
-  title: "&5Esta seguro que quiere comprar un anchor?"
-  you-have-an-anchor: "&5Usted compro un anchor."
+  title: "&5¿Está seguro que quiere comprar un anchor?"
+  you-have-an-anchor: "&5Anchor comprado exitosamente."
   you-cant-afford: "&5No tienes suficiente dinero."
   cancel: "&4&lCancelar"
   confirm: "&a&lConfirmar"
@@ -151,4 +152,7 @@ levels:
   3: "&eOro"
   4: "&bDiamante"
   5: "&6&lNETHERITE"
-  maxed-out-level: "&c&lNivel maximo!"
+  maxed-out-level: "&c&l¡Nivel máximo!"
+
+# Las partículas pueden ser [ all / low / off ]
+particles: "all"

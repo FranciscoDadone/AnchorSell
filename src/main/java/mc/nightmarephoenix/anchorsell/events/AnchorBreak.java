@@ -2,7 +2,7 @@ package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
-import mc.nightmarephoenix.anchorsell.hooks.Global;
+import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import mc.nightmarephoenix.anchorsell.storage.Cache;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
@@ -39,7 +39,7 @@ public class AnchorBreak implements Listener {
              * Check if the player is in his faction.
              * (FactionsX soft-depend)
              */
-            if(!Utils.isPlayerInHisFaction(block, p) && !Utils.isBlockInWilderness(block) && !p.isOp() && Global.getFactionsX() == FactionsX.ACTIVE) {
+            if(!Utils.isPlayerInHisFaction(block, p) && !Utils.isBlockInWilderness(block) && !p.isOp() && Hooks.getFactionsX() == FactionsX.ACTIVE) {
                 e.setCancelled(true);
                 return;
             }

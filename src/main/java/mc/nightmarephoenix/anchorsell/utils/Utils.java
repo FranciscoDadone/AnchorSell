@@ -3,7 +3,7 @@ package mc.nightmarephoenix.anchorsell.utils;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
-import mc.nightmarephoenix.anchorsell.hooks.Global;
+import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import net.prosavage.factionsx.core.FPlayer;
 import net.prosavage.factionsx.manager.GridManager;
@@ -241,7 +241,7 @@ public class Utils {
      * @return boolean
      */
     public static boolean isPlayerInHisFaction(Block block, Player p) {
-        if(Global.getFactionsX() == FactionsX.ACTIVE) {
+        if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
             return String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()));
         }
         return false;
@@ -254,7 +254,7 @@ public class Utils {
      * @return
      */
     public static boolean isBlockInWilderness(Block block) {
-        if(Global.getFactionsX() == FactionsX.ACTIVE) {
+        if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
             return GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null;
         }
         return false;
@@ -268,7 +268,7 @@ public class Utils {
      * @return boolean
      */
     public static boolean isAFactionMember(AnchorSell plugin, Player breaker, Block block) {
-        if(Global.getFactionsX() == FactionsX.ACTIVE) {
+        if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
             for(FPlayer p: GridManager.INSTANCE.getFactionAt(block.getChunk()).getMembers()) {
                 if(breaker.getName().equals(p.getName())) {
                     if(!StorageManager.isMyAnchor(block.getLocation(), breaker, plugin)) {

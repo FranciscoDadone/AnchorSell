@@ -2,6 +2,7 @@ package mc.nightmarephoenix.anchorsell.commands;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
+import mc.nightmarephoenix.anchorsell.storage.Cache;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
@@ -111,14 +112,14 @@ public class AnchorCommand implements CommandExecutor {
                 sender.sendMessage(Utils.Color("&7&m----------------------------"));
             } else if(sender.hasPermission("anchorsell.admin.getUserFileName") && args[0].equalsIgnoreCase("getuserfilename")) {
             // anchor getUserFileName
-                if(args[1] != null && args[1] != "") {
+                if(args.length == 2) {
                     sender.sendMessage(Utils.Color("&aUser file name: &c" + Bukkit.getPlayer(args[1]).getUniqueId() + ".yml"));
                 } else {
                     sender.sendMessage(Utils.Color("Usage: &e/anchor getuserfilename [username]"));
                 }
             } else if(sender.hasPermission("anchorsell.admin.changeTotalAnchorsUserCanHave") && args[0].equalsIgnoreCase("changeTotalAnchorsUserCanHave")) {
             // anchor changetotalanchorsusercanhave
-                if(args[1] != null && args[1] != "") {
+                if(args.length == 2) {
                     StorageManager.changeTotalAnchorsUserCanHave(plugin, Integer.parseInt(args[1]));
                     sender.sendMessage(Utils.Color("&aTotal anchors per user changed to &c" + args[1]));
                 } else {
@@ -126,11 +127,19 @@ public class AnchorCommand implements CommandExecutor {
                 }
             } else if(sender.hasPermission("anchorsell.admin.revalidate") && args[0].equalsIgnoreCase("revalidate")) {
             // anchor revalidate
-                if(args[1] != null && args[1] != "") {
+                if(args.length == 2) {
                     StorageManager.revalidateUser(plugin, Bukkit.getOfflinePlayer(args[1]));
                     sender.sendMessage(Utils.Color("&aRevalidated &c" + args[1] + " &afiles."));
                 } else {
                     sender.sendMessage(Utils.Color("Usage: &e/anchor revalidate [username]"));
+                }
+            } else if(sender.hasPermission("anchorsell.admin.particles") && args[0].equalsIgnoreCase("particles")) {
+                if(args.length == 2 && (args[1].equalsIgnoreCase("all") || args[1].equalsIgnoreCase("low") || args[1].equalsIgnoreCase("off"))) {
+                    plugin.getConfig().set("particles", args[1]);
+                    plugin.reloadConfig();
+                    Cache.particlesStatus = args[1];
+                } else {
+                    sender.sendMessage(Utils.Color("Usage: &e/anchor particles [all/low/off]"));
                 }
             } else if(args[0].equalsIgnoreCase("top")) {
             // anchor top

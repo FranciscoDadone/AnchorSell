@@ -1,6 +1,6 @@
 package mc.nightmarephoenix.anchorsell.hooks;
 
-public class Global {
+public class Hooks {
 
     private static WG wg;
     private static FactionsX fX;

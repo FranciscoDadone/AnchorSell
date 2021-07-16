@@ -9,7 +9,7 @@ import mc.nightmarephoenix.anchorsell.storage.Cache;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.tasks.ParticleTask;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
-import mc.nightmarephoenix.anchorsell.hooks.Global;
+import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import net.prosavage.factionsx.manager.FactionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,18 +32,18 @@ public final class AnchorSell extends JavaPlugin {
         // World guard check - soft depend
         try {
             WorldGuard.getInstance();
-            Global.setWorldGuard(true);
+            Hooks.setWorldGuard(true);
         } catch (NoClassDefFoundError e) {
             this.getLogger().fine("No WorldGuard detected.");
-            Global.setWorldGuard(false);
+            Hooks.setWorldGuard(false);
         }
          // FactionsX check - soft depend
         try {
             FactionManager.INSTANCE.getFactions();
-            Global.setFactionsX(true);
+            Hooks.setFactionsX(true);
         } catch (NoClassDefFoundError e) {
             this.getLogger().fine("No FactionsX detected.");
-            Global.setFactionsX(false);
+            Hooks.setFactionsX(false);
         }
 
 
@@ -71,7 +71,10 @@ public final class AnchorSell extends JavaPlugin {
          */
         StorageManager.cacheAllAnchors(this);
 
-
+        /**
+         * Caching particles status.
+         */
+        Cache.particlesStatus = this.getConfig().getString("particles");
 
         /**
          * Loading the pay task
@@ -84,12 +87,6 @@ public final class AnchorSell extends JavaPlugin {
                 20 * this.getConfig().getInt("pay-timer-in-minutes") * 60
         );
 
-
-        int periodTicks = 40 * Cache.getAllAnchors().size();
-        if (periodTicks == 0) {
-            periodTicks = 100;
-        }
-
         /**
          * Loading the particle task
          *
@@ -98,7 +95,7 @@ public final class AnchorSell extends JavaPlugin {
         new ParticleTask(this).runTaskTimer(
                 this,
                 0,
-                periodTicks
+                10
         );
 
     }

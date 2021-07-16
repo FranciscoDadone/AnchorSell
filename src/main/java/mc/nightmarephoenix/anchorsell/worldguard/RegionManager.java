@@ -6,7 +6,7 @@ import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import com.sk89q.worldguard.protection.regions.RegionContainer;
 import com.sk89q.worldguard.protection.regions.RegionQuery;
-import mc.nightmarephoenix.anchorsell.hooks.Global;
+import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import mc.nightmarephoenix.anchorsell.hooks.WG;
 import org.bukkit.Location;
 
@@ -17,7 +17,7 @@ public class RegionManager {
      * @return
      */
     public boolean canBuild(Location location) {
-        if(Global.getWorldGuard().equals(WG.ACTIVE)) {
+        if(Hooks.getWorldGuard().equals(WG.ACTIVE)) {
             com.sk89q.worldedit.util.Location wgLocation = BukkitAdapter.adapt(location);
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
             RegionQuery query = container.createQuery();
