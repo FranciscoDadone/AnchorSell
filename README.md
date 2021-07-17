@@ -36,6 +36,7 @@ You can upgrade the anchors to earn more money!
 - /anchor changeSafeZone [safeZone] (anchorsell.admin.changeSafeZone)
 - /anchor getUserFileName [username] (anchorsell.admin.getUserFileName)
 - /anchor revalidate [username] (anchorsell.admin.revalidate)
+- /anchor particles [all/low/off] (anchorsell.admin.particles)
 
 ## Config file
 
