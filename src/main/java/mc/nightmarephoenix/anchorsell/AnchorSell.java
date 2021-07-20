@@ -10,6 +10,9 @@ import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.tasks.ParticleTask;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
+import mc.nightmarephoenix.anchorsell.utils.Global;
+import mc.nightmarephoenix.anchorsell.utils.UpdateChecker;
+import mc.nightmarephoenix.anchorsell.utils.Utils;
 import net.prosavage.factionsx.manager.FactionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,6 +22,11 @@ public final class AnchorSell extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        /**
+         * Global variables
+         */
+        Global.plugin = this;
 
         /**
          * Loading dependencies
@@ -97,6 +105,19 @@ public final class AnchorSell extends JavaPlugin {
                 0,
                 10
         );
+
+        /**
+         * Update checker
+         */
+        new UpdateChecker(90038).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                Utils.sendMessage("You are running the latest version.");
+            } else {
+                Utils.sendMessage("There is a new update available. ( &a" + version + "&f )");
+                UpdateChecker.updateString = version;
+            }
+        });
+
 
     }
 

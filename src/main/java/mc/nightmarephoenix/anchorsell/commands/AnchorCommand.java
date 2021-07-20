@@ -138,6 +138,8 @@ public class AnchorCommand implements CommandExecutor {
                     plugin.getConfig().set("particles", args[1]);
                     plugin.reloadConfig();
                     Cache.particlesStatus = args[1];
+
+                    sender.sendMessage(Utils.Color("&aParticles changed to " + args[1] + "."));
                 } else {
                     sender.sendMessage(Utils.Color("Usage: &e/anchor particles [all/low/off]"));
                 }
