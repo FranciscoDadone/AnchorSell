@@ -1,7 +1,7 @@
 package mc.nightmarephoenix.anchorsell;
 
 import com.sk89q.worldguard.WorldGuard;
-import mc.nightmarephoenix.anchorsell.commands.AnchorCommand;
+import mc.nightmarephoenix.anchorsell.commands.CommandManager;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
@@ -72,7 +72,7 @@ public final class AnchorSell extends JavaPlugin {
         /**
          * Loading commands
          */
-        this.getCommand("anchor").setExecutor(new AnchorCommand(this));
+        this.getCommand("anchor").setExecutor(new CommandManager());
 
         /**
          * Caching all anchors.

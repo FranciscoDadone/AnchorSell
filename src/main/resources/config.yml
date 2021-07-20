@@ -33,6 +33,7 @@ help-message-admin:
   - "&e/anchor getUserFileName [username] &fShows the archive where the user information is stored."
   - "&e/anchor revalidate [username] &fRevalidates the anchors of that player."
   - "&e/anchor particles [all/low/off] &fChanges the particles on all anchors."
+  - "&e/anchor version &fPlugin version"
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"

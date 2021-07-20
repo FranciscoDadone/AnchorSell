@@ -20,13 +20,13 @@ You can upgrade the anchors to earn more money!
 
 
 ## Commands and permissions
-### Player
+### Player (anchorsell.player)
 - /anchor (anchorsell.player.help)
 - /anchor buy (anchorsell.player.help)
 - /anchor list (anchorsell.player.list)
-- /anchor top
+- /anchor top (anchorsell.player.top)
 
-### Admin
+### Admin (anchorsell.admin)
 - /anchor (anchorsell.admin.help)
 - /anchor reload (anchorsell.admin.reload)
 - /anchor give [player] [quantity] [level] (anchorsell.admin.give)

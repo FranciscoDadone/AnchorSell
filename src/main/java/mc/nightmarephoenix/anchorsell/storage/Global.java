@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell.storage;
 
+import mc.nightmarephoenix.anchorsell.AnchorSell;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -37,6 +38,6 @@ public class Global {
 
     private static ArrayList<Location> anchors = new ArrayList<>();
     public static String particlesStatus;
-    public static JavaPlugin plugin;
+    public static AnchorSell plugin;
 
 }

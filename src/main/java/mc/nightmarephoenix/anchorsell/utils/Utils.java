@@ -4,6 +4,7 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
+import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import net.prosavage.factionsx.core.FPlayer;
 import net.prosavage.factionsx.manager.GridManager;
@@ -13,12 +14,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 
 public class Utils {
 
@@ -313,6 +316,36 @@ public class Utils {
      */
     public static void sendMessage(String msg) {
         Bukkit.getConsoleSender().sendMessage(Utils.Color("&5&lAnchorSell &f - " + msg));
+    }
+
+    public static void sendConfigMessage(String str, CommandSender sender) {
+        try {
+            sender.sendMessage(Color(Global.plugin.getConfig().getString(str)));
+        } catch (Exception e) {
+            sendMessage("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
+        }
+    }
+
+    public static void sendConfigMultilineMessage(String message, CommandSender sender) {
+        try {
+            for(String line: Global.plugin.getConfig().getStringList(message)) {
+                sender.sendMessage(Utils.Color(line));
+            }
+        } catch (Exception e) {
+            sendMessage("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
+        }
+    }
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
 }
