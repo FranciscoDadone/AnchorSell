@@ -1,12 +1,14 @@
 package mc.nightmarephoenix.anchorsell.storage;
 
 import org.bukkit.Location;
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.util.ArrayList;
 
 /**
  * Storage in ram
  */
-public class Cache {
+public class Global {
 
     /**
      * Adds an anchor to the cache
@@ -35,4 +37,6 @@ public class Cache {
 
     private static ArrayList<Location> anchors = new ArrayList<>();
     public static String particlesStatus;
+    public static JavaPlugin plugin;
+
 }

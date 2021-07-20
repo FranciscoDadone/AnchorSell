@@ -3,7 +3,7 @@ package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
-import mc.nightmarephoenix.anchorsell.storage.Cache;
+import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import mc.nightmarephoenix.anchorsell.worldguard.RegionManager;
@@ -164,7 +164,7 @@ public class AnchorPlace implements Listener {
                         /**
                          * Caching anchor
                          */
-                        Cache.addAnchor(loc);
+                        Global.addAnchor(loc);
 
 
                         /**

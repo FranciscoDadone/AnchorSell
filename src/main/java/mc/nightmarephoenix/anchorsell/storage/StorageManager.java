@@ -1,6 +1,5 @@
 package mc.nightmarephoenix.anchorsell.storage;
 
-import com.sk89q.util.StringUtil;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.apache.commons.lang.StringUtils;
@@ -464,8 +463,6 @@ public class StorageManager {
         generalData = new GeneralStorage(plugin);
         Set<String> a = generalData.getConfig().getKeys(true);
 
-
-
         int x = -1, y = -1, z = -1;
         for(String str : a) {
             World world = null;
@@ -477,7 +474,7 @@ public class StorageManager {
             }
             if(StringUtils.countMatches(str, ".world") == 1) {
                 world = Bukkit.getServer().getWorld(generalData.getConfig().getString(str));
-                Cache.addAnchor(
+                Global.addAnchor(
                         new Location(
                                 world,
                                 x,
@@ -486,12 +483,7 @@ public class StorageManager {
 
                         ));
             }
-
         }
-
-
-
-
     }
 
 

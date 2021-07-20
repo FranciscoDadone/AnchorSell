@@ -5,12 +5,11 @@ import mc.nightmarephoenix.anchorsell.commands.AnchorCommand;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
-import mc.nightmarephoenix.anchorsell.storage.Cache;
+import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.tasks.ParticleTask;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
-import mc.nightmarephoenix.anchorsell.utils.Global;
 import mc.nightmarephoenix.anchorsell.utils.UpdateChecker;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import net.prosavage.factionsx.manager.FactionManager;
@@ -61,13 +60,14 @@ public final class AnchorSell extends JavaPlugin {
         this.saveDefaultConfig();
 
         /**
-         * Loading listeners
+         * Loading events.
          */
-        getServer().getPluginManager().registerEvents(new ActionAnchor(this), this);     // enabling the listener
+        getServer().getPluginManager().registerEvents(new ActionAnchor(this), this);    // enabling the listener
         getServer().getPluginManager().registerEvents(new GuiAnchorEvents(this), this); // gui click events
-        getServer().getPluginManager().registerEvents(new AnchorPlace(this), this);      // detects where the anchor has been placed and stores all the data
+        getServer().getPluginManager().registerEvents(new AnchorPlace(this), this);     // detects where the anchor has been placed and stores all the data
         getServer().getPluginManager().registerEvents(new AnchorBreak(this), this);     // detects where the anchor has been removed and stores all the data
-        getServer().getPluginManager().registerEvents(new AnchorBlow(this), this);     // detects where the anchor has been blown and stores all the data
+        getServer().getPluginManager().registerEvents(new AnchorBlow(this), this);      // detects where the anchor has been blown and stores all the data
+        getServer().getPluginManager().registerEvents(new UpdateMessageOnJoin(), this);       // detects updates and shows to all op's on join.
 
         /**
          * Loading commands
@@ -82,7 +82,7 @@ public final class AnchorSell extends JavaPlugin {
         /**
          * Caching particles status.
          */
-        Cache.particlesStatus = this.getConfig().getString("particles");
+        Global.particlesStatus = this.getConfig().getString("particles");
 
         /**
          * Loading the pay task

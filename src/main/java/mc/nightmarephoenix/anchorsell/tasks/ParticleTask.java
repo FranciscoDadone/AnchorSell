@@ -1,7 +1,7 @@
 package mc.nightmarephoenix.anchorsell.tasks;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.storage.Cache;
+import mc.nightmarephoenix.anchorsell.storage.Global;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -28,8 +28,8 @@ public class ParticleTask extends BukkitRunnable {
          * If yes, it ticks a particle effect.
          * If no, breaks and continues with another player.
          */
-        if(!Cache.particlesStatus.equalsIgnoreCase("off")) {
-            for(Location loc : Cache.getAllAnchors()) {
+        if(!Global.particlesStatus.equalsIgnoreCase("off")) {
+            for(Location loc : Global.getAllAnchors()) {
                 for(Player p : Bukkit.getOnlinePlayers()) {
                     if(p.getWorld().equals(loc.getWorld())) {
                         if(p.getLocation().distanceSquared(loc) < 30 * 30) {
@@ -47,7 +47,7 @@ public class ParticleTask extends BukkitRunnable {
                                         ),
                                         5);
 
-                                if(Cache.particlesStatus.equalsIgnoreCase("all")) {
+                                if(Global.particlesStatus.equalsIgnoreCase("all")) {
                                     for (int a = 0; a < 360; a += 10) {
                                         Location particlesLoc = new Location(block.getLocation().getWorld(), block.getLocation().getX(), block.getLocation().getY(), block.getLocation().getZ());
                                         particlesLoc.setX(particlesLoc.getX() + 0.5 + Math.sin(a) * 0.3);

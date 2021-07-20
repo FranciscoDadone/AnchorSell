@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
+import mc.nightmarephoenix.anchorsell.storage.Global;
 import org.bukkit.Bukkit;
 import org.bukkit.util.Consumer;
 import java.io.IOException;
@@ -26,6 +27,6 @@ public class UpdateChecker {
     }
 
     private int resourceId;
-    public static String updateString;
+    public static String updateString = "";
 
 }

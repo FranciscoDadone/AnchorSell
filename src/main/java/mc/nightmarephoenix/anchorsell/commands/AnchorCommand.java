@@ -2,7 +2,7 @@ package mc.nightmarephoenix.anchorsell.commands;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
-import mc.nightmarephoenix.anchorsell.storage.Cache;
+import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
@@ -137,7 +137,7 @@ public class AnchorCommand implements CommandExecutor {
                 if(args.length == 2 && (args[1].equalsIgnoreCase("all") || args[1].equalsIgnoreCase("low") || args[1].equalsIgnoreCase("off"))) {
                     plugin.getConfig().set("particles", args[1]);
                     plugin.reloadConfig();
-                    Cache.particlesStatus = args[1];
+                    Global.particlesStatus = args[1];
 
                     sender.sendMessage(Utils.Color("&aParticles changed to " + args[1] + "."));
                 } else {
