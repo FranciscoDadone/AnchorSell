@@ -30,7 +30,7 @@ public class Upgrades extends SubCommands {
 
     @Override
     public String getPermission() {
-        return "anchorsell.player.upgrades";
+        return "anchorsell.admin.upgrades";
     }
 
     @Override
