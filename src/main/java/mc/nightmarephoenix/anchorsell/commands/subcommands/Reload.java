@@ -36,6 +36,6 @@ public class Reload extends SubCommands {
     @Override
     public void perform(CommandSender sender, String[] args) {
         Global.plugin.reloadConfig();
-        sender.sendMessage(Utils.Color("&aAnchorSell reloaded!"));
+        Utils.sendConfigMessage("reload-message", sender);
     }
 }
