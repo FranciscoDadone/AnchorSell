@@ -32,7 +32,7 @@ public final class AnchorSell extends JavaPlugin {
         // // Loading dependencies // //
         // Vault check
         if (!EconomyManager.setupEconomy()) {
-            this.getLogger().severe("Disabled due to no Vault dependency found!");
+            this.getLogger().severe("Disabled due to no Vault or EssentialsX found!");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
@@ -116,7 +116,5 @@ public final class AnchorSell extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
+    public void onDisable() {}
 }
