@@ -321,6 +321,14 @@ public class Utils {
         Bukkit.getConsoleSender().sendMessage(Utils.Color("&5&lAnchorSell &f - " + msg));
     }
 
+    public static void sendConfigMessageF(String str, String toBeReplaced, String toReplace, CommandSender sender) {
+        try {
+            sender.sendMessage(Color(Global.plugin.getConfig().getString(str).replaceAll(toBeReplaced, toReplace)));
+        } catch (Exception e) {
+            sendMessage("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
+        }
+    }
+
     public static void sendConfigMessage(String str, CommandSender sender) {
         try {
             sender.sendMessage(Color(Global.plugin.getConfig().getString(str)));
@@ -349,6 +357,10 @@ public class Utils {
             return false;
         }
         return true;
+    }
+
+    public static void noPermission(String permissionNode, CommandSender sender) {
+        sendConfigMessageF("no-permissions", "%permissionNode%", permissionNode, sender);
     }
 
 }

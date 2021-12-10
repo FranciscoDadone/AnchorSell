@@ -49,6 +49,6 @@ public class Revalidate extends SubCommands {
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e/anchor revalidate [username]"));
             }
-        }
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

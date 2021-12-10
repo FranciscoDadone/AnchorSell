@@ -2,6 +2,7 @@ package mc.nightmarephoenix.anchorsell.commands.subcommands;
 
 import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -36,23 +37,25 @@ public class List extends SubCommands {
 
     @Override
     public String getPermission() {
-        return "";
+        return "anchorsell.admin.list";
     }
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        if (sender.hasPermission("anchorsell.player.list") && args.length == 1) {
-            try {
-                StorageManager.getAnchorUserList(Global.plugin, Bukkit.getPlayer(sender.getName()), Bukkit.getPlayer(sender.getName()));
-            } catch (InvalidConfigurationException e) {
-                sender.sendMessage("An error happened. Contact an administrator.");
+        if(sender.hasPermission("anchorsell.admin.list")) {
+            if (args.length == 1) {
+                try {
+                    StorageManager.getAnchorUserList(Global.plugin, Bukkit.getPlayer(sender.getName()), Bukkit.getPlayer(sender.getName()));
+                } catch (InvalidConfigurationException e) {
+                    sender.sendMessage("An error happened. Contact an administrator.");
+                }
+            } else if (args.length == 2) {
+                try {
+                    StorageManager.getAnchorUserList(Global.plugin, Bukkit.getOfflinePlayer(args[1]), sender);
+                } catch (InvalidConfigurationException e) {
+                    sender.sendMessage("An error happened. Contact an administrator.");
+                }
             }
-        } else if (sender.hasPermission("anchorsell.admin.list") && args.length == 2) {
-            try {
-                StorageManager.getAnchorUserList(Global.plugin, Bukkit.getOfflinePlayer(args[1]), sender);
-            } catch (InvalidConfigurationException e) {
-                sender.sendMessage("An error happened. Contact an administrator.");
-            }
-        }
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

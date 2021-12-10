@@ -52,6 +52,6 @@ public class Particles extends SubCommands {
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e" + syntax()));
             }
-        }
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

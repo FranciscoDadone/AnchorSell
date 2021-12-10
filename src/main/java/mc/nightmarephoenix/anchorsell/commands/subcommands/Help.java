@@ -35,7 +35,7 @@ public class Help extends SubCommands {
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.help")) {
             Utils.sendConfigMultilineMessage("help-message-admin", sender);
-        } else if(sender.hasPermission("anchorsell.player.help")) {
+        } else {
             Utils.sendConfigMultilineMessage("help-message", sender);
         }
     }

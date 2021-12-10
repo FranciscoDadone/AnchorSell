@@ -36,11 +36,11 @@ public class ChangeUpgradeMultiplier extends SubCommands {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        if(sender.hasPermission("anchorsell.admin.changeUpgradeMultiplier") && args.length == 2 && Utils.isNumeric(args[1])) {
-            StorageManager.changeUpgradeMultiplier(Global.plugin, Integer.parseInt(args[1]));
-            sender.sendMessage(Utils.Color("&aMultiplier changed to &c" + Integer.parseInt(args[1])));
-        } else {
-            sender.sendMessage(Utils.Color("Usage: &e" + syntax()));
-        }
+        if(sender.hasPermission("anchorsell.admin.changeUpgradeMultiplier")) {
+            if (args.length == 2 && Utils.isNumeric(args[1])) {
+                StorageManager.changeUpgradeMultiplier(Global.plugin, Integer.parseInt(args[1]));
+                sender.sendMessage(Utils.Color("&aMultiplier changed to &c" + Integer.parseInt(args[1])));
+            } else sender.sendMessage(Utils.Color("Usage: &e" + syntax()));
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

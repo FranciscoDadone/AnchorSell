@@ -45,6 +45,6 @@ public class Upgrades extends SubCommands {
                 ));
             }
             sender.sendMessage(Utils.Color("&7&m----------------------------"));
-        }
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

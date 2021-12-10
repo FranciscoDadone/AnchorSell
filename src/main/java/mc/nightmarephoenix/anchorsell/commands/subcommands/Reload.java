@@ -35,7 +35,9 @@ public class Reload extends SubCommands {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        Global.plugin.reloadConfig();
-        Utils.sendConfigMessage("reload-message", sender);
+        if(sender.hasPermission(getPermission())) {
+            Global.plugin.reloadConfig();
+            Utils.sendConfigMessage("reload-message", sender);
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

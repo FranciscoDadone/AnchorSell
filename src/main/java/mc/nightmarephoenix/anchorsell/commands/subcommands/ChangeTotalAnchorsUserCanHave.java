@@ -42,6 +42,6 @@ public class ChangeTotalAnchorsUserCanHave extends SubCommands {
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e/anchor changeTotalAnchorsUserCanHave [number]"));
             }
-        }
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

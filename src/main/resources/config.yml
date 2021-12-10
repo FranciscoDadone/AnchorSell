@@ -39,6 +39,7 @@ help-message-admin:
   - "&7&m----------------------------"
 
 unknown-command: "&5&lAnchor &7- &fUnknown command."
+no-permissions: "&cYou don't have permission. %permissionNode%"
 
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 10

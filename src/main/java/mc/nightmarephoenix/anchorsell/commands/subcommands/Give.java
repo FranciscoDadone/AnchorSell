@@ -72,7 +72,6 @@ public class Give extends SubCommands {
                     sender.sendMessage(Utils.Color("&aGave &c" + args[2] + " &aAnchor to &c" + p.getName() + " &a(level " + Integer.parseInt(args[3]) + ")"));
                 }
             }
-        }
-
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

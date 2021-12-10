@@ -36,11 +36,9 @@ public class ChangeSafeZone extends SubCommands {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-
         if (sender.hasPermission("anchorsell.admin.changeSafeZone")) {
             StorageManager.changeSafeZone(Global.plugin, Integer.parseInt(args[1]));
             sender.sendMessage(Utils.Color("&aSafe zone changed to &c" + Integer.parseInt(args[1])));
-        }
-
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

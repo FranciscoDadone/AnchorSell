@@ -46,6 +46,6 @@ public class GetUserFileName extends SubCommands {
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e/anchor getuserfilename [username]"));
             }
-        }
+        } else Utils.noPermission(getPermission(), sender);
     }
 }

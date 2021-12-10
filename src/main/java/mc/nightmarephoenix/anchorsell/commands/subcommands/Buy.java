@@ -2,6 +2,7 @@ package mc.nightmarephoenix.anchorsell.commands.subcommands;
 
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
 import mc.nightmarephoenix.anchorsell.storage.Global;
+import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
@@ -39,6 +40,6 @@ public class Buy extends SubCommands {
             Bukkit.getPlayer(sender.getName()).openInventory(
                     new BuyScreen(Bukkit.getPlayer(sender.getName()), Global.plugin).getInventory()
             );
-        }
+        } else Utils.noPermission(getPermission(), sender);
     }
 }
