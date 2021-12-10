@@ -12,17 +12,10 @@ public class EconomyManager {
      * @return
      */
     public static boolean setupEconomy() {
-        if (Bukkit.getPluginManager().getPlugin("Vault").equals(null)) {
-            return false;
-        }
-
+        if (Bukkit.getPluginManager().getPlugin("Vault").equals(null)) return false;
         RegisteredServiceProvider<Economy> rsp = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            System.out.println(rsp.getProvider());
-            return false;
-        }
+        if (rsp == null) return false;
         econ = rsp.getProvider();
-
         return (econ != null);
     }
 

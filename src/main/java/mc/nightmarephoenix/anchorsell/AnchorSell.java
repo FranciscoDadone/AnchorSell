@@ -13,7 +13,6 @@ import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import mc.nightmarephoenix.anchorsell.utils.UpdateChecker;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
-import net.prosavage.factionsx.manager.FactionManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -47,7 +46,7 @@ public final class AnchorSell extends JavaPlugin {
         }
          // FactionsX check - soft depend
         try {
-            FactionManager.INSTANCE.getFactions();
+//            FactionManager.INSTANCE.getFactions();
             Hooks.setFactionsX(true);
         } catch (NoClassDefFoundError e) {
             this.getLogger().fine("No FactionsX detected.");

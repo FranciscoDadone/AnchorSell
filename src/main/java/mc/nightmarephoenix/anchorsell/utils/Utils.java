@@ -6,9 +6,9 @@ import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
-import net.prosavage.factionsx.core.FPlayer;
-import net.prosavage.factionsx.manager.GridManager;
-import net.prosavage.factionsx.manager.PlayerManager;
+//import net.prosavage.factionsx.core.FPlayer;
+//import net.prosavage.factionsx.manager.GridManager;
+//import net.prosavage.factionsx.manager.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -248,7 +248,7 @@ public class Utils {
      */
     public static boolean isPlayerInHisFaction(Block block, Player p) {
         if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
-            return String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()));
+            return false; //String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()));
         }
         return false;
     }
@@ -261,7 +261,8 @@ public class Utils {
      */
     public static boolean isBlockInWilderness(Block block) {
         if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
-            return GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null;
+//            return GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null;
+            return false;
         }
         return false;
     }
@@ -274,15 +275,15 @@ public class Utils {
      * @return boolean
      */
     public static boolean isAFactionMember(AnchorSell plugin, Player breaker, Block block) {
-        if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
-            for(FPlayer p: GridManager.INSTANCE.getFactionAt(block.getChunk()).getMembers()) {
-                if(breaker.getName().equals(p.getName())) {
-                    if(!StorageManager.isMyAnchor(block.getLocation(), breaker, plugin)) {
-                        return true;
-                    }
-                }
-            }
-        }
+//        if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
+//            for(FPlayer p: GridManager.INSTANCE.getFactionAt(block.getChunk()).getMembers()) {
+//                if(breaker.getName().equals(p.getName())) {
+//                    if(!StorageManager.isMyAnchor(block.getLocation(), breaker, plugin)) {
+//                        return true;
+//                    }
+//                }
+//            }
+//        }
         return false;
     }
 
