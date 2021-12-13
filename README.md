@@ -15,7 +15,6 @@ You can upgrade the anchors to earn more money!
 + [Vault](https://www.spigotmc.org/resources/vault.34315/)
 
 ## Soft-dependencies (optionals)
-+ [FactionsX](https://www.spigotmc.org/resources/factionsx.83459/)
 + [WorldGuard](https://dev.bukkit.org/projects/worldguard)
 
 
@@ -76,24 +75,26 @@ help-message-admin:
   - "&e/anchor getUserFileName [username] &fShows the archive where the user information is stored."
   - "&e/anchor revalidate [username] &fRevalidates the anchors of that player."
   - "&e/anchor particles [all/low/off] &fChanges the particles on all anchors."
+  - "&e/anchor version &fPlugin version"
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
 
 unknown-command: "&5&lAnchor &7- &fUnknown command."
+no-permissions: "&cYou don't have permission. (%permissionNode%)"
 
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 10
 safe-anchor-area: 3
 anchor-value: 100000
-can-faction-members-destroy-members-anchors: false # this is if a faction member can destroy another member's anchor
 radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
 you-dont-own-this-anchor: "&4You don't own this anchor"
-cannot-break-members-anchors: "&4You can not break your faction members anchors."
 
 enable-in-worlds:
   - world
+
+world-not-enabled-error: "&cSorry, anchors can't be placed in this world :("
 
 pay-timer-in-minutes: 15
 
@@ -148,8 +149,6 @@ anchor:
       - "&eLevel: %level%"
       - ""
   cantaccess: "&4You need direct contact with the anchor to use it."
-  onlyPlaceInFactionTerritory: true
-  notInFaction: "&4You can only place anchors in your faction"
 
 anchorbuy:
   title: "&5Buy Anchor Sell"
