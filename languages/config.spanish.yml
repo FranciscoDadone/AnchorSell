@@ -9,7 +9,7 @@ version: 0.3.1
 ##
 
 
-reload-message: "&aSe ha recargado la configuración existosamente."
+reload-message: "&aSe ha recargado la configuración exitosamente."
 help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&e/anchor buy &fPara comprar un anchor."
@@ -38,6 +38,7 @@ help-message-admin:
   - "&7&m----------------------------"
 
 unknown-command: "&5&lAnchor &7- &fComando desconocido."
+no-permissions: "&cNo tienes permisos para hacer esto. (%permissionNode%)"
 
 cant-give-anchor-message: "&fUtilice: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 5
@@ -51,8 +52,9 @@ cannot-break-members-anchors: "&4No puedes romper los anchors de los miembros de
 
 enable-in-worlds:
   - world
-  - nightmare_temp
-  - nightmare_1
+  - world1
+
+world-not-enabled-error: "&cLo siento, los anchors no se pueden poner en este mundo :("
 
 pay-timer-in-minutes: 15
 

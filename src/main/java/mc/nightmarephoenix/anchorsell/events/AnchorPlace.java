@@ -56,12 +56,8 @@ public class AnchorPlace implements Listener {
             /**
              * Searches if the block is in the enable-in-worlds.
              */
-            for (String world : plugin.getConfig().getStringList("enable-in-worlds")) {
-                if (anchorInWorld.getName().equalsIgnoreCase(world)) {
-                    isInWorld = true;
-                    break;
-                }
-            }
+            isInWorld = plugin.getConfig().getStringList("enable-in-worlds").contains(anchorInWorld.getName());
+            if(!isInWorld) Utils.sendConfigMessage("world-not-enabled-error", e.getPlayer());
 
 
             /**
