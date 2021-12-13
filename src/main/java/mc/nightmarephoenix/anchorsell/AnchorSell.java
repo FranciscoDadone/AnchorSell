@@ -44,14 +44,6 @@ public final class AnchorSell extends JavaPlugin {
             this.getLogger().fine("No WorldGuard detected.");
             Hooks.setWorldGuard(false);
         }
-         // FactionsX check - soft depend
-        try {
-//            FactionManager.INSTANCE.getFactions();
-            Hooks.setFactionsX(true);
-        } catch (NoClassDefFoundError e) {
-            this.getLogger().fine("No FactionsX detected.");
-            Hooks.setFactionsX(false);
-        }
 
         // // Saving config // //
         this.saveDefaultConfig();

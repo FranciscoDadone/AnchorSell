@@ -44,11 +44,9 @@ cant-give-anchor-message: "&fUtilice: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 5
 safe-anchor-area: 3
 anchor-value: 100000
-can-faction-members-destroy-members-anchors: false # this is if a faction member can destroy another member's anchor
 radius-error: "&4No puedes colocar anchors tan cerca de otros."
 cannot-place-more-anchors: "&4No puedes tener mas de %quantity% anchors."
 you-dont-own-this-anchor: "&4No eres el dueño de este anchor"
-cannot-break-members-anchors: "&4No puedes romper los anchors de los miembros de tu faction."
 
 enable-in-worlds:
   - world
@@ -109,8 +107,6 @@ anchor:
       - "&eLevel: %level%"
       - ""
   cantaccess: "&4Necesitas contacto directo con el anchor para acceder a el."
-  onlyPlaceInFactionTerritory: true
-  notInFaction: "&4Solo puedes poner anchors en tu territorio."
 
 anchorbuy:
   title: "&5Comprar un anchor"

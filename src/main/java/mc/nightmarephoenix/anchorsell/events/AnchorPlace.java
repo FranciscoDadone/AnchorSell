@@ -1,7 +1,6 @@
 package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
@@ -33,16 +32,7 @@ public class AnchorPlace implements Listener {
 
 
             boolean creativeAnchor = false;
-            boolean isInWorld = false;
-
-            /**
-             * Anchors can only be placed in faction territory
-             */
-            if(!Utils.isPlayerInHisFaction(block, e.getPlayer()) && plugin.getConfig().getBoolean("anchor.onlyPlaceInFactionTerritory") && block.getType() == Material.RESPAWN_ANCHOR && Hooks.getFactionsX() == FactionsX.ACTIVE && !e.getPlayer().isOp()) {
-                e.getPlayer().sendMessage(Utils.Color(plugin.getConfig().getString("anchor.notInFaction")));
-                e.setCancelled(true);
-                return;
-            }
+            boolean isInWorld;
 
             /**
              * World Guard zone check

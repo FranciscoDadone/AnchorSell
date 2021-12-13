@@ -2,28 +2,18 @@ package mc.nightmarephoenix.anchorsell.utils;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
-import mc.nightmarephoenix.anchorsell.hooks.FactionsX;
-import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
-//import net.prosavage.factionsx.core.FPlayer;
-//import net.prosavage.factionsx.manager.GridManager;
-//import net.prosavage.factionsx.manager.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import java.io.InputStream;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 public class Utils {
 
@@ -237,54 +227,6 @@ public class Utils {
             meta.addEnchant(Enchantment.DURABILITY, 1, true);
         item.setItemMeta(meta);
         return item;
-    }
-
-    /**
-     * Returns if the player is inside his Faction claim.
-     * (FactionsX hook)
-     * @param block
-     * @param p
-     * @return boolean
-     */
-    public static boolean isPlayerInHisFaction(Block block, Player p) {
-        if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
-            return false; //String.valueOf(GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader()).equals(String.valueOf(PlayerManager.INSTANCE.getFPlayer(p).getFaction().getLeader()));
-        }
-        return false;
-    }
-
-    /**
-     * Returns if a block is in wilderness.
-     * (FactionsX hook)
-     * @param block
-     * @return
-     */
-    public static boolean isBlockInWilderness(Block block) {
-        if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
-//            return GridManager.INSTANCE.getFactionAt(block.getChunk()).getLeader() == null;
-            return false;
-        }
-        return false;
-    }
-
-    /**
-     * Returns if is from a faction member.
-     * @param plugin
-     * @param breaker
-     * @param block
-     * @return boolean
-     */
-    public static boolean isAFactionMember(AnchorSell plugin, Player breaker, Block block) {
-//        if(Hooks.getFactionsX() == FactionsX.ACTIVE) {
-//            for(FPlayer p: GridManager.INSTANCE.getFactionAt(block.getChunk()).getMembers()) {
-//                if(breaker.getName().equals(p.getName())) {
-//                    if(!StorageManager.isMyAnchor(block.getLocation(), breaker, plugin)) {
-//                        return true;
-//                    }
-//                }
-//            }
-//        }
-        return false;
     }
 
     /**
