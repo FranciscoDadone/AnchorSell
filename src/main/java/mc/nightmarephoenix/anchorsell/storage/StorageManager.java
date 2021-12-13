@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class StorageManager {
 
@@ -68,6 +69,7 @@ public class StorageManager {
 
 
         // Saving to configs
+        userData.saveConfig();
         userData.saveConfig();
         generalData.saveConfig();
 
@@ -378,7 +380,7 @@ public class StorageManager {
 
                 if(!loc.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
 
-                    System.out.println("[AnchorSell] Revalidation found an error: " +
+                    Bukkit.getLogger().log(Level.SEVERE, "[AnchorSell] Revalidation found an error: " +
                             "Player: " + p.getName() +
                             ". Anchor location: " + "[" +
                             loc.getBlockX() + ", " +

@@ -82,7 +82,7 @@ public class GuiAnchorEvents implements Listener {
                             location.getX() + ", " +
                             location.getY() + ", " +
                             location.getZ() + ") (" +
-                                    (level - 1) + " -> " + level + ")"
+                                    (level) + " -> " + (level + 1) + ")"
                             );
 
                     /**
