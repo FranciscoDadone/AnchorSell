@@ -11,6 +11,7 @@ import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.tasks.ParticleTask;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
+import mc.nightmarephoenix.anchorsell.thirdparty.bStats.Metrics;
 import mc.nightmarephoenix.anchorsell.utils.UpdateChecker;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
@@ -105,6 +106,13 @@ public final class AnchorSell extends JavaPlugin {
                 UpdateChecker.updateString = version;
             }
         });
+
+
+        /**
+         * bStats metrics
+         */
+        Metrics metrics = new Metrics(this, 13580);
+
     }
 
     @Override

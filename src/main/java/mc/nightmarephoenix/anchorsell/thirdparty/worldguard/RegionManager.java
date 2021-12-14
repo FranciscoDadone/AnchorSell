@@ -1,4 +1,4 @@
-package mc.nightmarephoenix.anchorsell.worldguard;
+package mc.nightmarephoenix.anchorsell.thirdparty.worldguard;
 
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldguard.WorldGuard;
