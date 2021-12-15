@@ -9,6 +9,7 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class List extends SubCommands {
     @Override
@@ -37,25 +38,32 @@ public class List extends SubCommands {
 
     @Override
     public String getPermission() {
-        return "anchorsell.admin.list";
+        return "anchorsell.player.list";
     }
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        if(sender.hasPermission("anchorsell.admin.list")) {
-            if (args.length == 1) {
+        if (args.length == 1) {
+            if(sender instanceof Player) {
+                if(sender.hasPermission("anchorsell.player.list")) {
+                    try {
+                        StorageManager.printAnchorUserList(Global.plugin, Bukkit.getPlayer(sender.getName()), sender);
+                    } catch (InvalidConfigurationException e) {
+                        sender.sendMessage("An error happened. Contact an administrator.");
+                    }
+                } else Utils.noPermission(getPermission(), sender);
+            } else sender.sendMessage("Only players can execute this command.");
+        } else if (args.length == 2) {
+            if(sender.hasPermission("anchorsell.admin.list")) {
                 try {
-                    StorageManager.getAnchorUserList(Global.plugin, Bukkit.getPlayer(sender.getName()), Bukkit.getPlayer(sender.getName()));
+                    boolean found = StorageManager.printAnchorUserList(Global.plugin, Bukkit.getOfflinePlayer(args[1]), sender);
+                    if(!found && !Bukkit.getOnlinePlayers().contains(Bukkit.getOfflinePlayer(args[1]))) {
+                        sender.sendMessage(Utils.Color("&cPlayer not found and not online. Make sure to write the name properly (with capitals)."));
+                    }
                 } catch (InvalidConfigurationException e) {
                     sender.sendMessage("An error happened. Contact an administrator.");
                 }
-            } else if (args.length == 2) {
-                try {
-                    StorageManager.getAnchorUserList(Global.plugin, Bukkit.getOfflinePlayer(args[1]), sender);
-                } catch (InvalidConfigurationException e) {
-                    sender.sendMessage("An error happened. Contact an administrator.");
-                }
-            }
-        } else Utils.noPermission(getPermission(), sender);
+            } else Utils.noPermission("anchorsell.admin.list", sender);
+        }
     }
 }

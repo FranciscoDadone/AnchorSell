@@ -242,14 +242,15 @@ public class StorageManager {
      * @param toSendBack
      * @throws InvalidConfigurationException
      */
-    public static void getAnchorUserList(AnchorSell plugin, OfflinePlayer p, CommandSender toSendBack) throws InvalidConfigurationException {
+    public static boolean printAnchorUserList(AnchorSell plugin, OfflinePlayer p, CommandSender toSendBack) throws InvalidConfigurationException {
+        boolean userFound = false;
         userData = new PerUserStorage(plugin, p);
 
         toSendBack.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.first-message")));
 
         for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
-
+                userFound = true;
                 int finalI = i;
                 Utils.Color(plugin.getConfig().getStringList("anchor.list.message")).forEach((str) -> {
                     toSendBack.sendMessage(
@@ -262,6 +263,7 @@ public class StorageManager {
             }
         }
         toSendBack.sendMessage(Utils.Color(plugin.getConfig().getString("anchor.list.last-message")));
+        return userFound;
     }
 
     /**
