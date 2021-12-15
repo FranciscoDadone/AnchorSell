@@ -1,4 +1,4 @@
-package mc.nightmarephoenix.anchorsell.thirdparty.bStats;
+package mc.nightmarephoenix.anchorsell.thirdparty.bstats;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

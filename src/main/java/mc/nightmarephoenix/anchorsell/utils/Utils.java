@@ -1,7 +1,7 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.economy.EconomyManager;
+import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import org.bukkit.Bukkit;

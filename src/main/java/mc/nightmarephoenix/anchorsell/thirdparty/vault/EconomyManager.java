@@ -1,4 +1,4 @@
-package mc.nightmarephoenix.anchorsell.economy;
+package mc.nightmarephoenix.anchorsell.thirdparty.vault;
 
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
