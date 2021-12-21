@@ -61,7 +61,7 @@ public class AnchorPlace implements Listener {
                                 get(2).
                                 substring(18)
                 );
-            } catch (NullPointerException ex) {
+            } catch (Exception ex) {
                 /**
                  * Creative respawn anchor won't be usable.
                  */
