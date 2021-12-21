@@ -2,7 +2,7 @@
 
 Spigot plugin to get money using a Respawn anchor.
 
-##Characteristics:
+## Characteristics:
  + Can be removed with TNT and keep their characteristics.
  + Upgradeable
  + Particles
