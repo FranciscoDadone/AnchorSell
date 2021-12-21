@@ -1,20 +1,28 @@
 # AnchorSell - Spigot plugin
 
-Spigot plugin to get money using a Respawn anchor. 
+Spigot plugin to get money using a Respawn anchor.
 
-You can earn money automatically by buying an Anchor Sell, ideal for faction servers.
-
-Anchor Sell can also be removed with TNT and keep their characteristics.
-
-You can upgrade the anchors to earn more money!
+##Characteristics:
+ + Can be removed with TNT and keep their characteristics.
+ + Upgradeable
+ + Particles
+ + Permissions
+ + WorldGuard hook
+ + Spanish translation
+ + Anchor Top
+ + Quick support
+ + Fully configurable
+ + And much more!
+ 
 
 ## Spigot link:
 + [AnchorSell](https://www.spigotmc.org/resources/anchorsell.90038/)
 
 ## Dependencies
 + [Vault](https://www.spigotmc.org/resources/vault.34315/)
++ [EssentialsX](https://www.spigotmc.org/resources/essentialsx.9089/)
 
-## Soft-dependencies (optionals)
+## Soft-dependencies (hooks)
 + [WorldGuard](https://dev.bukkit.org/projects/worldguard)
 
 
@@ -203,7 +211,8 @@ You can find a SPANISH translated config file in languages folder.
 
 
 ## Discord
-http://bit.ly/nightmarediscord
+ + http://bit.ly/nightmarediscord
+ + Contact me directly: Ddd#7413
 
 ## Authors
 + [Francisco Dadone](https://github.com/FranciscoDadone)
