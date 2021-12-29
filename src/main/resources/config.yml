@@ -96,8 +96,25 @@ anchor:
       - "&7&m----------&r &5&lAnchor &7&m----------"
       - "&cYou don't have money to upgrade :("
       - "&7&m----------------------------"
-  explosion-radius-break: "3" # to set as default minecraft, change to "mc-default"
-  upgrade-multiplier: 6 # this is how much the upgrade cost depending of the money that the anchor gives per hour in the next level. For example... upgrade-multiplier: 8. Next level reward per hour: 10. The cost of the upgrade will be 80.
+      -
+  # Explosion radius break: if a explotion occurs near an anchor, it will break it in that radius
+  # to disable it set to "0", to set as default minecraft, change to "mc-default"
+  explosion-radius-break: "3"
+
+  # Upgrade multiplier: is how much the upgrade will cost depending on the money that the anchor
+  # gives per hour in the next level.
+  # Example: "upgrade-multiplier: 8".
+  # Next level reward per hour: 10.
+  # The cost of the upgrade will be 80.
+  upgrade-multiplier: 6
+
+  # Pay modifier: this modifies how much money the anchor will give to a player when it pays.
+  # The formula to pay a player is:
+  # f = (0.1 * anchorLevel + anchorLevel^0.8) * 60 * pay-modifier
+  # Excel to analyze the best formula: https://docs.google.com/spreadsheets/d/1_bIag4v8MySS50nN3C6WwwLDBdjPWN3zo-AoybdyNVc/edit?usp=sharing
+  # In the Excel you can modify the "Pay modifier" and "Pay timer" cells only and view the results.
+  pay-modifier: 1
+
   list:
     first-message: "&7&m----------&r &5&lAnchors &7&m----------"
     last-message: "&7&m-----------------------------"

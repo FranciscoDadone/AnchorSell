@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.storage.GeneralStorage;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.storage.Global;
 import mc.nightmarephoenix.anchorsell.storage.StorageManager;
@@ -103,21 +104,12 @@ public class Utils {
     }
 
     /**
-     * Money per second with a given anchor level.
-     * @param anchorLevel
-     * @return double
-     */
-    public static double getMoneyPerSecond(int anchorLevel) {
-        return 0.1 * anchorLevel + Math.pow(anchorLevel, 0.8);
-    }
-
-    /**
      * Money per minute with a given anchor level.
      * @param anchorLevel
      * @return double
      */
     public static double getMoneyPerMinute(int anchorLevel) {
-        return Math.round(getMoneyPerSecond(anchorLevel) * 60);
+        return Math.round((0.1 * anchorLevel + Math.pow(anchorLevel, 0.8)) * 60) * Global.plugin.getConfig().getDouble("anchor.pay-modifier");
     }
 
     /**
