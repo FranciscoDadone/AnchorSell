@@ -1,11 +1,11 @@
-version: 0.3.1
+version: 0.3.2
 
 ##
 # AnchorSell plugin
 # Authors: DadoGamer13, MatiasME
 # Description: Minecraft plugin to get money using a Respawn anchor.
-# Github: https://github.com/FranciscoDadone/AnchorSell.git
-# Discord: http://bit.ly/nightmarediscord
+# GitHub: https://github.com/FranciscoDadone/AnchorSell.git
+# Discord: Ddd#7413
 ##
 
 
@@ -41,8 +41,17 @@ unknown-command: "&5&lAnchor &7- &fComando desconocido."
 no-permissions: "&cNo tienes permisos para hacer esto. (%permissionNode%)"
 
 cant-give-anchor-message: "&fUtilice: &e/anchor give [name] [quantity] [level]"
-total-anchors-user-can-have: 5
+total-anchors-user-can-have: 10
+
+# Distancia mínima para poner un anchor al lado de otro.
 safe-anchor-area: 3
+
+# Si es true los anchors van a dar dinero si el chunk está cargado.
+pay-if-chunk-is-loaded: false
+
+# Si es false los anchors no van a pagar a los jugadores afk.
+pay-afk-players: true
+
 anchor-value: 100000
 radius-error: "&4No puedes colocar anchors tan cerca de otros."
 cannot-place-more-anchors: "&4No puedes tener mas de %quantity% anchors."
@@ -54,6 +63,7 @@ enable-in-worlds:
 
 world-not-enabled-error: "&cLo siento, los anchors no se pueden poner en este mundo :("
 
+# Periodo de tiempo en el cual se les va a pagar a los jugadores.
 pay-timer-in-minutes: 15
 
 anchor:
@@ -96,8 +106,27 @@ anchor:
       - "&7&m----------&r &5&lAnchor &7&m----------"
       - "&cNo tienes suficiente dinero :("
       - "&7&m----------------------------"
-  explosion-radius-break: "0" # to set as default minecraft, change to "mc-default"
-  upgrade-multiplier: 6 # this is how much the upgrade cost depending of the money that the anchor gives per hour in the next level. For example... upgrade-multiplier: 8. Next level reward per hour: 10. The cost of the upgrade will be 80.
+
+  # Explosion radius break: si ocurre una explosión cerca de un anchor, este se va a romper en ese radio.
+  # Para deshabilitarlo, cambiarlo a "0", para ponerlo como minecraft por defecto: "mc-default"
+  explosion-radius-break: "3"
+
+  # Upgrade multiplier: es cuento la upgrade va a costar según el dinero que genera el anchor
+  # por hora en el siguiente nivel.
+  # Ejemplo: "upgrade-multiplier: 8".
+  # Dinero por hora en el siguiente nivel: $10.
+  # La upgrade va a salir $80.
+  upgrade-multiplier: 6
+
+  # Pay modifier: esto modifica cuanto dinero va a dar el anchor cuando pague.
+  # La fórmula utilizada para el pago es:
+  # f(anchorLevel, pay-modifier) = (0.1 * anchorLevel + anchorLevel^0.8) * 60 * pay-modifier
+  # Tabla de Excel para ver cuanto paga un anchor por nivel y según el modificador:
+  #   https://docs.google.com/spreadsheets/d/1_bIag4v8MySS50nN3C6WwwLDBdjPWN3zo-AoybdyNVc/edit?usp=sharing
+  # En el Excel las celdas "Pay modifier" y "Pay timer" se pueden modificar para ver los cambios.
+  # Nota: pay-modifier acepta decimales. ej: 0.2
+  pay-modifier: 1
+
   list:
     first-message: "&7&m----------&r &5&lAnchors &7&m----------"
     last-message: "&7&m-----------------------------"

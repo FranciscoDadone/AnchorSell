@@ -48,14 +48,14 @@ Spigot plugin to get money using a Respawn anchor.
 ## Config file
 
 ```yaml
-version: 0.3.1
+version: 0.3.2
 
 ##
 # AnchorSell plugin
 # Authors: DadoGamer13, MatiasME
 # Description: Minecraft plugin to get money using a Respawn anchor.
-# Github: https://github.com/FranciscoDadone/AnchorSell.git
-# Discord: http://bit.ly/nightmarediscord
+# GitHub: https://github.com/FranciscoDadone/AnchorSell.git
+# Discord: Ddd#7413
 ##
 
 
@@ -93,7 +93,16 @@ no-permissions: "&cYou don't have permission. (%permissionNode%)"
 
 cant-give-anchor-message: "&fUse: &e/anchor give [name] [quantity] [level]"
 total-anchors-user-can-have: 10
+
+# Minimum distance to place an anchor next to another.
 safe-anchor-area: 3
+
+# If true anchors will pay if their chunk is loaded.
+pay-if-chunk-is-loaded: false
+
+# If false anchors will not pay afk players.
+pay-afk-players: true
+
 anchor-value: 100000
 radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
@@ -104,6 +113,7 @@ enable-in-worlds:
 
 world-not-enabled-error: "&cSorry, anchors can't be placed in this world :("
 
+# Time period in which anchors will pay to players.
 pay-timer-in-minutes: 15
 
 anchor:
@@ -146,8 +156,27 @@ anchor:
       - "&7&m----------&r &5&lAnchor &7&m----------"
       - "&cYou don't have money to upgrade :("
       - "&7&m----------------------------"
-  explosion-radius-break: "3" # to set as default minecraft, change to "mc-default"
-  upgrade-multiplier: 6 # this is how much the upgrade cost depending of the money that the anchor gives per hour in the next level. For example... upgrade-multiplier: 8. Next level reward per hour: 10. The cost of the upgrade will be 80.
+      -
+        # Explosion radius break: if an explosion occurs near an anchor, it will break it in that radius
+      # to disable it set to "0", to set as default minecraft, change to "mc-default"
+  explosion-radius-break: "3"
+
+  # Upgrade multiplier: is how much the upgrade will cost depending on the money that the anchor
+  # gives per hour in the next level.
+  # Example: "upgrade-multiplier: 8".
+  # Next level reward per hour: 10.
+  # The cost of the upgrade will be 80.
+  upgrade-multiplier: 6
+
+  # Pay modifier: this modifies how much money the anchor will give to a player when it pays.
+  # The formula to pay a player is:
+  # f(anchorLevel, pay-modifier) = (0.1 * anchorLevel + anchorLevel^0.8) * 60 * pay-modifier
+  # Excel sheet to see the levels and the money that it gives:
+  #   https://docs.google.com/spreadsheets/d/1_bIag4v8MySS50nN3C6WwwLDBdjPWN3zo-AoybdyNVc/edit?usp=sharing
+  # In the Excel you can modify the "Pay modifier" and "Pay timer" cells only and view the results.
+  # Note: pay-modifier accepts decimals too. ie: 0.2
+  pay-modifier: 1
+
   list:
     first-message: "&7&m----------&r &5&lAnchors &7&m----------"
     last-message: "&7&m-----------------------------"
@@ -191,7 +220,6 @@ anchor-break:
   - "&eLevel: &f%level%"
   - "&7&m----------------------------"
 
-
 paying-message: "&aYou have received &c$%amount% &afrom &5&lAnchors"
 
 levels:
@@ -202,7 +230,8 @@ levels:
   5: "&6&lNETHERITE"
   maxed-out-level: "&c&lMaxed out!"
 
-# particles can be [ all / low / off ]
+# Particles that anchors generate.
+# Options: [ all / low / off ]
 particles: "all"
 ```
 You can find a SPANISH translated config file in languages folder.
