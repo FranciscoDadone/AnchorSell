@@ -1,8 +1,10 @@
 package mc.nightmarephoenix.anchorsell;
 
+import com.earth2me.essentials.Essentials;
 import com.sk89q.worldguard.WorldGuard;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import mc.nightmarephoenix.anchorsell.commands.CommandManager;
+import mc.nightmarephoenix.anchorsell.thirdparty.essentials.EssentialsManager;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
@@ -20,6 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.logging.Level;
 
 
 public final class AnchorSell extends JavaPlugin {
@@ -37,6 +40,18 @@ public final class AnchorSell extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
+
+        try {
+            if(getServer().getPluginManager().getPlugin("Essentials") != null) {
+                EssentialsManager.setupEssentials();
+                this.getLogger().log(Level.FINE, "EssentialsX hooked!");
+            } else {
+                this.getLogger().log(Level.SEVERE, "No EssentialsX plugin found :( Disabling AnchorSell...");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         // World guard check - soft depend
         try {
             WorldGuard.getInstance();
