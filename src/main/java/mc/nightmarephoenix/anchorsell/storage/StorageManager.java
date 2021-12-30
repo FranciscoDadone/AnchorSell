@@ -302,42 +302,34 @@ public class StorageManager {
 
     /**
      * Handles the change of the upgrade multiplier.
-     * @param plugin
      * @param multiplier
      */
-    public static void changeUpgradeMultiplier(AnchorSell plugin, int multiplier) {
-        plugin.getConfig().set("anchor.upgrade-multiplier", multiplier);
-        plugin.saveConfig();
+    public static void changeUpgradeMultiplier(int multiplier) {
+        Utils.setConfigValue("anchor.upgrade-multiplier", multiplier);
     }
 
     /**
      * Handles the price change.
-     * @param plugin
      * @param price
      */
-    public static void changePrice(AnchorSell plugin, int price) {
-        plugin.getConfig().set("anchor-value", price);
-        plugin.saveConfig();
+    public static void changePrice(int price) {
+        Utils.setConfigValue("anchor-value", price);
     }
 
     /**
      * Handles the change of the area that anchors cannot be placed nearby.
-     * @param plugin
      * @param zone
      */
-    public static void changeSafeZone(AnchorSell plugin, int zone) {
-        plugin.getConfig().set("safe-anchor-area", zone);
-        plugin.saveConfig();
+    public static void changeSafeZone(int zone) {
+        Utils.setConfigValue("safe-anchor-area", zone);
     }
 
     /**
      * Handles the change of the total of anchors a user can have.
-     * @param plugin
      * @param n
      */
-    public static void changeTotalAnchorsUserCanHave(AnchorSell plugin, int n) {
-        plugin.getConfig().set("total-anchors-user-can-have", n);
-        plugin.saveConfig();
+    public static void changeTotalAnchorsUserCanHave(int n) {
+        Utils.setConfigValue("total-anchors-user-can-have", n);
     }
 
     /**

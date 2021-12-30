@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
+import com.tchristofferson.configupdater.ConfigUpdater;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.storage.GeneralStorage;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
@@ -14,6 +15,9 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Utils {
@@ -295,6 +299,27 @@ public class Utils {
 
     public static void noPermission(String permissionNode, CommandSender sender) {
         sendConfigMessageF("no-permissions", "%permissionNode%", permissionNode, sender);
+    }
+
+
+    public static void setConfigValue(String path, String value) {
+        Global.plugin.getConfig().set(path, value);
+        Global.plugin.saveConfig();
+        try {
+            ConfigUpdater.update(Global.plugin, "config.yml", new File(Global.plugin.getDataFolder(), "config.yml"), Arrays.asList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setConfigValue(String path, int value) {
+        Global.plugin.getConfig().set(path, value);
+        Global.plugin.saveConfig();
+        try {
+            ConfigUpdater.update(Global.plugin, "config.yml", new File(Global.plugin.getDataFolder(), "config.yml"), Arrays.asList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

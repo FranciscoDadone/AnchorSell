@@ -44,8 +44,7 @@ public class Particles extends SubCommands {
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.particles")) {
             if(args.length == 2 && (args[1].equalsIgnoreCase("all") || args[1].equalsIgnoreCase("low") || args[1].equalsIgnoreCase("off"))) {
-                Global.plugin.getConfig().set("particles", args[1]);
-                Global.plugin.reloadConfig();
+                Utils.setConfigValue("particles", args[1]);
                 Global.particlesStatus = args[1];
 
                 sender.sendMessage(Utils.Color("&aParticles changed to " + args[1] + "."));

@@ -37,7 +37,7 @@ public class ChangePrice extends SubCommands {
     @Override
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.changePrice")) {
-            StorageManager.changePrice(Global.plugin, Integer.parseInt(args[1]));
+            StorageManager.changePrice(Integer.parseInt(args[1]));
             sender.sendMessage(Utils.Color("&aPrice for anchors changed to &c$" + Integer.parseInt(args[1])));
         } else Utils.noPermission(getPermission(), sender);
     }
