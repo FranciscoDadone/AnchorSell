@@ -46,8 +46,10 @@ public class PayTask extends BukkitRunnable {
 
             for(Player p: onlinePlayers) {
                 boolean playerAfk = EssentialsManager.getEssentials().getUser(p).isAfk();
-                if(!Global.plugin.getConfig().getBoolean("pay-afk-players") && !playerAfk) {
+
+                if(Global.plugin.getConfig().getBoolean("pay-afk-players") || !playerAfk) {
                     double totalAmount = 0;
+
                     for(Anchor playerAnchor : StorageManager.getAllPlayerAnchors(p)) {
                         boolean loaded = true;
                         // Checks if the chunk that the anchor is on is loaded.
