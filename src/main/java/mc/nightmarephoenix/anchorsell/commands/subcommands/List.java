@@ -1,7 +1,5 @@
 package mc.nightmarephoenix.anchorsell.commands.subcommands;
 
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -9,7 +7,6 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 
 public class List extends SubCommands {
     @Override
@@ -47,7 +44,7 @@ public class List extends SubCommands {
             if(sender instanceof Player) {
                 if(sender.hasPermission("anchorsell.player.list")) {
                     try {
-                        StorageManager.printAnchorUserList(Global.plugin, Bukkit.getPlayer(sender.getName()), sender);
+                        Utils.printAnchorUserList(Bukkit.getPlayer(sender.getName()), sender);
                     } catch (InvalidConfigurationException e) {
                         sender.sendMessage("An error happened. Contact an administrator.");
                     }
@@ -56,7 +53,7 @@ public class List extends SubCommands {
         } else if (args.length == 2) {
             if(sender.hasPermission("anchorsell.admin.list")) {
                 try {
-                    boolean found = StorageManager.printAnchorUserList(Global.plugin, Bukkit.getOfflinePlayer(args[1]), sender);
+                    boolean found = Utils.printAnchorUserList(Bukkit.getOfflinePlayer(args[1]), sender);
                     if(!found && !Bukkit.getOnlinePlayers().contains(Bukkit.getOfflinePlayer(args[1]))) {
                         sender.sendMessage(Utils.Color("&cPlayer not found and not online. Make sure to write the name properly (with capitals)."));
                     }

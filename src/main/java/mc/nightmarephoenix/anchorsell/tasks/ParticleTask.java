@@ -1,7 +1,7 @@
 package mc.nightmarephoenix.anchorsell.tasks;
 
-import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.storage.Global;
+import mc.nightmarephoenix.anchorsell.models.Anchor;
+import mc.nightmarephoenix.anchorsell.api.Global;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -16,9 +16,7 @@ public class ParticleTask extends BukkitRunnable {
      *
      */
 
-    public ParticleTask(AnchorSell plugin) {
-        this.plugin = plugin;
-    }
+    public ParticleTask() {}
 
     @Override
     public void run() {
@@ -29,7 +27,8 @@ public class ParticleTask extends BukkitRunnable {
          * If no, breaks and continues with another player.
          */
         if(!Global.particlesStatus.equalsIgnoreCase("off")) {
-            for(Location loc : Global.getAllAnchors()) {
+            for(Anchor anchor : Global.getAllAnchors()) {
+                Location loc = anchor.getLocation();
                 for(Player p : Bukkit.getOnlinePlayers()) {
                     if(p.getWorld().equals(loc.getWorld())) {
                         if(p.getLocation().distanceSquared(loc) < 30 * 30) {
@@ -102,5 +101,4 @@ public class ParticleTask extends BukkitRunnable {
             }
         }
     }
-    private AnchorSell plugin;
 }

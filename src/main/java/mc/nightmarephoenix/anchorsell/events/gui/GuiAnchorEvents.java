@@ -6,7 +6,7 @@ import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
 import mc.nightmarephoenix.anchorsell.inventories.ConfirmScreen;
 import mc.nightmarephoenix.anchorsell.inventories.UpgradesScreen;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

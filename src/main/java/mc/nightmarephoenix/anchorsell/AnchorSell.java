@@ -1,6 +1,5 @@
 package mc.nightmarephoenix.anchorsell;
 
-import com.earth2me.essentials.Essentials;
 import com.sk89q.worldguard.WorldGuard;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import mc.nightmarephoenix.anchorsell.commands.CommandManager;
@@ -8,8 +7,8 @@ import mc.nightmarephoenix.anchorsell.thirdparty.essentials.EssentialsManager;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.api.Global;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.tasks.ParticleTask;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
@@ -85,7 +84,7 @@ public final class AnchorSell extends JavaPlugin {
         this.getCommand("anchor").setExecutor(new CommandManager());
 
         // // Caching all anchors // //
-        StorageManager.cacheAllAnchors(this);
+        StorageManager.cacheAllAnchors();
 
         // // Particles status // //
         Global.particlesStatus = this.getConfig().getString("particles");
@@ -106,7 +105,7 @@ public final class AnchorSell extends JavaPlugin {
          *
          * (Generates particles around the anchors)
          */
-        new ParticleTask(this).runTaskTimer(
+        new ParticleTask().runTaskTimer(
                 this,
                 0,
                 10

@@ -1,8 +1,9 @@
 package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.models.Anchor;
+import mc.nightmarephoenix.anchorsell.api.Global;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -31,7 +32,10 @@ public class AnchorBreak implements Listener {
             /**
              * If the anchor isn't registered, exits.
              */
-            if (!StorageManager.anchorIsRegistered(plugin, location)) return;
+            if (!StorageManager.isValidAnchor(location)) return;
+
+            Anchor anchor = StorageManager.getAnchorFromLoc(location);
+
 
             /**
              * Don't drop the item when broken to spawn a custom one.
@@ -64,7 +68,7 @@ public class AnchorBreak implements Listener {
                     /**
                      * Removes anchor from cache
                      */
-                    Global.removeAnchor(location);
+                    Global.removeAnchor(anchor);
 
                     /**
                      * Playing sound on anchor break.
@@ -100,7 +104,7 @@ public class AnchorBreak implements Listener {
                     /**
                      * Saves to the database the broken anchor.
                      */
-                    StorageManager.anchorBreak(plugin, location);
+                    StorageManager.removeAnchor(StorageManager.getAnchorFromLoc(location));
                 }
 
             }, 20L);

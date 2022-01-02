@@ -1,7 +1,7 @@
 package mc.nightmarephoenix.anchorsell.commands.subcommands;
 
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
-import mc.nightmarephoenix.anchorsell.storage.Global;
+import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;

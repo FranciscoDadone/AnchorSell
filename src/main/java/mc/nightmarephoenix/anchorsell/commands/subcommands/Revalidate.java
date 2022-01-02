@@ -1,7 +1,6 @@
 package mc.nightmarephoenix.anchorsell.commands.subcommands;
 
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -44,7 +43,7 @@ public class Revalidate extends SubCommands {
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.revalidate")) {
             if(args.length == 2) {
-                StorageManager.revalidateUser(Global.plugin, Bukkit.getOfflinePlayer(args[1]));
+                StorageManager.revalidateUser(Bukkit.getOfflinePlayer(args[1]));
                 sender.sendMessage(Utils.Color("&aRevalidated &c" + args[1] + " &afiles."));
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e/anchor revalidate [username]"));

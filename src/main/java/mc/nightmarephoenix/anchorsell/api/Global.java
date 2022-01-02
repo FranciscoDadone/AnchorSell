@@ -1,13 +1,12 @@
-package mc.nightmarephoenix.anchorsell.storage;
+package mc.nightmarephoenix.anchorsell.api;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import org.bukkit.Location;
-import org.bukkit.plugin.java.JavaPlugin;
+import mc.nightmarephoenix.anchorsell.models.Anchor;
 
 import java.util.ArrayList;
 
 /**
- * Storage in ram
+ * Storage in RAM
  */
 public class Global {
 
@@ -15,7 +14,7 @@ public class Global {
      * Adds an anchor to the cache
      * @param newAnchor
      */
-    public static void addAnchor(Location newAnchor) {
+    public static void addAnchor(Anchor newAnchor) {
         anchors.add(newAnchor);
     }
 
@@ -24,7 +23,7 @@ public class Global {
      * When it is mined or exploded.
      * @param anchor
      */
-    public static void removeAnchor(Location anchor) {
+    public static void removeAnchor(Anchor anchor) {
         anchors.remove(anchor);
     }
 
@@ -32,11 +31,11 @@ public class Global {
      * Returns all the cached anchors.
      * @return
      */
-    public static ArrayList<Location> getAllAnchors() {
+    public static ArrayList<Anchor> getAllAnchors() {
         return anchors;
     }
 
-    private static ArrayList<Location> anchors = new ArrayList<>();
+    private static ArrayList<Anchor> anchors = new ArrayList<>();
     public static String particlesStatus;
     public static AnchorSell plugin;
 

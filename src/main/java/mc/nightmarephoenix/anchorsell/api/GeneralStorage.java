@@ -1,4 +1,4 @@
-package mc.nightmarephoenix.anchorsell.storage;
+package mc.nightmarephoenix.anchorsell.api;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -9,9 +9,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 
-public class GeneralStorage {
+class GeneralStorage {
 
-    public GeneralStorage(AnchorSell plugin) {
+    protected GeneralStorage(AnchorSell plugin) {
         this.plugin = plugin;
         saveDefaultConfig();
     }
@@ -19,7 +19,7 @@ public class GeneralStorage {
     /**
      * Reloads the general config file with the all anchors.
      */
-    public void reloadConfig() {
+    protected void reloadConfig() {
         if(this.configFile == null) {
             this.configFile = new File(this.plugin.getDataFolder(), "all_anchors.yml");
         }
@@ -36,7 +36,7 @@ public class GeneralStorage {
      * Returns the config.
      * @return
      */
-    public FileConfiguration getConfig() {
+    protected FileConfiguration getConfig() {
         if(this.dataConfig == null) {
             reloadConfig();
         }
@@ -46,7 +46,7 @@ public class GeneralStorage {
     /**
      * Saves the config.
      */
-    public void saveConfig() {
+    protected void saveConfig() {
         if(this.dataConfig == null || this.configFile == null) {
             return;
         }
@@ -60,7 +60,7 @@ public class GeneralStorage {
     /**
      * Saves a default config.
      */
-    public void saveDefaultConfig() {
+    protected void saveDefaultConfig() {
 
         if(this.configFile == null) {
             this.configFile = new File(this.plugin.getDataFolder(), "all_anchors.yml");

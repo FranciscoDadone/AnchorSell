@@ -1,7 +1,6 @@
 package mc.nightmarephoenix.anchorsell.commands.subcommands;
 
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -39,7 +38,7 @@ public class Top extends SubCommands {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        HashMap<String, Integer> top = StorageManager.getAnchorTop(Global.plugin);
+        HashMap<String, Integer> top = StorageManager.getAnchorTop();
         int page = 1;
         double a = top.size();
         double maxPages = Math.ceil(a / 10);

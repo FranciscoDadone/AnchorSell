@@ -1,8 +1,9 @@
 package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.models.Anchor;
+import mc.nightmarephoenix.anchorsell.api.Global;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import mc.nightmarephoenix.anchorsell.thirdparty.worldguard.RegionManager;
 import org.bukkit.*;
@@ -87,7 +88,6 @@ public class AnchorPlace implements Listener {
                 return;
             }
 
-
             /**
              * Searches the area (safe-anchor-area) and sees if the anchor can be placed.
              */
@@ -106,7 +106,7 @@ public class AnchorPlace implements Listener {
                  * (if it has a limit)
                  */
                 try {
-                    if(!StorageManager.userCanPlaceMoreAnchors(plugin, p)) {
+                    if(!StorageManager.canPlaceMoreAnchors(p)) {
                         e.setCancelled(true);
                         p.sendMessage(Utils.Color(plugin.getConfig().getString("cannot-place-more-anchors").replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
                         return;
@@ -119,7 +119,20 @@ public class AnchorPlace implements Listener {
                 int finalCurrentAnchorLevel = currentAnchorLevel;
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                     if(block.getType().equals(Material.RESPAWN_ANCHOR)) {
-                        if(!StorageManager.anchorPlace(plugin, e, p, loc, finalCurrentAnchorLevel)) return;
+
+                        Anchor anchor = new Anchor(
+                                finalCurrentAnchorLevel,
+                                loc,
+                                p
+                        );
+
+                        boolean couldPlace = StorageManager.saveAnchor(anchor);
+
+                        if(!couldPlace) {
+                            p.sendMessage(Utils.Color(plugin.getConfig().getString("cannot-place-more-anchors").replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
+                            e.setCancelled(true);
+                            return;
+                        }
 
                         /**
                         Log to console the anchor place
@@ -149,7 +162,11 @@ public class AnchorPlace implements Listener {
                         /**
                          * Caching anchor
                          */
-                        Global.addAnchor(loc);
+                        Global.addAnchor(new Anchor(
+                                StorageManager.getAnchorLevel(plugin, loc),
+                                loc,
+                                p
+                        ));
 
 
                         /**
@@ -163,9 +180,17 @@ public class AnchorPlace implements Listener {
                         else if(i == Material.NETHERITE_INGOT) charges = 4;
 
                         Block b = loc.getBlock();
-                        RespawnAnchor anchor = (RespawnAnchor) b.getBlockData();
-                        anchor.setCharges(charges);
-                        b.setBlockData(anchor);
+                        RespawnAnchor anchorBlock = (RespawnAnchor) b.getBlockData();
+                        anchorBlock.setCharges(charges);
+                        b.setBlockData(anchorBlock);
+
+                        // Announcing to the user that the anchor has been placed
+                        Utils.Color(plugin.getConfig().getStringList("anchor-place")).forEach((str) -> {
+                            p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(loc.getX())).
+                                    replaceAll("%coordsY%", String.valueOf(loc.getY())).
+                                    replaceAll("%coordsZ%", String.valueOf(loc.getZ())).
+                                    replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, loc))));
+                        });
                     }
                 }, 20L);
 

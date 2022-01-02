@@ -1,7 +1,6 @@
 package mc.nightmarephoenix.anchorsell.commands.subcommands;
 
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.command.CommandSender;
 

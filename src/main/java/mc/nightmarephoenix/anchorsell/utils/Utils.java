@@ -2,15 +2,13 @@ package mc.nightmarephoenix.anchorsell.utils;
 
 import com.tchristofferson.configupdater.ConfigUpdater;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.storage.GeneralStorage;
+import mc.nightmarephoenix.anchorsell.models.Anchor;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import mc.nightmarephoenix.anchorsell.api.Global;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -150,9 +148,9 @@ public class Utils {
                     replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
                     replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(plugin, level)).
                     replaceAll("%playerBalance%", String.valueOf(EconomyManager.getEconomy().getBalance(player))).
-                    replaceAll("%playerAnchors%", String.valueOf(StorageManager.getPlayerTotalAnchors(plugin, player))).
+                    replaceAll("%playerAnchors%", String.valueOf(StorageManager.getPlayerTotalAnchors(player))).
                     replaceAll("%maxPlayerAnchors%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have"))).
-                    replaceAll("%playerMoneyPer15Minutes%", String.valueOf(StorageManager.getPlayerMoneyPerMinute(plugin, player) * 15)).
+                    replaceAll("%playerMoneyPer15Minutes%", String.valueOf(StorageManager.getPlayerMoneyPerMinute(player) * 15)).
                     replaceAll("%priceOfUpgrade%", priceOfUpgrade).
                     replaceAll("%nextLevel%", levelToUpgrade).
                     replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(plugin, level + 1)));
@@ -320,6 +318,32 @@ public class Utils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Prints the list of anchors of a user.
+     * @param p
+     * @param toSendBack
+     * @throws InvalidConfigurationException
+     */
+    public static boolean printAnchorUserList(OfflinePlayer p, CommandSender toSendBack) throws InvalidConfigurationException {
+        boolean userFound = false;
+
+        toSendBack.sendMessage(Utils.Color(Global.plugin.getConfig().getString("anchor.list.first-message")));
+
+        for(Anchor playerAnchor : StorageManager.getAllPlayerAnchors(p)) {
+            userFound = true;
+            Utils.Color(Global.plugin.getConfig().getStringList("anchor.list.message")).forEach((str) -> {
+                toSendBack.sendMessage(
+                        str.replaceAll("%location%", "X: " + playerAnchor.getLocation().getX()
+                                        + " Y: " + playerAnchor.getLocation().getY()
+                                        + " Z: " + playerAnchor.getLocation().getZ())
+                                .replaceAll("%level%", String.valueOf(playerAnchor.getLevel()))
+                );
+            });
+        }
+        toSendBack.sendMessage(Utils.Color(Global.plugin.getConfig().getString("anchor.list.last-message")));
+        return userFound;
     }
 
 }

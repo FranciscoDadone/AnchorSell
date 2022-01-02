@@ -1,19 +1,19 @@
-package mc.nightmarephoenix.anchorsell.storage;
+package mc.nightmarephoenix.anchorsell.api;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 
-public class PerUserStorage {
+class PerUserStorage {
 
-    public PerUserStorage(AnchorSell plugin, OfflinePlayer p) {
+    protected PerUserStorage(AnchorSell plugin, OfflinePlayer p) {
         this.plugin = plugin;
         this.p = p;
         saveDefaultConfig(p);
@@ -22,7 +22,7 @@ public class PerUserStorage {
     /**
      * Reloads a user config.
      */
-    public void reloadConfig() {
+    protected void reloadConfig() {
         if(this.configFile == null) {
             this.configFile = new File(this.plugin.getDataFolder() + File.separator + "playerdata", p.getUniqueId() + ".yml");
         }
@@ -39,7 +39,7 @@ public class PerUserStorage {
      * Gets a user config.
      * @return
      */
-    public FileConfiguration getConfig() {
+    protected FileConfiguration getConfig() {
         if(this.dataConfig == null) {
             reloadConfig();
         }
@@ -49,7 +49,7 @@ public class PerUserStorage {
     /**
      * Saves a user config.
      */
-    public void saveConfig() {
+    protected void saveConfig() {
         if(this.dataConfig == null || this.configFile == null) {
             return;
         }
@@ -64,7 +64,7 @@ public class PerUserStorage {
      * Saves a new user config.
      * @param p
      */
-    public void saveDefaultConfig(OfflinePlayer p) {
+    protected void saveDefaultConfig(OfflinePlayer p) {
 
         if(this.configFile == null) {
             this.configFile = new File(

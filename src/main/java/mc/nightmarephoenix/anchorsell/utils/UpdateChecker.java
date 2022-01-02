@@ -1,6 +1,6 @@
 package mc.nightmarephoenix.anchorsell.utils;
 
-import mc.nightmarephoenix.anchorsell.storage.Global;
+import mc.nightmarephoenix.anchorsell.api.Global;
 import org.bukkit.Bukkit;
 import org.bukkit.util.Consumer;
 import java.io.IOException;

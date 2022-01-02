@@ -1,8 +1,8 @@
 package mc.nightmarephoenix.anchorsell.events;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
-import mc.nightmarephoenix.anchorsell.storage.Global;
-import mc.nightmarephoenix.anchorsell.storage.StorageManager;
+import mc.nightmarephoenix.anchorsell.api.Global;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -58,7 +58,7 @@ public class AnchorBlow implements Listener {
                 /**
                  * Removes anchor from cache.
                  */
-                Global.removeAnchor(b.getLocation());
+                Global.removeAnchor(StorageManager.getAnchorFromLoc(b.getLocation()));
 
 
                 // generate particles around on blow
@@ -92,7 +92,7 @@ public class AnchorBlow implements Listener {
                     /**
                      * Saves the broken anchor to the database.
                      */
-                    StorageManager.anchorBreak(plugin, anchor.getLocation());
+                    StorageManager.removeAnchor(StorageManager.getAnchorFromLoc(anchor.getLocation()));
                 }
             }
 
