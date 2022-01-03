@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class AnchorBreak implements Listener {
 
@@ -36,6 +37,18 @@ public class AnchorBreak implements Listener {
 
             Anchor anchor = StorageManager.getAnchorFromLoc(location);
 
+            if(!Global.plugin.getConfig().getBoolean("break-others") && !StorageManager.belongsToPlayer(anchor, p)) {
+                e.setCancelled(true);
+
+                Utils.sendConfigMessageF(
+                        "break-others-message",
+                        "%player%",
+                        Bukkit.getPlayer(UUID.fromString(anchor.getOwner().getName())).getDisplayName(),
+                        p
+                );
+
+                return;
+            }
 
             /**
              * Don't drop the item when broken to spawn a custom one.

@@ -53,6 +53,10 @@ pay-if-chunk-is-loaded: false
 # If false anchors will not pay afk players.
 pay-afk-players: true
 
+# If true, players can break others players anchors.
+break-others: true
+break-others-message: "&cYou cannot break %player%&c's anchor!"
+
 anchor-value: 100000
 radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
