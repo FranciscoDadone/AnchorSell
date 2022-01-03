@@ -64,12 +64,6 @@ public class AnchorBreak implements Listener {
                                     location.getZ() +
                             ")");
 
-
-                    /**
-                     * Removes anchor from cache
-                     */
-                    Global.removeAnchor(anchor);
-
                     /**
                      * Playing sound on anchor break.
                      */
@@ -105,8 +99,12 @@ public class AnchorBreak implements Listener {
                      * Saves to the database the broken anchor.
                      */
                     StorageManager.removeAnchor(StorageManager.getAnchorFromLoc(location));
-                }
 
+                    /**
+                     * Removes anchor from cache
+                     */
+                    Global.removeAnchor(anchor);
+                }
             }, 20L);
         }
     }

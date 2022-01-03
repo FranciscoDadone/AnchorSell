@@ -436,7 +436,7 @@ public class StorageManager {
      * @return
      */
     public static Anchor getAnchorFromLoc(Location location) {
-        for(Anchor anchor: Global.getAllAnchors()) {
+        for(Anchor anchor : Global.getAllAnchors()) {
             if(anchor.getLocation().equals(location)) {
                 return anchor;
             }
