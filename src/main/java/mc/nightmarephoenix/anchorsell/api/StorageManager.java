@@ -175,7 +175,6 @@ public class StorageManager {
     public static boolean belongsToPlayer(Anchor anchor, Player p) {
         userData = new PerUserStorage(Global.plugin, p);
         generalData = new GeneralStorage(Global.plugin);
-
         try {
             Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(
                     generalData.getConfig().getString("all_anchors." + getAnchorUUID(anchor.getLocation()) + ".owner"))

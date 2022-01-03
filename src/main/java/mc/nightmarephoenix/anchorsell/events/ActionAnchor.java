@@ -2,6 +2,7 @@ package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import mc.nightmarephoenix.anchorsell.api.StorageManager;
+import mc.nightmarephoenix.anchorsell.models.Anchor;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -35,7 +36,12 @@ public class ActionAnchor implements Listener {
                 /**
                  * Checks if it's my anchor and opens the inventory.
                  */
-                if(StorageManager.belongsToPlayer(StorageManager.getAnchorFromLoc(e.getClickedBlock().getLocation()), p)) {
+                Anchor anchor = StorageManager.getAnchorFromLoc(e.getClickedBlock().getLocation());
+
+                // Checks creative anchor
+                if(anchor == null) return;
+
+                if(StorageManager.belongsToPlayer(anchor, p)) {
                     e.setCancelled(true);
                     p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
                 } else {
