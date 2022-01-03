@@ -135,7 +135,7 @@ public class Utils {
     public static  List<String> getLore(String path, AnchorSell plugin, Location location, Player player) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
-            int level = StorageManager.getAnchorLevel(plugin, location);
+            int level = StorageManager.getAnchorLevel(location);
             String levelToUpgrade = String.valueOf(level + 1);
             String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level, plugin));
             if((level + 1) > 64) {
@@ -168,7 +168,7 @@ public class Utils {
     public static  List<String> getLore(String path, AnchorSell plugin, Location location) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(plugin.getConfig().getStringList(path))) {
-            int level = StorageManager.getAnchorLevel(plugin, location);
+            int level = StorageManager.getAnchorLevel(location);
             String levelToUpgrade = String.valueOf(level + 1);
             String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level, plugin));
             if((level + 1) > 64) {

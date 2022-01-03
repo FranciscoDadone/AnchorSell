@@ -11,8 +11,8 @@ import java.util.logging.Level;
 
 class GeneralStorage {
 
-    protected GeneralStorage(AnchorSell plugin) {
-        this.plugin = plugin;
+    protected GeneralStorage() {
+        this.plugin = Global.plugin;
         saveDefaultConfig();
     }
 

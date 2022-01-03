@@ -19,8 +19,8 @@ public class StorageManager {
      * @return
      */
     public static boolean saveAnchor(Anchor anchor) {
-        userData = new PerUserStorage(Global.plugin, anchor.getOwner());
-        generalData = new GeneralStorage(Global.plugin);
+        userData = new PerUserStorage(anchor.getOwner());
+        generalData = new GeneralStorage();
 
         // Updating the total amount of anchors in the user config
         int totalUserAnchors = 0;
@@ -72,7 +72,7 @@ public class StorageManager {
      * @return boolean
      */
     public static boolean canPlaceMoreAnchors(Player p) {
-        userData = new PerUserStorage(Global.plugin, p);
+        userData = new PerUserStorage(p);
         if(userData.getConfig().contains("total")) {
             return userData.getConfig().getInt("total") < Global.plugin.getConfig().getInt("total-anchors-user-can-have");
         }
@@ -85,7 +85,7 @@ public class StorageManager {
      * @param anchor
      */
     public static void removeAnchor(Anchor anchor) {
-        generalData = new GeneralStorage(Global.plugin);
+        generalData = new GeneralStorage();
 
         // Anchor UUID
         String anchorID = getAnchorUUID(anchor.getLocation());
@@ -95,7 +95,7 @@ public class StorageManager {
         try {
             String uuid = generalData.getConfig().getString("all_anchors." + anchorID + ".owner");
             p = Bukkit.getOfflinePlayer(UUID.fromString(uuid));
-            userData = new PerUserStorage(Global.plugin, p);
+            userData = new PerUserStorage(p);
         } catch (Exception exception) {
             exception.printStackTrace();
             return;
@@ -135,18 +135,17 @@ public class StorageManager {
      * @return boolean
      */
     public static boolean isValidAnchor(Location location) {
-        generalData = new GeneralStorage(Global.plugin);
+        generalData = new GeneralStorage();
         return generalData.getConfig().contains("all_anchors." + getAnchorUUID(location));
     }
 
     /**
      * Returns the level of an anchor.
-     * @param plugin
      * @param location
      * @return int
      */
-    public static int getAnchorLevel(AnchorSell plugin, Location location) {
-        generalData = new GeneralStorage(plugin);
+    public static int getAnchorLevel(Location location) {
+        generalData = new GeneralStorage();
         // Getting the current anchor level
         int currentAnchorLevel = generalData.getConfig().getInt("all_anchors." + getAnchorUUID(location) + ".level");
         if(currentAnchorLevel == 0) {
@@ -173,8 +172,8 @@ public class StorageManager {
      * @return boolean
      */
     public static boolean belongsToPlayer(Anchor anchor, Player p) {
-        userData = new PerUserStorage(Global.plugin, p);
-        generalData = new GeneralStorage(Global.plugin);
+        userData = new PerUserStorage(p);
+        generalData = new GeneralStorage();
         try {
             Player actualPlayerAnchor = Bukkit.getPlayer(UUID.fromString(
                     generalData.getConfig().getString("all_anchors." + getAnchorUUID(anchor.getLocation()) + ".owner"))
@@ -191,7 +190,7 @@ public class StorageManager {
      * @return int
      */
     public static int getPlayerTotalAnchors(Player p) {
-        return getUserData(Global.plugin, p).getConfig().getInt("total");
+        return getUserData(p).getConfig().getInt("total");
     }
 
     /**
@@ -200,7 +199,7 @@ public class StorageManager {
      * @return
      */
     public static double getPlayerMoneyPerMinute(Player p) {
-        userData = new PerUserStorage(Global.plugin, p);
+        userData = new PerUserStorage(p);
         double res = 0;
         for(int i = 1; i <= Global.plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
@@ -212,16 +211,15 @@ public class StorageManager {
 
     /**
      * Saves the anchor upgrade to the config.
-     * @param plugin
      * @param location
      * @param p
      */
-    public static void upgradeAnchor(AnchorSell plugin, Location location, Player p) {
-        userData = new PerUserStorage(plugin, p);
-        generalData = new GeneralStorage(plugin);
+    public static void upgradeAnchor(Location location, Player p) {
+        userData = new PerUserStorage(p);
+        generalData = new GeneralStorage();
 
         // Updating user data...
-        for(int i = 1; i <= plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
+        for(int i = 1; i <= Global.plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
                 if(userData.getConfig().getInt("anchors." + i + ".location.x") == location.getX() &&
                         userData.getConfig().getInt("anchors." + i + ".location.y") == location.getY() &&
@@ -292,8 +290,8 @@ public class StorageManager {
      * @param p
      */
     public static void revalidateUser(OfflinePlayer p) {
-        generalData = new GeneralStorage(Global.plugin);
-        userData = new PerUserStorage(Global.plugin, p);
+        generalData = new GeneralStorage();
+        userData = new PerUserStorage(p);
         int totalUserAnchors = 0;
         for(int i = 1; i <= Global.plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
             if(userData.getConfig().contains("anchors." + i)) {
@@ -360,7 +358,7 @@ public class StorageManager {
      * @return
      */
     public static HashMap<String, Integer> getAnchorTop() {
-        generalData = new GeneralStorage(Global.plugin);
+        generalData = new GeneralStorage();
         ArrayList<String> ownersUUID = new ArrayList<>();
         ArrayList<Integer> levels = new ArrayList<>();
         ArrayList<String> ownersUUIDNotRepeated = new ArrayList<>();
@@ -399,7 +397,7 @@ public class StorageManager {
      * Saves to RAM (Global) all anchors.
      */
     public static void cacheAllAnchors() {
-        generalData = new GeneralStorage(Global.plugin);
+        generalData = new GeneralStorage();
         Set<String> a = generalData.getConfig().getKeys(true);
 
         int x = -1, y = -1, z = -1;
@@ -449,7 +447,7 @@ public class StorageManager {
      * @return
      */
     public static ArrayList<Anchor> getAllPlayerAnchors(OfflinePlayer player) {
-        FileConfiguration data = getUserData(Global.plugin, player).getConfig();
+        FileConfiguration data = getUserData(player).getConfig();
         ArrayList<Anchor> anchors = new ArrayList<>();
 
         for(int i = 1; i <= Global.plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
@@ -469,8 +467,8 @@ public class StorageManager {
         return anchors;
     }
 
-    private static PerUserStorage getUserData(AnchorSell plugin, OfflinePlayer p) {
-        return new PerUserStorage(plugin, p);
+    private static PerUserStorage getUserData(OfflinePlayer p) {
+        return new PerUserStorage(p);
     }
 
     public static PerUserStorage userData;

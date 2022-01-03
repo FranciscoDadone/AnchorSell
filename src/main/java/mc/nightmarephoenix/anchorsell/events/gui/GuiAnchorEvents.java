@@ -51,7 +51,7 @@ public class GuiAnchorEvents implements Listener {
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof AnchorScreen) {
             e.setCancelled(true);
             if ((e.getCurrentItem() != null) && (e.getSlot() == 15)) { // checks if the slot is the upgrade slot
-                int level = StorageManager.getAnchorLevel(plugin, new Location(p.getWorld(), location.getX(), location.getY(), location.getZ()));
+                int level = StorageManager.getAnchorLevel(new Location(p.getWorld(), location.getX(), location.getY(), location.getZ()));
                 if(level >= 64)
                     return;
                 p.openInventory(new UpgradesScreen(plugin, level, location, p).getInventory());
@@ -67,7 +67,7 @@ public class GuiAnchorEvents implements Listener {
              * If it hits the upgrade button.
              */
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE))) { // checks if the slot is the upgrade slot
-                int level = StorageManager.getAnchorLevel(plugin, location);
+                int level = StorageManager.getAnchorLevel(location);
                 if(level >= 64) {
                     p.closeInventory();
                     return;
@@ -88,7 +88,7 @@ public class GuiAnchorEvents implements Listener {
                     /**
                      * Saves the upgrade to config.
                      */
-                    StorageManager.upgradeAnchor(plugin, location, p);
+                    StorageManager.upgradeAnchor(location, p);
 
                     /**
                      * Upgrades the anchor aesthetics if it needs.

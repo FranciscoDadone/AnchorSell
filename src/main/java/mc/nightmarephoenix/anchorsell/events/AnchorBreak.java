@@ -57,7 +57,7 @@ public class AnchorBreak implements Listener {
                      Log to console the anchor break
                      */
                     Bukkit.getLogger().info("[AnchorSell] "
-                            + p.getName() + " broke a level " + StorageManager.getAnchorLevel(plugin, location) + " Anchor. " +
+                            + p.getName() + " broke a level " + StorageManager.getAnchorLevel(location) + " Anchor. " +
                             "(" +
                                     location.getX() + ", " +
                                     location.getY() + ", " +
@@ -84,15 +84,15 @@ public class AnchorBreak implements Listener {
                         p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(location.getX())).
                                 replaceAll("%coordsY%", String.valueOf(location.getY())).
                                 replaceAll("%coordsZ%", String.valueOf(location.getZ())).
-                                replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, location))));
+                                replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(location))));
                     });
 
-                    HashMap<Integer, ItemStack> inv = p.getInventory().addItem(Utils.getAnchor(StorageManager.getAnchorLevel(plugin, location), 1));
+                    HashMap<Integer, ItemStack> inv = p.getInventory().addItem(Utils.getAnchor(StorageManager.getAnchorLevel(location), 1));
                     /**
                      * If the inventory is full it drops the anchor.
                      */
                     if(!inv.isEmpty()) {
-                        p.getWorld().dropItem(location, Utils.getAnchor(StorageManager.getAnchorLevel(plugin, location), 1)).setInvulnerable(true);
+                        p.getWorld().dropItem(location, Utils.getAnchor(StorageManager.getAnchorLevel(location), 1)).setInvulnerable(true);
                     }
 
                     /**

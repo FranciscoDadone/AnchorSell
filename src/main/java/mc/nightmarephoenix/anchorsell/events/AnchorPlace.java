@@ -163,7 +163,7 @@ public class AnchorPlace implements Listener {
                          * Caching anchor
                          */
                         Global.addAnchor(new Anchor(
-                                StorageManager.getAnchorLevel(plugin, loc),
+                                StorageManager.getAnchorLevel(loc),
                                 loc,
                                 p
                         ));
@@ -172,7 +172,7 @@ public class AnchorPlace implements Listener {
                         /**
                          * Determines witch level of glowstone the anchor needs
                          */
-                        Material i = Utils.getAnchorOreLevel(StorageManager.getAnchorLevel(plugin, loc));
+                        Material i = Utils.getAnchorOreLevel(StorageManager.getAnchorLevel(loc));
                         int charges = 0;
                         if(i == Material.IRON_INGOT)           charges = 1;
                         else if(i == Material.GOLD_INGOT)      charges = 2;
@@ -189,7 +189,7 @@ public class AnchorPlace implements Listener {
                             p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(loc.getX())).
                                     replaceAll("%coordsY%", String.valueOf(loc.getY())).
                                     replaceAll("%coordsZ%", String.valueOf(loc.getZ())).
-                                    replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(plugin, loc))));
+                                    replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(loc))));
                         });
                     }
                 }, 20L);

@@ -13,8 +13,8 @@ import java.util.logging.Level;
 
 class PerUserStorage {
 
-    protected PerUserStorage(AnchorSell plugin, OfflinePlayer p) {
-        this.plugin = plugin;
+    protected PerUserStorage(OfflinePlayer p) {
+        this.plugin = Global.plugin;
         this.p = p;
         saveDefaultConfig(p);
     }

@@ -75,7 +75,7 @@ public class AnchorBlow implements Listener {
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             if(!anchors.isEmpty()) {
                 for(Block anchor: anchors) {
-                    int level = StorageManager.getAnchorLevel(plugin, anchor.getLocation());
+                    int level = StorageManager.getAnchorLevel(anchor.getLocation());
                     world.dropItem(new Location(anchor.getWorld(), anchor.getX(), anchor.getY(), anchor.getZ()), Utils.getAnchor(level, 1)).setInvulnerable(true);
 
                     /**
