@@ -7,6 +7,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Objects;
+
 
 public class ParticleTask extends BukkitRunnable {
 
@@ -18,14 +20,14 @@ public class ParticleTask extends BukkitRunnable {
 
     public ParticleTask() {}
 
+    /**
+     * Gets all the cached anchors.
+     * Sees if a player is near that anchor.
+     * If yes, it ticks a particle effect.
+     * If no, breaks and continues with another player.
+     */
     @Override
     public void run() {
-        /**
-         * Gets all the cached anchors.
-         * Sees if a player is near that anchor.
-         * If yes, it ticks a particle effect.
-         * If no, breaks and continues with another player.
-         */
         if(!Global.particlesStatus.equalsIgnoreCase("off")) {
             for(Anchor anchor : Global.getAllAnchors()) {
                 Location loc = anchor.getLocation();
@@ -36,7 +38,7 @@ public class ParticleTask extends BukkitRunnable {
                             Block block = loc.getBlock();
 
                             if (block.getType().equals(Material.RESPAWN_ANCHOR)) {
-                                block.getLocation().getWorld().spawnParticle(
+                                Objects.requireNonNull(block.getLocation().getWorld()).spawnParticle(
                                         Particle.PORTAL,
                                         new Location(
                                                 block.getWorld(),

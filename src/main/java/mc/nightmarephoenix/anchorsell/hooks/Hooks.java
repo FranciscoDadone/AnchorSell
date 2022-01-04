@@ -6,16 +6,16 @@ public class Hooks {
 
     /**
      * Sets the world guard hook.
-     * @param value
+     * @param value WG active or not
      */
     public static void setWorldGuard(boolean value) {
-        if(value) wg = wg.ACTIVE;
-        else      wg = wg.NOT_ACTIVE;
+        if(value) wg = WG.ACTIVE;
+        else      wg = WG.NOT_ACTIVE;
     }
 
     /**
      * Getter
-     * @return
+     * @return WG class
      */
     public static WG getWorldGuard() {
         return wg;

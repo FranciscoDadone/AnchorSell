@@ -23,10 +23,6 @@ public class Anchor {
         return owner;
     }
 
-    public void setOwner(OfflinePlayer owner) {
-        this.owner = owner;
-    }
-
     public int getLevel() {
         return level;
     }
@@ -36,7 +32,7 @@ public class Anchor {
     }
 
     private Location location;
-    private OfflinePlayer owner;
+    private final OfflinePlayer owner;
     private int level;
 
 }

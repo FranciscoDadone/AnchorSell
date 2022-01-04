@@ -11,6 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import java.util.Objects;
+
 public class ActionAnchor implements Listener {
 
     public ActionAnchor(AnchorSell plugin) {
@@ -21,39 +23,32 @@ public class ActionAnchor implements Listener {
     public void onBlockClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         try {
-            /**
-             * If the player is sneaking, don't open the inventory.
-             */
-            if(e.getClickedBlock().getType().equals(Material.RESPAWN_ANCHOR) && (p.isSneaking() && e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+            // If the player is sneaking, don't open the inventory.
+            if(Objects.requireNonNull(e.getClickedBlock()).getType().equals(Material.RESPAWN_ANCHOR) && (p.isSneaking() && e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
                 e.setCancelled(true);
                 return;
             }
 
-            /**
-             * If the player isn't sneaking...
-             */
-            if((e.getClickedBlock().getType().equals(Material.RESPAWN_ANCHOR)) && (e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) && (e.getAction() != null) && !p.isSneaking()) {
-                /**
-                 * Checks if it's my anchor and opens the inventory.
-                 */
-                Anchor anchor = StorageManager.getAnchorFromLoc(e.getClickedBlock().getLocation());
+            // If the player isn't sneaking...
+            if((e.getClickedBlock().getType().equals(Material.RESPAWN_ANCHOR)) && (e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+                if (!p.isSneaking()) {
+                    // Checks if it's my anchor and opens the inventory.
+                    Anchor anchor = StorageManager.getAnchorFromLoc(e.getClickedBlock().getLocation());
 
-                // Checks creative anchor
-                if(anchor == null) return;
+                    // Checks creative anchor
+                    if (anchor == null) return;
 
-                if(StorageManager.belongsToPlayer(anchor, p)) {
-                    e.setCancelled(true);
-                    p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
-                } else {
-                    e.setCancelled(true);
-                    p.sendMessage(Utils.Color(plugin.getConfig().getString("you-dont-own-this-anchor")));
+                    if (StorageManager.belongsToPlayer(anchor, p)) {
+                        e.setCancelled(true);
+                        p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
+                    } else {
+                        e.setCancelled(true);
+                        p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("you-dont-own-this-anchor"))));
+                    }
                 }
             }
-            return;
-        } catch (Exception e1) {
-            return;
-        }
+        } catch (Exception ignored) {}
     }
 
-    private AnchorSell plugin;
+    private final AnchorSell plugin;
 }

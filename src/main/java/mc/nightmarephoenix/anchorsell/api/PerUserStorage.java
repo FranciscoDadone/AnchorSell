@@ -37,7 +37,7 @@ class PerUserStorage {
 
     /**
      * Gets a user config.
-     * @return
+     * @return FileConfiguration
      */
     protected FileConfiguration getConfig() {
         if(this.dataConfig == null) {
@@ -62,7 +62,7 @@ class PerUserStorage {
 
     /**
      * Saves a new user config.
-     * @param p
+     * @param p offPLayer
      */
     protected void saveDefaultConfig(OfflinePlayer p) {
 
@@ -79,8 +79,8 @@ class PerUserStorage {
         }
     }
 
-    private AnchorSell plugin;
+    private final AnchorSell plugin;
     private FileConfiguration dataConfig = null;
     private File configFile = null;
-    private OfflinePlayer p;
+    private final OfflinePlayer p;
 }

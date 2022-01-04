@@ -14,6 +14,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
+import java.util.Objects;
+
 public class AnchorPlace implements Listener {
 
     public AnchorPlace(AnchorSell plugin) {
@@ -34,63 +36,53 @@ public class AnchorPlace implements Listener {
             boolean creativeAnchor = false;
             boolean isInWorld;
 
-            /**
-             * World Guard zone check
-             */
+            // World Guard zone check
             if((!new RegionManager().canBuild(e.getBlock().getLocation())) && (e.getBlock().getType() == Material.RESPAWN_ANCHOR)) {// if it is in a protected land, the user can't place the anchor
                 if(!e.getPlayer().isOp()) { // si no es op
                     return;
                 }
             }
 
-            /**
-             * Searches if the block is in the enable-in-worlds.
-             */
+            // Searches if the block is in the enable-in-worlds.
             isInWorld = plugin.getConfig().getStringList("enable-in-worlds").contains(anchorInWorld.getName());
             if(!isInWorld) Utils.sendConfigMessage("world-not-enabled-error", e.getPlayer());
 
 
-            /**
-             * Getting the current anchor level before placing the block
-             * If it makes an exception it is a creative anchor.
-             */
+            //
+            // Getting the current anchor level before placing the block
+            // If it makes an exception it is a creative anchor.
+            //
             try {
                 currentAnchorLevel = Integer.parseInt(
-                        e.getItemInHand().
-                                getItemMeta().
-                                getLore().
+                        Objects.requireNonNull(Objects.requireNonNull(e.getItemInHand().
+                                                getItemMeta()).
+                                        getLore()).
                                 get(2).
                                 substring(18)
                 );
             } catch (Exception ex) {
-                /**
-                 * Creative respawn anchor won't be usable.
-                 */
+                // Creative respawn anchor won't be usable.
                 creativeAnchor = true;
             }
             if(creativeAnchor) return;
 
-            /**
-             * Normalizes the level
-             */
+            // Normalizes the level
             if (currentAnchorLevel == 0) {
                 currentAnchorLevel = 1;
             } else if(currentAnchorLevel > 64) {
                 currentAnchorLevel = 64;
             }
 
-            /**
-             * If the anchor is usable and is not in enable-in-worlds
-             * it cancels the placement and exits.
-             */
+            //
+            // If the anchor is usable and is not in enable-in-worlds
+            // it cancels the placement and exits.
+            //
             if (!isInWorld && e.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
                 e.setCancelled(true);
                 return;
             }
 
-            /**
-             * Searches the area (safe-anchor-area) and sees if the anchor can be placed.
-             */
+            // Searches the area (safe-anchor-area) and sees if the anchor can be placed.
             if(analyzeLocation(
                     new Location(
                             block.getWorld(),
@@ -101,21 +93,19 @@ public class AnchorPlace implements Listener {
                     plugin.getConfig().getInt("safe-anchor-area")
             )) {
 
-                /**
-                 * Checks if the user can place more anchors
-                 * (if it has a limit)
-                 */
+                //
+                // Checks if the user can place more anchors
+                // (if it has a limit)
+                //
                 try {
                     if(!StorageManager.canPlaceMoreAnchors(p)) {
                         e.setCancelled(true);
-                        p.sendMessage(Utils.Color(plugin.getConfig().getString("cannot-place-more-anchors").replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
+                        p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("cannot-place-more-anchors")).replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
                         return;
                     }
-                } catch(Exception e1) {}
+                } catch(Exception ignored) {}
 
-                /**
-                 * Waits 1sec to check if the block is actually placed and not removed by a protection plugin.
-                 */
+                // Waits 1sec to check if the block is actually placed and not removed by a protection plugin.
                 int finalCurrentAnchorLevel = currentAnchorLevel;
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
                     if(block.getType().equals(Material.RESPAWN_ANCHOR)) {
@@ -129,14 +119,12 @@ public class AnchorPlace implements Listener {
                         boolean couldPlace = StorageManager.saveAnchor(anchor);
 
                         if(!couldPlace) {
-                            p.sendMessage(Utils.Color(plugin.getConfig().getString("cannot-place-more-anchors").replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
+                            p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("cannot-place-more-anchors")).replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
                             e.setCancelled(true);
                             return;
                         }
 
-                        /**
-                        Log to console the anchor place
-                         */
+                        // Log to console the anchor place
                         Bukkit.getLogger().info("[AnchorSell] "
                                 + p.getName() + " placed a level " + finalCurrentAnchorLevel + " Anchor. " +
                                 "(" +
@@ -144,34 +132,25 @@ public class AnchorPlace implements Listener {
                                 block.getY() + ", " +
                                 block.getZ() +
                                 ")");
-                        /**
-                         * Plays the sound on placement.
-                         */
+                        // Plays the sound on placement.
                         p.playSound(p.getLocation(), Sound.ENTITY_ENDER_DRAGON_GROWL, 1f, 1f);
 
-                        /**
-                         * Generate particles around on placement.
-                         */
+                        // Generate particles around on placement.
                         for(int i = 0; i < 360; i += 5) {
                             Location flameloc = new Location(loc.getWorld(), loc.getX(), loc.getY(), loc.getZ());
                             flameloc.setZ(flameloc.getZ() + Math.cos(i) * 5);
                             flameloc.setX(flameloc.getX() + Math.sin(i) * 5);
-                            loc.getWorld().playEffect(flameloc, Effect.POTION_BREAK, 51);
+                            Objects.requireNonNull(loc.getWorld()).playEffect(flameloc, Effect.POTION_BREAK, 51);
                         }
 
-                        /**
-                         * Caching anchor
-                         */
+                        // Caching anchor
                         Global.addAnchor(new Anchor(
                                 StorageManager.getAnchorLevel(loc),
                                 loc,
                                 p
                         ));
 
-
-                        /**
-                         * Determines witch level of glowstone the anchor needs
-                         */
+                        // Determines witch level of glowstone the anchor needs
                         Material i = Utils.getAnchorOreLevel(StorageManager.getAnchorLevel(loc));
                         int charges = 0;
                         if(i == Material.IRON_INGOT)           charges = 1;
@@ -185,20 +164,16 @@ public class AnchorPlace implements Listener {
                         b.setBlockData(anchorBlock);
 
                         // Announcing to the user that the anchor has been placed
-                        Utils.Color(plugin.getConfig().getStringList("anchor-place")).forEach((str) -> {
-                            p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(loc.getX())).
-                                    replaceAll("%coordsY%", String.valueOf(loc.getY())).
-                                    replaceAll("%coordsZ%", String.valueOf(loc.getZ())).
-                                    replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(loc))));
-                        });
+                        Utils.Color(plugin.getConfig().getStringList("anchor-place")).forEach((str) -> p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(loc.getX())).
+                                replaceAll("%coordsY%", String.valueOf(loc.getY())).
+                                replaceAll("%coordsZ%", String.valueOf(loc.getZ())).
+                                replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(loc)))));
                     }
                 }, 20L);
 
             } else {
-                /**
-                 * Throws a radius error.
-                 */
-                p.sendMessage(Utils.Color(plugin.getConfig().getString("radius-error")));
+                // Throws a radius error.
+                p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("radius-error"))));
                 e.setCancelled(true);
             }
         }
@@ -207,9 +182,9 @@ public class AnchorPlace implements Listener {
     /**
      * Method to check if there are more anchors in the area.
      *
-     * @param startOfTheBox
-     * @param anchor
-     * @param radius
+     * @param startOfTheBox start of the box to search for anchors
+     * @param anchor anchor location
+     * @param radius radius
      * @return boolean
      */
     public boolean analyzeLocation(Location startOfTheBox, Location anchor, int radius) {
@@ -226,5 +201,5 @@ public class AnchorPlace implements Listener {
         return true;
     }
 
-    private AnchorSell plugin;
+    private final AnchorSell plugin;
 }

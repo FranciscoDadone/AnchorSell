@@ -36,6 +36,7 @@ public class Top extends SubCommands {
         return "anchorsell.player.top";
     }
 
+    @SuppressWarnings("SuspiciousMethodCalls")
     @Override
     public void perform(CommandSender sender, String[] args) {
         HashMap<String, Integer> top = StorageManager.getAnchorTop();
@@ -48,10 +49,9 @@ public class Top extends SubCommands {
             } else if (Integer.parseInt(args[1]) > maxPages) {
                 page = (int) maxPages;
             }
-        } catch (Exception e1) {
-        }
+        } catch (Exception ignored) {}
 
-        int n = 1 + (1 * (10 * (page - 1)));
+        int n = 1 + (10 * (page - 1));
         boolean skipFirst = page != 1;
         sender.sendMessage(Utils.Color("&7&m----------&r &5&lAnchor TOP &r&5&o(" + page + "/" + (int) maxPages + ") &7&m----------"));
         for (int i = (top.size() - (10 * (page - 1))); i > (top.size() - (10 * page) - 1); i--) {
@@ -60,15 +60,14 @@ public class Top extends SubCommands {
                     try {
                         sender.sendMessage(Utils.Color("&7#" + n + " &b" + Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[i].toString())).getName() + "&7 - &f" + top.get(top.keySet().toArray()[i])));
                         n++;
-                    } catch (Exception e) {
+                    } catch (Exception ignored) {
                     }
                 }
             } else {
                 try {
                     sender.sendMessage(Utils.Color("&7#" + n + " &b" + Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[i].toString())).getName() + "&7 - &f" + top.get(top.keySet().toArray()[i])));
                     n++;
-                } catch (Exception e) {
-                }
+                } catch (Exception ignored) {}
             }
         }
         sender.sendMessage(Utils.Color("&7&m-------------------------------------"));

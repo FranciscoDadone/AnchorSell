@@ -34,7 +34,7 @@ class GeneralStorage {
 
     /**
      * Returns the config.
-     * @return
+     * @return FileConfiguration
      */
     protected FileConfiguration getConfig() {
         if(this.dataConfig == null) {
@@ -70,7 +70,7 @@ class GeneralStorage {
         }
     }
 
-    private AnchorSell plugin;
+    private final AnchorSell plugin;
     private FileConfiguration dataConfig = null;
     private File configFile = null;
 }

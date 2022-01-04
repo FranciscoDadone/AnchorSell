@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GetUserFileName extends SubCommands {
     @Override
@@ -42,7 +43,7 @@ public class GetUserFileName extends SubCommands {
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.getUserFileName")) {
             if(args.length == 2) {
-                sender.sendMessage(Utils.Color("&aUser file name: &c" + Bukkit.getPlayer(args[1]).getUniqueId() + ".yml"));
+                sender.sendMessage(Utils.Color("&aUser file name: &c" + Objects.requireNonNull(Bukkit.getPlayer(args[1])).getUniqueId() + ".yml"));
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e/anchor getuserfilename [username]"));
             }

@@ -12,7 +12,7 @@ public class Global {
 
     /**
      * Adds an anchor to the cache
-     * @param newAnchor
+     * @param newAnchor new anchor to add to ram.
      */
     public static void addAnchor(Anchor newAnchor) {
         anchors.add(newAnchor);
@@ -21,7 +21,7 @@ public class Global {
     /**
      * Removes an anchor from cache.
      * When it is mined or exploded.
-     * @param anchor
+     * @param anchor removes anchor from ram
      */
     public static void removeAnchor(Anchor anchor) {
         anchors.remove(anchor);
@@ -29,13 +29,13 @@ public class Global {
 
     /**
      * Returns all the cached anchors.
-     * @return
+     * @return ArrayList<Anchor>
      */
     public static ArrayList<Anchor> getAllAnchors() {
         return anchors;
     }
 
-    private static ArrayList<Anchor> anchors = new ArrayList<>();
+    private static final ArrayList<Anchor> anchors = new ArrayList<>();
     public static String particlesStatus;
     public static AnchorSell plugin;
 

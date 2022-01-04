@@ -20,7 +20,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 
 
@@ -53,8 +54,8 @@ public final class AnchorSell extends JavaPlugin {
 
         // World guard check - soft depend
         try {
-            WorldGuard.getInstance();
-            Hooks.setWorldGuard(true);
+            WorldGuard wg = WorldGuard.getInstance();
+            if(wg != null) Hooks.setWorldGuard(true);
         } catch (NoClassDefFoundError e) {
             this.getLogger().fine("No WorldGuard detected.");
             Hooks.setWorldGuard(false);
@@ -65,7 +66,7 @@ public final class AnchorSell extends JavaPlugin {
         File configFile = new File(getDataFolder(), "config.yml");
 
         try {
-            ConfigUpdater.update(this, "config.yml", configFile, Arrays.asList());
+            ConfigUpdater.update(this, "config.yml", configFile, List.of());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,7 +82,7 @@ public final class AnchorSell extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new UpdateMessageOnJoin(), this);       // detects updates and shows to all op's on join.
 
         // // Loading commands // //
-        this.getCommand("anchor").setExecutor(new CommandManager());
+        Objects.requireNonNull(this.getCommand("anchor")).setExecutor(new CommandManager());
 
         // // Caching all anchors // //
         StorageManager.cacheAllAnchors();
@@ -97,7 +98,7 @@ public final class AnchorSell extends JavaPlugin {
         new PayTask(this).runTaskTimer(
                 this,
                 0,
-                20 * this.getConfig().getInt("pay-timer-in-minutes") * 60
+                20L * this.getConfig().getInt("pay-timer-in-minutes") * 60
         );
 
         /*
@@ -122,10 +123,8 @@ public final class AnchorSell extends JavaPlugin {
         });
 
 
-        /**
-         * bStats metrics
-         */
-        Metrics metrics = new Metrics(this, 13580);
+        // bStats metrics
+        new Metrics(this, 13580);
 
     }
 

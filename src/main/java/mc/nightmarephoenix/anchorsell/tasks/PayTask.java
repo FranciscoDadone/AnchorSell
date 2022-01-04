@@ -14,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 
 import java.util.Collection;
+import java.util.Objects;
 
 public class PayTask extends BukkitRunnable {
 
@@ -29,16 +30,13 @@ public class PayTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        @SuppressWarnings("all")
         Collection<Player> onlinePlayers = (Collection<org.bukkit.entity.Player>) Bukkit.getOnlinePlayers();
 
-        /**
-         * Revalidates all the anchors.
-         */
+        // Revalidates all the anchors.
         StorageManager.revalidateAll();
 
-        /**
-         * Pays to all online players.
-         */
+        // Pays to all online players.
         new Thread(() -> {
             // Sleeps for 1sec to wait for the chunk to unload in the revalidation process.
             // (if not loaded from a player)
@@ -55,7 +53,7 @@ public class PayTask extends BukkitRunnable {
                         // Checks if the chunk that the anchor is on is loaded.
                         if(Global.plugin.getConfig().getBoolean("pay-if-chunk-is-loaded")) {
                             Location anchorLocation = playerAnchor.getLocation();
-                            loaded = anchorLocation.getWorld().isChunkLoaded((anchorLocation.getBlockX() >> 4), (anchorLocation.getBlockZ() >> 4));
+                            loaded = Objects.requireNonNull(anchorLocation.getWorld()).isChunkLoaded((anchorLocation.getBlockX() >> 4), (anchorLocation.getBlockZ() >> 4));
                         }
                         if(loaded) {
                             int level = playerAnchor.getLevel();
@@ -66,12 +64,12 @@ public class PayTask extends BukkitRunnable {
                         }
                     }
                     if(totalAmount != 0) {
-                        p.sendMessage(Utils.Color(plugin.getConfig().getString("paying-message").replaceAll("%amount%", String.valueOf(totalAmount))));
+                        p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("paying-message")).replaceAll("%amount%", String.valueOf(totalAmount))));
                     }
                 }
             }
         }).start();
     }
 
-    private AnchorSell plugin;
+    private final AnchorSell plugin;
 }

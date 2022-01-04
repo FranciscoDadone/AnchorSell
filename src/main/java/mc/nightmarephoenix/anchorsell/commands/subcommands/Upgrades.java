@@ -40,7 +40,7 @@ public class Upgrades extends SubCommands {
             for (int i = 1; i <= 64; i++) {
                 sender.sendMessage(Utils.Color(
                         "Level: " + i
-                                + " | MToUpgrade: " + Utils.getMoneyToUpgrade(i, Global.plugin)
+                                + " | MToUpgrade: " + Utils.getMoneyToUpgrade(i)
                                 + " | MPerMinute: " + Utils.getMoneyPerMinute(i)
                 ));
             }

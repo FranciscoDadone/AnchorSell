@@ -26,7 +26,7 @@ public class UpdateChecker {
         });
     }
 
-    private int resourceId;
+    private final int resourceId;
     public static String updateString = "";
 
 }

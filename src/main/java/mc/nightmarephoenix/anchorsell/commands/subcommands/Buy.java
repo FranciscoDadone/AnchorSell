@@ -1,12 +1,12 @@
 package mc.nightmarephoenix.anchorsell.commands.subcommands;
 
 import mc.nightmarephoenix.anchorsell.inventories.BuyScreen;
-import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Buy extends SubCommands {
     @Override
@@ -37,8 +37,8 @@ public class Buy extends SubCommands {
     @Override
     public void perform(CommandSender sender, String[] args) {
         if (sender.hasPermission("anchorsell.player.buy")) {
-            Bukkit.getPlayer(sender.getName()).openInventory(
-                    new BuyScreen(Bukkit.getPlayer(sender.getName()), Global.plugin).getInventory()
+            Objects.requireNonNull(Bukkit.getPlayer(sender.getName())).openInventory(
+                    new BuyScreen().getInventory()
             );
         } else Utils.noPermission(getPermission(), sender);
     }

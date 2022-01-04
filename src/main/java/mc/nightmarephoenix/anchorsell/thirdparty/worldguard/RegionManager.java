@@ -13,8 +13,8 @@ import org.bukkit.Location;
 public class RegionManager {
     /**
      * Returns if in the region the user can build.
-     * @param location
-     * @return
+     * @param location block to check
+     * @return if can build
      */
     public boolean canBuild(Location location) {
         if(Hooks.getWorldGuard().equals(WG.ACTIVE)) {

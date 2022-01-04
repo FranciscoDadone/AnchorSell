@@ -5,21 +5,21 @@ import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collections;
+import java.util.Objects;
 
 public class UpgradesScreen implements InventoryHolder {
-    private Player p;
-    public UpgradesScreen(AnchorSell plugin, int level, Location location, Player p) {
+    public UpgradesScreen(AnchorSell plugin, int level, Location location) {
         this.plugin = plugin;
         this.location = location;
         this.level = level;
-        this.p = p;
 
-        inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.title")));
+        inv = Bukkit.createInventory(this, 27, Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.upgrade-menu.title"))));
         material = Utils.getAnchorOreLevel(level);
         init();
     }
@@ -43,17 +43,16 @@ public class UpgradesScreen implements InventoryHolder {
             if (i == 13) {
                 // Current state
                 item = Utils.createItem(
-                        Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt").replaceAll("%currentLevel%", Utils.getAnchorOreLevelString(plugin, level) + " &f(" + level + ")")),
+                        Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.upgrade-menu.current-level.txt")).replaceAll("%currentLevel%", Utils.getAnchorOreLevelString(level) + " &f(" + level + ")")),
                         material,
-                        Utils.getLore("anchor.upgrade-menu.current-level.lore", plugin, location),
+                        Utils.getLore("anchor.upgrade-menu.current-level.lore", location),
                         true
                 );
             } else {
                 item = Utils.createItem(
-                        Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt")),
+                        Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.upgrade-menu.upgrade-button.txt"))),
                         Material.LIME_STAINED_GLASS_PANE,
                         Utils.getLore("anchor.upgrade-menu.upgrade-button.lore",
-                                plugin,
                                 null,
                                 null
                         ),
@@ -62,11 +61,9 @@ public class UpgradesScreen implements InventoryHolder {
             }
             inv.setItem(i, item);
         }
-        /**
-         * Back button
-         */
+        // Back button
         inv.setItem(18, Utils.createItem(
-                Utils.Color(plugin.getConfig().getString("anchor.upgrade-menu.back")),
+                Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.upgrade-menu.back"))),
                 Material.BARRIER,
                 Collections.emptyList(),
                 false
@@ -76,13 +73,13 @@ public class UpgradesScreen implements InventoryHolder {
 
 
     @Override
-    public Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return inv;
     }
 
-    private AnchorSell plugin;
-    private Inventory inv;
-    private Material material;
-    private int level;
-    private Location location;
+    private final AnchorSell plugin;
+    private final Inventory inv;
+    private final Material material;
+    private final int level;
+    private final Location location;
 }

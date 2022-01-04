@@ -5,23 +5,24 @@ import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
+import java.util.Objects;
 
 public class AnchorScreen implements InventoryHolder {
-    private Location location;
+    private final Location location;
 
     public AnchorScreen(Player p, AnchorSell plugin, Location location) {
         this.location = location;
         this.p = p;
         this.plugin = plugin;
-        inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("anchor.title")));
+        inv = Bukkit.createInventory(this, 27, Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.title"))));
 
         init();
     }
@@ -42,35 +43,36 @@ public class AnchorScreen implements InventoryHolder {
         }
 
         // Info
-        ItemStack info = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.current-anchor-info.txt")),
-                Material.BOOK, Utils.getLore("anchor.current-anchor-info.lore", plugin, location, p), false);
+        ItemStack info = Utils.createItem(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.current-anchor-info.txt"))),
+                Material.BOOK, Utils.getLore("anchor.current-anchor-info.lore", location, p), false);
         inv.setItem(11, info);
 
         // Player head
         ItemStack skull = Utils.createItem(
                 p.getName(),
                 Material.PLAYER_HEAD,
-                Utils.getLore("anchor.player.lore", plugin, location, p),
+                Utils.getLore("anchor.player.lore", location, p),
                 false
         );
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+        assert skullMeta != null;
         skullMeta.setDisplayName(p.getName());
         skullMeta.setOwningPlayer(p);
         skull.setItemMeta(skullMeta);
         inv.setItem(13, skull);
 
         // Upgrades
-        ItemStack upgrades = Utils.createItem(Utils.Color(plugin.getConfig().getString("anchor.upgrades.txt")), Material.GLOWSTONE, Utils.getLore("anchor.upgrades.lore", plugin, location, p), false);
+        ItemStack upgrades = Utils.createItem(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.upgrades.txt"))), Material.GLOWSTONE, Utils.getLore("anchor.upgrades.lore", location, p), false);
         inv.setItem(15, upgrades);
     }
 
     @Override
-    public Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return inv;
     }
 
-    private Player p;
-    private Inventory inv;
-    private AnchorSell plugin;
+    private final Player p;
+    private final Inventory inv;
+    private final AnchorSell plugin;
 
 }

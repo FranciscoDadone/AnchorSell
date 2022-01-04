@@ -7,14 +7,17 @@ import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class ConfirmScreen implements InventoryHolder {
-    private AnchorSell plugin;
-    private Inventory inv;
+    private final AnchorSell plugin;
+    private final Inventory inv;
 
     public ConfirmScreen(AnchorSell anchorSellPlugin) {
         this.plugin = anchorSellPlugin;
-        inv = Bukkit.createInventory(this, 27, Utils.Color(plugin.getConfig().getString("confirmscreen.title")));
+        inv = Bukkit.createInventory(this, 27, Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("confirmscreen.title"))));
         init();
     }
 
@@ -36,13 +39,13 @@ public class ConfirmScreen implements InventoryHolder {
         }
 
         // Yes
-        ItemStack yesGlass = Utils.createItem(Utils.Color(plugin.getConfig().getString("confirmscreen.confirm")), Material.GREEN_STAINED_GLASS_PANE, true);
+        ItemStack yesGlass = Utils.createItem(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("confirmscreen.confirm"))), Material.GREEN_STAINED_GLASS_PANE, true);
         inv.setItem(10, yesGlass);
         inv.setItem(11, yesGlass);
         inv.setItem(12, yesGlass);
 
         // No
-        ItemStack noGlass = Utils.createItem(Utils.Color(plugin.getConfig().getString("confirmscreen.cancel")), Material.RED_STAINED_GLASS_PANE, true);
+        ItemStack noGlass = Utils.createItem(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("confirmscreen.cancel"))), Material.RED_STAINED_GLASS_PANE, true);
         inv.setItem(14, noGlass);
         inv.setItem(15, noGlass);
         inv.setItem(16, noGlass);
@@ -53,7 +56,7 @@ public class ConfirmScreen implements InventoryHolder {
     }
 
     @Override
-    public Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return inv;
     }
 }
