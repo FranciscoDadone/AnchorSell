@@ -1,6 +1,6 @@
 # AnchorSell - Spigot plugin
+![](https://s10.gifyu.com/images/untitled659030898b59acbd.gif)
 
-Spigot plugin to get money using a Respawn anchor.
 
 ## Characteristics:
  + Can be removed with TNT and keep their characteristics.
