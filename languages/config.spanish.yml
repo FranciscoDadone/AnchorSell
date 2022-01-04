@@ -14,7 +14,7 @@ help-message:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&e/anchor buy &fPara comprar un anchor."
   - "&e/anchor list &fDa un listado de todos los anchors en su poder."
-  - "&e/anchor top [number] &fTop anchors en el servidor."
+  - "&e/anchor top [número] &fTop anchors en el servidor."
   - ""
   - "&e/anchor authors"
   - "&7&m----------------------------"
@@ -22,16 +22,16 @@ help-message:
 help-message-admin:
   - "&7&m----------&r &5&lAnchor &7&m----------"
   - "&e/anchor reload &f Recarga la configuración."
-  - "&e/anchor give [name] [quantity] [level] &fDa un anchor al jugador."
-  - "&e/anchor list [username] &fDa un listado de todos los anchor en su poder."
-  - "&e/anchor top [number] &fTop anchors en el servidor."
+  - "&e/anchor give [nombre] [cantidad] [nivel] &fDa un anchor al jugador."
+  - "&e/anchor list [nombre] &fDa un listado de todos los anchor en su poder."
+  - "&e/anchor top [número] &fTop anchors en el servidor."
   - "&e/anchor upgrades &fMuestra el coste para mejorar un anchor."
-  - "&e/anchor changeUpgradeMultiplier [multiplier] &fCambia el multiplicador de mejora, esto afecta al precio de mejora."
-  - "&e/anchor changePrice [price] &fCambia el precio de compra del anchor."
-  - "&e/anchor changeSafeZone [zone] &fCambia el radio mínimo donde se pueden poner anchors."
-  - "&e/anchor changeTotalAnchorsUserCanHave [number] &fCambia el total de anchors que un usuario puede tener."
-  - "&e/anchor getUserFileName [username] &fMuestra donde esta la información del usuario."
-  - "&e/anchor revalidate [username] &fRevalidación de los anchors de un jugador."
+  - "&e/anchor changeUpgradeMultiplier [multiplicador] &fCambia el multiplicador de mejora, esto afecta al precio de mejora."
+  - "&e/anchor changePrice [precio] &fCambia el precio de compra del anchor."
+  - "&e/anchor changeSafeZone [zona] &fCambia el radio mínimo donde se pueden poner anchors."
+  - "&e/anchor changeTotalAnchorsUserCanHave [número] &fCambia el total de anchors que un usuario puede tener."
+  - "&e/anchor getUserFileName [nombre] &fMuestra donde esta la información del usuario."
+  - "&e/anchor revalidate [nombre] &fRevalidación de los anchors de un jugador."
   - "&e/anchor particles [all/low/off] &fCambia las partículas de todos los anchors."
   - ""
   - "&e/anchor authors"
@@ -40,7 +40,7 @@ help-message-admin:
 unknown-command: "&5&lAnchor &7- &fComando desconocido."
 no-permissions: "&cNo tienes permisos para hacer esto. (%permissionNode%)"
 
-cant-give-anchor-message: "&fUtilice: &e/anchor give [name] [quantity] [level]"
+cant-give-anchor-message: "&fUtilice: &e/anchor give [nombre] [cantidad] [nivel]"
 total-anchors-user-can-have: 10
 
 # Distancia mínima para poner un anchor al lado de otro.
@@ -51,6 +51,10 @@ pay-if-chunk-is-loaded: false
 
 # Si es false los anchors no van a pagar a los jugadores afk.
 pay-afk-players: true
+
+# Si es true, los jugadores pueden romper anchors ajenos.
+break-others: true
+break-others-message: "&cNo puedes romper el anchor de %player%&c!"
 
 anchor-value: 100000
 radius-error: "&4No puedes colocar anchors tan cerca de otros."
@@ -132,10 +136,10 @@ anchor:
     last-message: "&7&m-----------------------------"
     message:
       - ""
-      - "&eLocation:&f %location%"
-      - "&eLevel: %level%"
+      - "&eLocalización:&f %location%"
+      - "&eNivel: %level%"
       - ""
-  cantaccess: "&4Necesitas contacto directo con el anchor para acceder a el."
+  cantaccess: "&4Necesitas contacto directo con el anchor para acceder a él."
 
 anchorbuy:
   title: "&5Comprar un anchor"
@@ -174,12 +178,12 @@ anchor-break:
 paying-message: "&aHas recibido &c$%amount% &ade &5&&lAnchors"
 
 levels:
-  1: "&8Carbon"
+  1: "&8Carbón"
   2: "&7Hierro"
   3: "&eOro"
   4: "&bDiamante"
   5: "&6&lNETHERITE"
   maxed-out-level: "&c&l¡Nivel máximo!"
 
-# Las partículas pueden ser [ all / low / off ]
+# Las opciones de las partículas son: [ all / low / off ]
 particles: "all"
