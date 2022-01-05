@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.inventories.AnchorAdmin;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
 import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.models.Anchor;
@@ -38,16 +39,19 @@ public class ActionAnchor implements Listener {
                     // Checks creative anchor
                     if (anchor == null) return;
 
+                    e.setCancelled(true);
                     if (StorageManager.belongsToPlayer(anchor, p)) {
-                        e.setCancelled(true);
-                        p.openInventory(new AnchorScreen(p, plugin, e.getClickedBlock().getLocation()).getInventory());
+                        p.openInventory(new AnchorScreen(p, e.getClickedBlock().getLocation()).getInventory());
+                    } else if(p.hasPermission("anchorsell.admin.anchoradmin")) {
+                        p.openInventory(new AnchorAdmin(p, e.getClickedBlock().getLocation()).getInventory());
                     } else {
-                        e.setCancelled(true);
                         p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("you-dont-own-this-anchor"))));
                     }
                 }
             }
-        } catch (Exception ignored) {}
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
     }
 
     private final AnchorSell plugin;

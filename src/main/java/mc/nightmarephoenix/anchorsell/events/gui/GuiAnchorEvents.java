@@ -107,7 +107,7 @@ public class GuiAnchorEvents implements Listener {
 
                // "Go back" button.
             } else if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.BARRIER)) {
-                p.openInventory(new AnchorScreen(p, plugin, location).getInventory());
+                p.openInventory(new AnchorScreen(p, location).getInventory());
             }
         }
 

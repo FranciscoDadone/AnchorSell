@@ -21,6 +21,8 @@ public class StorageManager {
         userData = new PerUserStorage(anchor.getOwner());
         generalData = new GeneralStorage();
 
+        userData.getConfig().set("playerName", anchor.getOwner().getName());
+
         // Updating the total amount of anchors in the user config
         int totalUserAnchors = 0;
         if(userData.getConfig().contains("total")) {
@@ -399,6 +401,7 @@ public class StorageManager {
         World world = null;
         int level;
         OfflinePlayer owner = null;
+        String ownerName = "";
         for(String str : a) {
             if(StringUtils.countMatches(str, ".") == 1) {
                 x = Integer.parseInt(StringUtils.split(str, "all_anchors.")[0]);
@@ -410,13 +413,19 @@ public class StorageManager {
             }
             if(StringUtils.countMatches(str, ".owner") == 1) {
                 owner = new com.earth2me.essentials.OfflinePlayer(generalData.getConfig().getString(str), Global.plugin.getServer());
+                PerUserStorage user = new PerUserStorage(Bukkit.getOfflinePlayer(UUID.fromString(generalData.getConfig().getString(str))));
+
+                if(user.getConfig().contains("playerName")) {
+                    ownerName = user.getConfig().getString("playerName");
+                } else ownerName = "";
             }
             if(StringUtils.countMatches(str, ".level") == 1) {
                 level = generalData.getConfig().getInt(str);
                 Global.addAnchor(new Anchor(
                         level,
                         new Location(world, x, y, z),
-                        owner
+                        owner,
+                        ownerName
                 ));
             }
         }
@@ -451,7 +460,8 @@ public class StorageManager {
                                 data.getInt("anchors." + i + ".location.y"),
                                 data.getInt("anchors." + i + ".location.z")
                         ),
-                        player
+                        player,
+                        data.getString("playerName")
                 ));
             }
         }

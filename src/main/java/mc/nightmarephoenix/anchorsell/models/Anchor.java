@@ -5,10 +5,11 @@ import org.bukkit.OfflinePlayer;
 
 public class Anchor {
 
-    public Anchor(int level, Location location, OfflinePlayer owner) {
-        this.level    = level;
-        this.location = location;
-        this.owner    = owner;
+    public Anchor(int level, Location location, OfflinePlayer owner, String ownerName) {
+        this.level     = level;
+        this.location  = location;
+        this.owner     = owner;
+        this.ownerName = ownerName;
     }
 
     public Location getLocation() {
@@ -31,8 +32,13 @@ public class Anchor {
         this.level = level;
     }
 
+    public String getOwnerName() {
+        return ownerName;
+    }
+
     private Location location;
     private final OfflinePlayer owner;
     private int level;
+    private String ownerName;
 
 }

@@ -44,6 +44,7 @@
 - /anchor getUserFileName [username] (anchorsell.admin.getUserFileName)
 - /anchor revalidate [username] (anchorsell.admin.revalidate)
 - /anchor particles [all/low/off] (anchorsell.admin.particles)
+- Access others anchors (anchorsell.admin.anchoradmin)
 
 ## Config file
 

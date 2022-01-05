@@ -113,7 +113,8 @@ public class AnchorPlace implements Listener {
                         Anchor anchor = new Anchor(
                                 finalCurrentAnchorLevel,
                                 loc,
-                                p
+                                p,
+                                p.getPlayerListName()
                         );
 
                         boolean couldPlace = StorageManager.saveAnchor(anchor);
@@ -147,7 +148,8 @@ public class AnchorPlace implements Listener {
                         Global.addAnchor(new Anchor(
                                 StorageManager.getAnchorLevel(loc),
                                 loc,
-                                p
+                                p,
+                                p.getPlayerListName()
                         ));
 
                         // Determines witch level of glowstone the anchor needs
