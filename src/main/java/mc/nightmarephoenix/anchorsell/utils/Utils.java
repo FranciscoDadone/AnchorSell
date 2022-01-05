@@ -13,7 +13,6 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -249,6 +248,13 @@ public class Utils {
         Bukkit.getConsoleSender().sendMessage(Utils.Color("&5&lAnchorSell &f - " + msg));
     }
 
+    /**
+     * Sends config message and requires strings to replace
+     * @param str main string
+     * @param toBeReplaced string to be replaced (placeholder)
+     * @param toReplace string to replace
+     * @param sender command sender
+     */
     public static void sendConfigMessageF(String str, String toBeReplaced, String toReplace, CommandSender sender) {
         try {
             sender.sendMessage(Color(Objects.requireNonNull(Global.plugin.getConfig().getString(str)).replaceAll(toBeReplaced, toReplace)));
@@ -257,17 +263,27 @@ public class Utils {
         }
     }
 
-    public static void sendConfigMessage(String str, CommandSender sender) {
+    /**
+     * Sends a config message
+     * @param path path in config
+     * @param sender command sender
+     */
+    public static void sendConfigMessage(String path, CommandSender sender) {
         try {
-            sender.sendMessage(Color(Objects.requireNonNull(Global.plugin.getConfig().getString(str))));
+            sender.sendMessage(Color(Objects.requireNonNull(Global.plugin.getConfig().getString(path))));
         } catch (Exception e) {
             sendMessage("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
         }
     }
 
-    public static void sendConfigMultilineMessage(String message, CommandSender sender) {
+    /**
+     * Sends a config message (multiline)
+     * @param path path in config
+     * @param sender command sender
+     */
+    public static void sendConfigMultilineMessage(String path, CommandSender sender) {
         try {
-            for(String line: Global.plugin.getConfig().getStringList(message)) {
+            for(String line: Global.plugin.getConfig().getStringList(path)) {
                 sender.sendMessage(Utils.Color(line));
             }
         } catch (Exception e) {
@@ -275,6 +291,11 @@ public class Utils {
         }
     }
 
+    /**
+     * If a string is numeric
+     * @param strNum string to determine
+     * @return boolean
+     */
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -287,11 +308,20 @@ public class Utils {
         return true;
     }
 
+    /**
+     * No permission error
+     * @param permissionNode permission
+     * @param sender command sender
+     */
     public static void noPermission(String permissionNode, CommandSender sender) {
         sendConfigMessageF("no-permissions", "%permissionNode%", permissionNode, sender);
     }
 
-
+    /**
+     * Sets a config value
+     * @param path path in config
+     * @param value value to set
+     */
     public static void setConfigValue(String path, String value) {
         Global.plugin.getConfig().set(path, value);
         Global.plugin.saveConfig();
@@ -302,6 +332,11 @@ public class Utils {
         }
     }
 
+    /**
+     * Sets a config value
+     * @param path path in config
+     * @param value value to set
+     */
     public static void setConfigValue(String path, int value) {
         Global.plugin.getConfig().set(path, value);
         Global.plugin.saveConfig();
@@ -335,5 +370,4 @@ public class Utils {
         toSendBack.sendMessage(Utils.Color(Objects.requireNonNull(Global.plugin.getConfig().getString("anchor.list.last-message"))));
         return userFound;
     }
-
 }
