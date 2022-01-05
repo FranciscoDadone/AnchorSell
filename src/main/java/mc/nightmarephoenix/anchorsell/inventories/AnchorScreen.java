@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.inventories;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -22,7 +23,14 @@ public class AnchorScreen implements InventoryHolder {
         this.location = location;
         this.p = p;
         this.plugin = plugin;
-        inv = Bukkit.createInventory(this, 27, Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.title"))));
+        inv = Bukkit.createInventory(
+                this,
+                27,
+                Utils.Color(Objects.requireNonNull(
+                        Objects.requireNonNull(plugin.getConfig().getString("anchor.title"))
+                                .replaceAll("%player%", p.getPlayerListName())
+                                .replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(location)))))
+        );
 
         init();
     }

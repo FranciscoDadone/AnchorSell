@@ -2,6 +2,7 @@ package mc.nightmarephoenix.anchorsell.utils;
 
 import com.tchristofferson.configupdater.ConfigUpdater;
 import mc.nightmarephoenix.anchorsell.models.Anchor;
+import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.api.StorageManager;
@@ -136,6 +137,8 @@ public class Utils {
                 priceOfUpgrade = "-";
             }
 
+            long nextPaymentTimer = Global.plugin.getConfig().getInt("pay-timer-in-minutes") - ((System.currentTimeMillis() - PayTask.getLastUserPayment()) / 1000) / 60;
+
             res.add(str.replaceAll("%level%", String.valueOf(level)).
                     replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
                     replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
@@ -146,7 +149,8 @@ public class Utils {
                     replaceAll("%playerMoneyPer15Minutes%", String.valueOf(StorageManager.getPlayerMoneyPerMinute(player) * 15)).
                     replaceAll("%priceOfUpgrade%", priceOfUpgrade).
                     replaceAll("%nextLevel%", levelToUpgrade).
-                    replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(level + 1)));
+                    replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(level + 1)).
+                    replaceAll("%timer%", String.valueOf(nextPaymentTimer)));
         }
         return res;
     }

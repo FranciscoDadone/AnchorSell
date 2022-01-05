@@ -30,6 +30,8 @@ public class PayTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        lastUserPayment = System.currentTimeMillis();
+
         @SuppressWarnings("all")
         Collection<Player> onlinePlayers = (Collection<org.bukkit.entity.Player>) Bukkit.getOnlinePlayers();
 
@@ -71,5 +73,10 @@ public class PayTask extends BukkitRunnable {
         }).start();
     }
 
+    public static long getLastUserPayment() {
+        return lastUserPayment;
+    }
+
+    private static long lastUserPayment;
     private final AnchorSell plugin;
 }

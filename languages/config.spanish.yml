@@ -174,7 +174,6 @@ anchor-break:
   - "&eNivel: &f%level%"
   - "&7&m----------------------------"
 
-
 paying-message: "&aHas recibido &c$%amount% &ade &5&&lAnchors"
 
 levels:

@@ -71,7 +71,7 @@ world-not-enabled-error: "&cSorry, anchors can't be placed in this world :("
 pay-timer-in-minutes: 15
 
 anchor:
-  title: "&5Anchor Sell"
+  title: "&5Anchor - level %level%"
   current-anchor-info:
     txt: "&6&lThis anchor"
     lore:
@@ -80,9 +80,10 @@ anchor:
       - "&eMoney per minute: &f$%moneyPerMinute%"
   player:
     lore:
-      - "&eBalance:&f %playerBalance%"
+      - "&eBalance: &f$%playerBalance%"
       - "&eNumber of anchors:&f %playerAnchors% / %maxPlayerAnchors%"
-      - "&eTotal money per 15 minutes: &f%playerMoneyPer15Minutes%"
+      - "&eTotal money per 15 minutes: &f$%playerMoneyPer15Minutes%"
+      - "&eNext Anchor pay: &f%timer%m"
   upgrades:
     txt: "&6&lUpgrades"
     lore:
