@@ -413,7 +413,7 @@ public class StorageManager {
             }
             if(StringUtils.countMatches(str, ".owner") == 1) {
                 owner = new com.earth2me.essentials.OfflinePlayer(generalData.getConfig().getString(str), Global.plugin.getServer());
-                PerUserStorage user = new PerUserStorage(Bukkit.getOfflinePlayer(UUID.fromString(generalData.getConfig().getString(str))));
+                PerUserStorage user = new PerUserStorage(Bukkit.getOfflinePlayer(UUID.fromString(Objects.requireNonNull(generalData.getConfig().getString(str)))));
 
                 if(user.getConfig().contains("playerName")) {
                     ownerName = user.getConfig().getString("playerName");

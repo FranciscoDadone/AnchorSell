@@ -39,6 +39,6 @@ public class Anchor {
     private Location location;
     private final OfflinePlayer owner;
     private int level;
-    private String ownerName;
+    private final String ownerName;
 
 }

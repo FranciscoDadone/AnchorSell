@@ -16,6 +16,7 @@ public class AnchorAdmin implements InventoryHolder {
     public AnchorAdmin(Player pAdmin, Location location) {
         this.pAdmin = pAdmin;
         this.anchor = StorageManager.getAnchorFromLoc(location);
+        assert anchor != null;
         this.pOwner = anchor.getOwner();
 
         inv = Bukkit.createInventory(
@@ -26,15 +27,21 @@ public class AnchorAdmin implements InventoryHolder {
     }
 
 
+    private void changeLevelButton() {
+
+
+
+    }
+
     @NotNull
     @Override
     public Inventory getInventory() {
         return inv;
     }
 
-    private Inventory inv;
+    private final Inventory inv;
     private Location location;
     private Player pAdmin;
     private OfflinePlayer pOwner;
-    private Anchor anchor;
+    private final Anchor anchor;
 }

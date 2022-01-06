@@ -13,12 +13,10 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Collections;
 import java.util.Objects;
 
 public class AnchorScreen implements InventoryHolder {
-    private final Location location;
 
     public AnchorScreen(Player p, Location location) {
         this.location = location;
@@ -80,8 +78,10 @@ public class AnchorScreen implements InventoryHolder {
         return inv;
     }
 
+
     private final Player p;
     private final Inventory inv;
     private final AnchorSell plugin;
+    private final Location location;
 
 }
