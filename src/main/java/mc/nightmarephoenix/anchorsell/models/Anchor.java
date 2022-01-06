@@ -2,8 +2,16 @@ package mc.nightmarephoenix.anchorsell.models;
 
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 public class Anchor {
+
+    public Anchor(int level, Location location, Player owner, String ownerName) {
+        this.level     = level;
+        this.location  = location;
+        this.owner     = owner;
+        this.ownerName = ownerName;
+    }
 
     public Anchor(int level, Location location, OfflinePlayer owner, String ownerName) {
         this.level     = level;

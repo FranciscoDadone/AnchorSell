@@ -192,7 +192,7 @@ public class StorageManager {
      * @param p player
      * @return int
      */
-    public static int getPlayerTotalAnchors(Player p) {
+    public static int getPlayerTotalAnchors(OfflinePlayer p) {
         return getUserData(p).getConfig().getInt("total");
     }
 
@@ -201,7 +201,7 @@ public class StorageManager {
      * @param p player
      * @return money per minute
      */
-    public static double getPlayerMoneyPerMinute(Player p) {
+    public static double getPlayerMoneyPerMinute(OfflinePlayer p) {
         userData = new PerUserStorage(p);
         double res = 0;
         for(int i = 1; i <= Global.plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
@@ -243,6 +243,34 @@ public class StorageManager {
 
         generalData.saveConfig();
         userData.saveConfig();
+    }
+
+    public static boolean changeLevel(Location location, int level) {
+        if(level < 0 || level > 64) return false;
+        Anchor anchor = StorageManager.getAnchorFromLoc(location);
+        userData = new PerUserStorage(anchor.getOwner());
+        generalData = new GeneralStorage();
+
+        // Updating user data...
+        for(int i = 1; i <= Global.plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
+            if(userData.getConfig().contains("anchors." + i)) {
+                if(userData.getConfig().getInt("anchors." + i + ".location.x") == location.getX() &&
+                        userData.getConfig().getInt("anchors." + i + ".location.y") == location.getY() &&
+                        userData.getConfig().getInt("anchors." + i + ".location.z") == location.getZ()) {
+
+                    userData.getConfig().set("anchors." + i + ".level", level);
+                }
+            }
+        }
+
+        // Updating general data...
+        if(Objects.equals(generalData.getConfig().getString("all_anchors." + StorageManager.getAnchorUUID(location) + ".owner"), anchor.getOwner().getUniqueId().toString())) {
+            generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(location) + ".level", level);
+        }
+
+        generalData.saveConfig();
+        userData.saveConfig();
+        return true;
     }
 
     /**
@@ -412,7 +440,7 @@ public class StorageManager {
                 world = Bukkit.getServer().getWorld(Objects.requireNonNull(generalData.getConfig().getString(str)));
             }
             if(StringUtils.countMatches(str, ".owner") == 1) {
-                owner = new com.earth2me.essentials.OfflinePlayer(generalData.getConfig().getString(str), Global.plugin.getServer());
+                owner = Bukkit.getOfflinePlayer(UUID.fromString(Objects.requireNonNull(generalData.getConfig().getString(str))));
                 PerUserStorage user = new PerUserStorage(Bukkit.getOfflinePlayer(UUID.fromString(Objects.requireNonNull(generalData.getConfig().getString(str)))));
 
                 if(user.getConfig().contains("playerName")) {
@@ -460,7 +488,7 @@ public class StorageManager {
                                 data.getInt("anchors." + i + ".location.y"),
                                 data.getInt("anchors." + i + ".location.z")
                         ),
-                        player,
+                        null,
                         data.getString("playerName")
                 ));
             }

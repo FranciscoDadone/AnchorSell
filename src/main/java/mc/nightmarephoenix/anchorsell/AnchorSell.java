@@ -3,10 +3,12 @@ package mc.nightmarephoenix.anchorsell;
 import com.sk89q.worldguard.WorldGuard;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import mc.nightmarephoenix.anchorsell.commands.CommandManager;
+import mc.nightmarephoenix.anchorsell.events.gui.AnchorAdminInventoryEvents;
+import mc.nightmarephoenix.anchorsell.events.gui.ChangeLevelInventoryEvents;
 import mc.nightmarephoenix.anchorsell.thirdparty.essentials.EssentialsManager;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
-import mc.nightmarephoenix.anchorsell.events.gui.GuiAnchorEvents;
+import mc.nightmarephoenix.anchorsell.events.gui.MainAnchorInventoryEvents;
 import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.tasks.ParticleTask;
@@ -74,12 +76,14 @@ public final class AnchorSell extends JavaPlugin {
         reloadConfig();
 
         // // Loading events // //
-        getServer().getPluginManager().registerEvents(new ActionAnchor(this), this);    // enabling the listener
-        getServer().getPluginManager().registerEvents(new GuiAnchorEvents(this), this); // gui click events
-        getServer().getPluginManager().registerEvents(new AnchorPlace(this), this);     // detects where the anchor has been placed and stores all the data
-        getServer().getPluginManager().registerEvents(new AnchorBreak(this), this);     // detects where the anchor has been removed and stores all the data
-        getServer().getPluginManager().registerEvents(new AnchorBlow(this), this);      // detects where the anchor has been blown and stores all the data
-        getServer().getPluginManager().registerEvents(new UpdateMessageOnJoin(), this);       // detects updates and shows to all op's on join.
+        getServer().getPluginManager().registerEvents(new ActionAnchor(this), this);               // enabling the listener
+        getServer().getPluginManager().registerEvents(new MainAnchorInventoryEvents(this), this);  // gui click events
+        getServer().getPluginManager().registerEvents(new AnchorPlace(this), this);                // detects where the anchor has been placed and stores all the data
+        getServer().getPluginManager().registerEvents(new AnchorBreak(this), this);                // detects where the anchor has been removed and stores all the data
+        getServer().getPluginManager().registerEvents(new AnchorBlow(this), this);                 // detects where the anchor has been blown and stores all the data
+        getServer().getPluginManager().registerEvents(new UpdateMessageOnJoin(), this);                  // detects updates and shows to all op's on join.
+        getServer().getPluginManager().registerEvents(new AnchorAdminInventoryEvents(this), this); // events in the anchor admin inventory
+        getServer().getPluginManager().registerEvents(new ChangeLevelInventoryEvents(this), this); // events in the anchor admin inventory
 
         // // Loading commands // //
         Objects.requireNonNull(this.getCommand("anchor")).setExecutor(new CommandManager());

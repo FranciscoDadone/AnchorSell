@@ -1,0 +1,79 @@
+package mc.nightmarephoenix.anchorsell.events.gui;
+
+import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.api.StorageManager;
+import mc.nightmarephoenix.anchorsell.inventories.AnchorScreen;
+import mc.nightmarephoenix.anchorsell.inventories.ChangeLevelScreen;
+import mc.nightmarephoenix.anchorsell.models.Anchor;
+import mc.nightmarephoenix.anchorsell.utils.Utils;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.type.RespawnAnchor;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public class ChangeLevelInventoryEvents implements Listener {
+
+    public ChangeLevelInventoryEvents(AnchorSell plugin) {
+        this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onClick(InventoryClickEvent e) {
+        if (e == null) return;
+
+        Set<Material> invisibleBlocksSet = new HashSet<>();
+        invisibleBlocksSet.add(Material.AIR);
+        invisibleBlocksSet.add(Material.WATER);
+        invisibleBlocksSet.add(Material.LAVA);
+
+        Player p = (Player) e.getWhoClicked();
+        Block block = p.getTargetBlock(invisibleBlocksSet, 5);
+        Location location = block.getLocation();
+        Anchor anchor = StorageManager.getAnchorFromLoc(location);
+
+        //
+        // Checks if the player is in direct contact with the anchor
+        //
+        if (block.getType() != Material.RESPAWN_ANCHOR) {
+            try {
+                if(Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getDisplayName().equals(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.upgrades.txt"))))) {
+                    p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("anchor.cantaccess"))));
+                    p.closeInventory();
+                    return;
+                }
+            } catch(Exception ignored) {}
+        }
+
+        if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof ChangeLevelScreen) {
+            e.setCancelled(true);
+
+            RespawnAnchor anchorBlock = (RespawnAnchor) block.getBlockData();
+
+            if(e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE)) {
+                if(anchor.getLevel() > 1) anchor.setLevel(anchor.getLevel() - 1);
+            } else if(e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE)) {
+                if(anchor.getLevel() < 64) anchor.setLevel(anchor.getLevel() + 1);
+            }
+            StorageManager.changeLevel(location, anchor.getLevel());
+
+            anchorBlock.setCharges(Utils.getAnchorCharges(anchor.getLevel()));
+            block.setBlockData(anchorBlock);
+
+            p.openInventory(new ChangeLevelScreen(anchor.getLevel()).getInventory());
+        }
+
+
+
+        }
+
+    private AnchorSell plugin;
+
+}

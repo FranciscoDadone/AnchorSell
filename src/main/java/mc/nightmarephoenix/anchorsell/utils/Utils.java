@@ -125,7 +125,7 @@ public class Utils {
      * @param player player
      * @return lore
      */
-    public static List<String> getLore(String path, Location location, Player player) {
+    public static List<String> getLore(String path, Location location, OfflinePlayer player) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(Global.plugin.getConfig().getStringList(path))) {
             int level = StorageManager.getAnchorLevel(location);
@@ -369,5 +369,20 @@ public class Utils {
         }
         toSendBack.sendMessage(Utils.Color(Objects.requireNonNull(Global.plugin.getConfig().getString("anchor.list.last-message"))));
         return userFound;
+    }
+
+    public static int getAnchorCharges(int level) {
+        if(level < 16)
+            return 0;
+        else if(level < 24)
+            return 1;
+        else if(level < 32)
+            return 2;
+        else if(level < 48)
+            return 3;
+        else if(level <= 64)
+            return 4;
+        else
+            return 0;
     }
 }

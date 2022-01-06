@@ -20,9 +20,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import java.util.*;
 
-public class GuiAnchorEvents implements Listener {
+public class MainAnchorInventoryEvents implements Listener {
 
-    public GuiAnchorEvents(AnchorSell plugin) {
+    public MainAnchorInventoryEvents(AnchorSell plugin) {
         this.plugin = plugin;
     }
     @EventHandler
