@@ -14,7 +14,7 @@ public class UpdateMessageOnJoin implements Listener {
             event.getPlayer().
                     sendMessage(Utils.Color("&5&lAnchorSell &f- There is a new update available! (v" + UpdateChecker.updateString + ")."));
             event.getPlayer().
-                    sendMessage(Utils.Color("&7Download it from: &ahttps://www.spigotmc.org/resources/anchorsell-earn-money-automatically-1-16-x-1-17-x.90038/"));
+                    sendMessage(Utils.Color("&7Download it from: &ahttps://www.spigotmc.org/resources/90038/"));
             event.getPlayer().sendMessage("");
         }
     }

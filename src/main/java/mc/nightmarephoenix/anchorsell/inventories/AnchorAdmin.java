@@ -23,6 +23,8 @@ public class AnchorAdmin implements InventoryHolder {
         assert anchor != null;
         this.location = anchor.getLocation();
 
+        System.out.println(location);
+
         inv = Bukkit.createInventory(
                 this,
                 27,

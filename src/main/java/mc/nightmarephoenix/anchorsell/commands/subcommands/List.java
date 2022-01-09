@@ -55,7 +55,7 @@ public class List extends SubCommands {
                 try {
                     boolean found = Utils.printAnchorUserList(Bukkit.getOfflinePlayer(args[1]), sender);
                     if(!found && !Bukkit.getOnlinePlayers().contains(Bukkit.getOfflinePlayer(args[1]))) {
-                        sender.sendMessage(Utils.Color("&cPlayer not found and not online. Make sure to write the name properly (with capitals)."));
+                        sender.sendMessage(Utils.Color("&cPlayer not online. Make sure to write the name properly (with capitals) to search for offline players too!"));
                     }
                 } catch (InvalidConfigurationException e) {
                     sender.sendMessage("An error happened. Contact an administrator.");

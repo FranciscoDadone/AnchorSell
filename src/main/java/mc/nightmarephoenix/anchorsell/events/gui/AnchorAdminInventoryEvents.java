@@ -16,9 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import java.util.logging.Level;
 
 public class AnchorAdminInventoryEvents implements Listener {
@@ -31,13 +29,8 @@ public class AnchorAdminInventoryEvents implements Listener {
     public void onClick(InventoryClickEvent e) {
         if(e == null) return;
 
-        Set<Material> invisibleBlocksSet = new HashSet<>();
-        invisibleBlocksSet.add(Material.AIR);
-        invisibleBlocksSet.add(Material.WATER);
-        invisibleBlocksSet.add(Material.LAVA);
-
         Player p = (Player) e.getWhoClicked();
-        Block block = p.getTargetBlock(invisibleBlocksSet, 5);
+        Block block = p.getTargetBlock(Utils.getInvisibleBlockList(), 5);
         Location location = block.getLocation();
 
         //

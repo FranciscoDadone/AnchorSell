@@ -14,6 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Utils {
@@ -141,7 +142,7 @@ public class Utils {
                     replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
                     replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
                     replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(level)).
-                    replaceAll("%playerBalance%", String.valueOf(EconomyManager.getEconomy().getBalance(player))).
+                    replaceAll("%playerBalance%", String.valueOf(new DecimalFormat("0.00").format(EconomyManager.getEconomy().getBalance(player)))).
                     replaceAll("%playerAnchors%", String.valueOf(StorageManager.getPlayerTotalAnchors(player))).
                     replaceAll("%maxPlayerAnchors%", String.valueOf(Global.plugin.getConfig().getInt("total-anchors-user-can-have"))).
                     replaceAll("%playerMoneyPer15Minutes%", String.valueOf(StorageManager.getPlayerMoneyPerMinute(player) * 15)).
@@ -383,5 +384,24 @@ public class Utils {
             return 4;
         else
             return 0;
+    }
+
+    public static Set<Material> getInvisibleBlockList() {
+        Set<Material> invisibleBlocksSet = new HashSet<>();
+        invisibleBlocksSet.add(Material.AIR);
+        invisibleBlocksSet.add(Material.WATER);
+        invisibleBlocksSet.add(Material.LAVA);
+        invisibleBlocksSet.add(Material.IRON_BARS);
+        invisibleBlocksSet.add(Material.ACACIA_FENCE);
+        invisibleBlocksSet.add(Material.BIRCH_FENCE);
+        invisibleBlocksSet.add(Material.CRIMSON_FENCE);
+        invisibleBlocksSet.add(Material.JUNGLE_FENCE);
+        invisibleBlocksSet.add(Material.OAK_FENCE);
+        invisibleBlocksSet.add(Material.SPRUCE_FENCE);
+        invisibleBlocksSet.add(Material.WARPED_FENCE);
+        invisibleBlocksSet.add(Material.NETHER_BRICK_FENCE);
+        invisibleBlocksSet.add(Material.DARK_OAK_FENCE);
+        invisibleBlocksSet.add(Material.CAMPFIRE);
+        return invisibleBlocksSet;
     }
 }
