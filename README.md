@@ -104,6 +104,10 @@ pay-if-chunk-is-loaded: false
 # If false anchors will not pay afk players.
 pay-afk-players: true
 
+# If true, players can break others players anchors.
+break-others: true
+break-others-message: "&cYou cannot break %player%&c's anchor!"
+
 anchor-value: 100000
 radius-error: "&4You can't place anchors too close to each other."
 cannot-place-more-anchors: "&4You can not have more than %quantity% anchors."
@@ -111,6 +115,7 @@ you-dont-own-this-anchor: "&4You don't own this anchor"
 
 enable-in-worlds:
   - world
+  - world1
 
 world-not-enabled-error: "&cSorry, anchors can't be placed in this world :("
 
@@ -118,7 +123,7 @@ world-not-enabled-error: "&cSorry, anchors can't be placed in this world :("
 pay-timer-in-minutes: 15
 
 anchor:
-  title: "&5Anchor Sell"
+  title: "&5Anchor - level %level%"
   current-anchor-info:
     txt: "&6&lThis anchor"
     lore:
@@ -127,9 +132,10 @@ anchor:
       - "&eMoney per minute: &f$%moneyPerMinute%"
   player:
     lore:
-      - "&eBalance:&f %playerBalance%"
+      - "&eBalance: &f$%playerBalance%"
       - "&eNumber of anchors:&f %playerAnchors% / %maxPlayerAnchors%"
-      - "&eTotal money per 15 minutes: &f%playerMoneyPer15Minutes%"
+      - "&eTotal money per 15 minutes: &f$%playerMoneyPer15Minutes%"
+      - "&eNext Anchor pay: &f%timer%m"
   upgrades:
     txt: "&6&lUpgrades"
     lore:
@@ -157,9 +163,9 @@ anchor:
       - "&7&m----------&r &5&lAnchor &7&m----------"
       - "&cYou don't have money to upgrade :("
       - "&7&m----------------------------"
-      -
-        # Explosion radius break: if an explosion occurs near an anchor, it will break it in that radius
-      # to disable it set to "0", to set as default minecraft, change to "mc-default"
+
+  # Explosion radius break: if an explosion occurs near an anchor, it will break it in that radius
+  # to disable it set to "0", to set as default minecraft, change to "mc-default"
   explosion-radius-break: "3"
 
   # Upgrade multiplier: is how much the upgrade will cost depending on the money that the anchor
