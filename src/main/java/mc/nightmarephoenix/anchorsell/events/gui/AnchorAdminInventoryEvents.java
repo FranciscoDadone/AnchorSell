@@ -26,6 +26,7 @@ public class AnchorAdminInventoryEvents implements Listener {
     }
 
     @EventHandler
+    @SuppressWarnings("all")
     public void onClick(InventoryClickEvent e) {
         if(e == null) return;
 

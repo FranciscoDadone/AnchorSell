@@ -71,7 +71,7 @@ world-not-enabled-error: "&cLo siento, los anchors no se pueden poner en este mu
 pay-timer-in-minutes: 15
 
 anchor:
-  title: "&5Anchor"
+  title: "&5Anchor - nivel %level%"
   current-anchor-info:
     txt: "&6&lEste anchor"
     lore:

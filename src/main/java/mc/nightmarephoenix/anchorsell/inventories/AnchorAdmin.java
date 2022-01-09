@@ -12,7 +12,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Collections;
 import java.util.Objects;
 
@@ -22,8 +21,6 @@ public class AnchorAdmin implements InventoryHolder {
         this.anchor = StorageManager.getAnchorFromLoc(location);
         assert anchor != null;
         this.location = anchor.getLocation();
-
-        System.out.println(location);
 
         inv = Bukkit.createInventory(
                 this,

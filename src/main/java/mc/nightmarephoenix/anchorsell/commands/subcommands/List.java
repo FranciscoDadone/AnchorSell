@@ -39,6 +39,7 @@ public class List extends SubCommands {
     }
 
     @Override
+    @SuppressWarnings("all")
     public void perform(CommandSender sender, String[] args) {
         if (args.length == 1) {
             if(sender instanceof Player) {

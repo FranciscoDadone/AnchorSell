@@ -43,7 +43,13 @@ public class GetUserFileName extends SubCommands {
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.getUserFileName")) {
             if(args.length == 2) {
-                sender.sendMessage(Utils.Color("&aUser file name: &c" + Objects.requireNonNull(Bukkit.getPlayer(args[1])).getUniqueId() + ".yml"));
+                String uuid;
+                try {
+                    uuid = Objects.requireNonNull(Bukkit.getPlayer(args[1])).getUniqueId().toString();
+                } catch (Exception ignored) {
+                    uuid = Bukkit.getOfflinePlayer(args[1]).getUniqueId().toString();
+                }
+                sender.sendMessage(Utils.Color("&aUser file name: &c" + uuid + ".yml"));
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e/anchor getuserfilename [username]"));
             }
