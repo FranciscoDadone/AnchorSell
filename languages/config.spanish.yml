@@ -83,6 +83,7 @@ anchor:
       - "&eDinero disponible:&f %playerBalance%"
       - "&eNumero total de anchors:&f %playerAnchors% / %maxPlayerAnchors%"
       - "&eDinero total obtenido cada 15 minutos: &f%playerMoneyPer15Minutes%"
+      - "&eSiguiente pago: &f%timer%m"
   upgrades:
     txt: "&6&lMejoras"
     lore:

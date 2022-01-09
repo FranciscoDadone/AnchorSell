@@ -64,6 +64,7 @@ you-dont-own-this-anchor: "&4You don't own this anchor"
 
 enable-in-worlds:
   - world
+  - world1
 
 world-not-enabled-error: "&cSorry, anchors can't be placed in this world :("
 
