@@ -81,6 +81,7 @@ anchor-item:
     level-line: "&fNivel: &e"
     other-lines:
       - "&fDinero por minuto: &e%moneyPerMinute%"
+      - "&fMineral: %oreLevel%"
 
 anchor:
   title: "&5Anchor - nivel %level%"

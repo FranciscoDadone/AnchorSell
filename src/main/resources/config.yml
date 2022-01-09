@@ -83,6 +83,7 @@ anchor-item:
     level-line: "&fAnchor level: &e"
     other-lines:
       - "&fMoney per minute: &e%moneyPerMinute%"
+      - "&fOre level: %oreLevel%"
 
 anchor:
   title: "&5Anchor - level %level%"
