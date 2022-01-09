@@ -43,7 +43,7 @@ public class ActionAnchor implements Listener {
                     if (StorageManager.belongsToPlayer(anchor, p)) {
                         p.openInventory(new AnchorScreen(p, e.getClickedBlock().getLocation()).getInventory());
                     } else if(p.hasPermission("anchorsell.admin.anchoradmin")) {
-                        p.openInventory(new AnchorAdmin(p, e.getClickedBlock().getLocation()).getInventory());
+                        p.openInventory(new AnchorAdmin(e.getClickedBlock().getLocation()).getInventory());
                     } else {
                         p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("you-dont-own-this-anchor"))));
                     }

@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.inventories;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -15,9 +16,11 @@ public class ConfirmScreen implements InventoryHolder {
     private final AnchorSell plugin;
     private final Inventory inv;
 
-    public ConfirmScreen(AnchorSell anchorSellPlugin) {
-        this.plugin = anchorSellPlugin;
-        inv = Bukkit.createInventory(this, 27, Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("confirmscreen.title"))));
+    public ConfirmScreen(String title, ItemStack middleItem) {
+        this.plugin = Global.plugin;
+        this.middleItem = middleItem;
+
+        inv = Bukkit.createInventory(this, 27, Utils.Color(title));
         init();
     }
 
@@ -50,13 +53,14 @@ public class ConfirmScreen implements InventoryHolder {
         inv.setItem(15, noGlass);
         inv.setItem(16, noGlass);
 
-        // anchor
-        ItemStack anchor = Utils.createItem(Utils.Color("&f$&e" + plugin.getConfig().getInt("anchor-value")), Material.RESPAWN_ANCHOR, true);
-        inv.setItem(13, anchor);
+        // Middle Item
+        inv.setItem(13, middleItem);
     }
 
     @Override
     public @NotNull Inventory getInventory() {
         return inv;
     }
+
+    private final ItemStack middleItem;
 }

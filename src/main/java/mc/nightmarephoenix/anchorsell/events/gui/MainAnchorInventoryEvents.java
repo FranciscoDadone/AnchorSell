@@ -120,14 +120,18 @@ public class MainAnchorInventoryEvents implements Listener {
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof BuyScreen) {
             e.setCancelled(true);
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType() == Material.RESPAWN_ANCHOR))
-                p.openInventory(new ConfirmScreen(plugin).getInventory());
+                p.openInventory(
+                        new ConfirmScreen(
+                                Objects.requireNonNull(plugin.getConfig().getString("confirmscreen.title")),
+                                Utils.createItem(Utils.Color("&f$&e" + plugin.getConfig().getInt("anchor-value")), Material.RESPAWN_ANCHOR,true)).getInventory()
+                );
         }
 
         // Opens the anchor confirm screen (inventory)
-        if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof ConfirmScreen) {
+        if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof ConfirmScreen && Objects.requireNonNull(e.getClickedInventory().getItem(13)).getType().equals(Material.RESPAWN_ANCHOR)) {
             e.setCancelled(true);
 
-            if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType().equals(Material.GREEN_STAINED_GLASS_PANE))) {
+            if((e.getCurrentItem() != null) && (e.getCurrentItem().getType().equals(Material.GREEN_STAINED_GLASS_PANE))) {
                 int anchorValue = plugin.getConfig().getInt("anchor-value");
                 // Takes the money from the user.
                 if(EconomyManager.withdrawFromUser(p, anchorValue)) {

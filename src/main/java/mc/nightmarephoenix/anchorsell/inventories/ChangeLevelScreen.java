@@ -8,8 +8,6 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
-
 public class ChangeLevelScreen implements InventoryHolder {
 
     public ChangeLevelScreen(int level) {

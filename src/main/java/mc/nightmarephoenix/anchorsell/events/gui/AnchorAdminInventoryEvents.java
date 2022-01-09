@@ -1,10 +1,14 @@
 package mc.nightmarephoenix.anchorsell.events.gui;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.api.StorageManager;
 import mc.nightmarephoenix.anchorsell.inventories.AnchorAdmin;
 import mc.nightmarephoenix.anchorsell.inventories.ChangeLevelScreen;
+import mc.nightmarephoenix.anchorsell.inventories.ConfirmScreen;
+import mc.nightmarephoenix.anchorsell.models.Anchor;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -12,10 +16,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
 
 public class AnchorAdminInventoryEvents implements Listener {
 
@@ -53,14 +57,35 @@ public class AnchorAdminInventoryEvents implements Listener {
             e.setCancelled(true);
 
             // Change level
-            if(e.getCurrentItem().getType().equals(Material.GLOWSTONE)) {
+            if(Objects.requireNonNull(e.getCurrentItem()).getType().equals(Material.GLOWSTONE)) {
                 p.openInventory(new ChangeLevelScreen(StorageManager.getAnchorLevel(location)).getInventory());
             }
 
-        }
+            // Remove anchor
+            if(e.getCurrentItem().getType().equals(Material.BARRIER)) {
+                p.openInventory(new ConfirmScreen(
+                        "Remove this anchor?",
+                        Utils.createItem(Utils.Color("&c&lRemove?"), Material.BARRIER,true)
+                        ).getInventory()
+                );
+            }
+        } else if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof ConfirmScreen && Objects.requireNonNull(e.getClickedInventory().getItem(13)).getType().equals(Material.BARRIER)) {
+            e.setCancelled(true);
 
+            if((e.getCurrentItem() != null) && (e.getCurrentItem().getType().equals(Material.GREEN_STAINED_GLASS_PANE))) {
+                Anchor anchor = StorageManager.getAnchorFromLoc(location);
+                assert anchor != null;
+                StorageManager.removeAnchor(anchor);
+                Global.removeAnchor(anchor);
+                block.setType(Material.AIR);
+                Bukkit.getLogger().log(Level.INFO, "[AnchorSell] " + p.getPlayerListName() + " (Admin) removed an anchor " + anchor.getLocation());
+                p.closeInventory();
+            } else if((e.getCurrentItem() != null) && (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE))) {
+                p.closeInventory();
+            }
+        }
     }
 
-    private AnchorSell plugin;
+    private final AnchorSell plugin;
 
 }
