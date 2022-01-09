@@ -70,6 +70,18 @@ world-not-enabled-error: "&cLo siento, los anchors no se pueden poner en este mu
 # Periodo de tiempo en el cual se les va a pagar a los jugadores.
 pay-timer-in-minutes: 15
 
+#
+# Esto modifica el nombre y lore del item que obtiene el jugador comprando o giveando el anchor
+# 'level-line' está separado de las otras lineas porque esta es obligatoria ya que el plugin la usa para su funcionamiento
+# 'other-lines' placeholders: %level%, %moneyPer15Minutes%, %moneyPerMinute%, %oreLevel%, %maxPlayerAnchors%, %nextLevelOre%
+#
+anchor-item:
+  name: "&5&lAnchor"
+  lore:
+    level-line: "&fNivel: &e"
+    other-lines:
+      - "&fDinero por minuto: &e%moneyPerMinute%"
+
 anchor:
   title: "&5Anchor - nivel %level%"
   current-anchor-info:
@@ -160,6 +172,14 @@ confirmscreen:
   you-cant-afford: "&5No tienes suficiente dinero."
   cancel: "&4&lCancelar"
   confirm: "&a&lConfirmar"
+
+anchor-admin:
+  change-level:
+    name: "&6&lCambiar nivel"
+    lore: "&eNivel actual: &f"
+  remove:
+    name: "&4&lEliminar"
+    lore: "&cElimina este anchor"
 
 anchor-place:
   - "&7&m----------&r &5&lAnchor &7&m----------"

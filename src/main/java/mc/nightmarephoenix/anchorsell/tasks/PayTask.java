@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -62,11 +63,11 @@ public class PayTask extends BukkitRunnable {
 
                             double amount = Utils.getMoneyPerMinute(level) * plugin.getConfig().getInt("pay-timer-in-minutes");
                             totalAmount += amount;
-                            EconomyManager.getEconomy().depositPlayer(p, amount);
                         }
                     }
                     if(totalAmount != 0) {
-                        p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("paying-message")).replaceAll("%amount%", String.valueOf(totalAmount))));
+                        EconomyManager.getEconomy().depositPlayer(p, totalAmount);
+                        p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("paying-message")).replaceAll("%amount%", String.valueOf(new DecimalFormat("0.00").format(totalAmount)))));
                     }
                 }
             }

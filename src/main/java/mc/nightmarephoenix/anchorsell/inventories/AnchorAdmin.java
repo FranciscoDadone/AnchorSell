@@ -55,9 +55,9 @@ public class AnchorAdmin implements InventoryHolder {
 
     private void changeLevelButton() {
         ItemStack levelItem = Utils.createItem(
-                Utils.Color("&6&lChange level"),
+                Utils.Color(Global.plugin.getConfig().getString("anchor-admin.change-level.name")),
                 Material.GLOWSTONE,
-                Collections.singletonList(Utils.Color("&eCurrent level: &f" + anchor.getLevel())),
+                Collections.singletonList(Utils.Color(Global.plugin.getConfig().getString("anchor-admin.change-level.lore") + anchor.getLevel())),
                 false
         );
         inv.setItem(10, levelItem);
@@ -75,9 +75,9 @@ public class AnchorAdmin implements InventoryHolder {
 
     private void removeAnchor() {
         ItemStack remove = Utils.createItem(
-          Utils.Color("&4&lRemove"),
+          Utils.Color(Global.plugin.getConfig().getString("anchor-admin.remove.name")),
           Material.BARRIER,
-                Collections.singletonList(Utils.Color("&cRemoves this anchor")),
+                Collections.singletonList(Utils.Color(Global.plugin.getConfig().getString("anchor-admin.remove.lore"))),
           false
         );
         inv.setItem(16, remove);

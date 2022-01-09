@@ -31,8 +31,6 @@ public class AnchorPlace implements Listener {
             Player p = e.getPlayer();
             Location loc = new Location(anchorInWorld, block.getX(), block.getY(), block.getZ());
             int currentAnchorLevel = -1;
-
-
             boolean creativeAnchor = false;
             boolean isInWorld;
 
@@ -43,28 +41,26 @@ public class AnchorPlace implements Listener {
                 }
             }
 
-            // Searches if the block is in the enable-in-worlds.
-            isInWorld = plugin.getConfig().getStringList("enable-in-worlds").contains(anchorInWorld.getName());
-            if(!isInWorld) Utils.sendConfigMessage("world-not-enabled-error", e.getPlayer());
-
-
             //
             // Getting the current anchor level before placing the block
             // If it makes an exception it is a creative anchor.
             //
             try {
-                currentAnchorLevel = Integer.parseInt(
-                        Objects.requireNonNull(Objects.requireNonNull(e.getItemInHand().
-                                                getItemMeta()).
-                                        getLore()).
-                                get(2).
-                                substring(18)
-                );
+                for(int line = 0; line < e.getItemInHand().getItemMeta().getLore().size(); line++) {
+                    if(e.getItemInHand().getItemMeta().getLore().get(line).contains(Utils.Color(Global.plugin.getConfig().getString("anchor-item.lore.level-line")))) {
+                        currentAnchorLevel = Integer.parseInt(e.getItemInHand().getItemMeta().getLore().get(line).substring(Global.plugin.getConfig().getString("anchor-item.lore.level-line").length()));
+                        break;
+                    }
+                }
             } catch (Exception ex) {
                 // Creative respawn anchor won't be usable.
                 creativeAnchor = true;
             }
             if(creativeAnchor) return;
+
+            // Searches if the block is in the enable-in-worlds.
+            isInWorld = plugin.getConfig().getStringList("enable-in-worlds").contains(anchorInWorld.getName());
+            if(!isInWorld) Utils.sendConfigMessage("world-not-enabled-error", e.getPlayer());
 
             // Normalizes the level
             if (currentAnchorLevel == 0) {

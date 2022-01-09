@@ -248,6 +248,7 @@ public class StorageManager {
     public static boolean changeLevel(Location location, int level) {
         if(level < 0 || level > 64) return false;
         Anchor anchor = StorageManager.getAnchorFromLoc(location);
+        assert anchor != null;
         userData = new PerUserStorage(anchor.getOwner());
         generalData = new GeneralStorage();
 
@@ -364,7 +365,7 @@ public class StorageManager {
 
         // Total anchors the user has check.
         if(userData.getConfig().getInt("total") != totalUserAnchors) {
-            System.out.println("[AnchorSell] Revalidation found an error (total of anchors): " +
+            Bukkit.getLogger().log(Level.WARNING, "[AnchorSell] Revalidation found an error (total of anchors): " +
                     "Player: " + p.getName() +
                     ". Total rectified from " +
                     userData.getConfig().getInt("total") +

@@ -49,14 +49,22 @@ public class Utils {
     public static ItemStack getAnchor(int level, int quantity) {
         ItemStack item = new ItemStack(Material.RESPAWN_ANCHOR, quantity);
         ArrayList<String> Lore = new ArrayList<>();
-        Lore.add("");
+//        Lore.add("");
         Lore.add(Utils.Color("&7&m----------------------------"));
-        Lore.add(Utils.Color("&fAnchor level: &e" + level));
-        Lore.add(Utils.Color("&fMoney per minute: &e" + Utils.getMoneyPerMinute(level)));
+        Lore.add(Utils.Color(Global.plugin.getConfig().getString("anchor-item.lore.level-line") + level));
+        Global.plugin.getConfig().getStringList("anchor-item.lore.other-lines").forEach(line -> {
+            Lore.add(Utils.Color(line.
+                    replaceAll("%level%", String.valueOf(level)).
+                    replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
+                    replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
+                    replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(level)).
+                    replaceAll("%maxPlayerAnchors%", String.valueOf(Global.plugin.getConfig().getInt("total-anchors-user-can-have"))).
+                    replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(level + 1))));
+        });
         Lore.add(Utils.Color("&7&m----------------------------"));
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
-        meta.setDisplayName(Utils.Color("&5&lAnchor"));
+        meta.setDisplayName(Utils.Color(Global.plugin.getConfig().getString("anchor-item.name")));
         meta.setLore(Lore);
         item.setItemMeta(meta);
         return item;
@@ -130,7 +138,7 @@ public class Utils {
         for(String str: Utils.Color(Global.plugin.getConfig().getStringList(path))) {
             int level = StorageManager.getAnchorLevel(location);
             String levelToUpgrade = String.valueOf(level + 1);
-            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
+            String priceOfUpgrade = String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyToUpgrade(level)));
             if((level + 1) > 64) {
                 levelToUpgrade = "";
                 priceOfUpgrade = "-";
@@ -139,13 +147,13 @@ public class Utils {
             long nextPaymentTimer = Global.plugin.getConfig().getInt("pay-timer-in-minutes") - ((System.currentTimeMillis() - PayTask.getLastUserPayment()) / 1000) / 60;
 
             res.add(str.replaceAll("%level%", String.valueOf(level)).
-                    replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
-                    replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
+                    replaceAll("%moneyPer15Minutes%", String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyPerMinute(level) * 15))).
+                    replaceAll("%moneyPerMinute%", String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyPerMinute(level)))).
                     replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(level)).
                     replaceAll("%playerBalance%", String.valueOf(new DecimalFormat("0.00").format(EconomyManager.getEconomy().getBalance(player)))).
                     replaceAll("%playerAnchors%", String.valueOf(StorageManager.getPlayerTotalAnchors(player))).
                     replaceAll("%maxPlayerAnchors%", String.valueOf(Global.plugin.getConfig().getInt("total-anchors-user-can-have"))).
-                    replaceAll("%playerMoneyPer15Minutes%", String.valueOf(StorageManager.getPlayerMoneyPerMinute(player) * 15)).
+                    replaceAll("%playerMoneyPer15Minutes%", String.valueOf(new DecimalFormat("0.00").format(StorageManager.getPlayerMoneyPerMinute(player) * 15))).
                     replaceAll("%priceOfUpgrade%", priceOfUpgrade).
                     replaceAll("%nextLevel%", levelToUpgrade).
                     replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(level + 1)).
@@ -164,14 +172,14 @@ public class Utils {
         for(String str: Utils.Color(Global.plugin.getConfig().getStringList(path))) {
             int level = StorageManager.getAnchorLevel(location);
             String levelToUpgrade = String.valueOf(level + 1);
-            String priceOfUpgrade = String.valueOf(Utils.getMoneyToUpgrade(level));
+            String priceOfUpgrade = String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyToUpgrade(level)));
             if((level + 1) > 64) {
                 levelToUpgrade = "";
                 priceOfUpgrade = "-";
             }
             res.add(str.replaceAll("%level%", String.valueOf(level)).
-                    replaceAll("%moneyPer15Minutes%", String.valueOf(Utils.getMoneyPerMinute(level) * 15)).
-                    replaceAll("%moneyPerMinute%", String.valueOf(Utils.getMoneyPerMinute(level))).
+                    replaceAll("%moneyPer15Minutes%", String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyPerMinute(level) * 15))).
+                    replaceAll("%moneyPerMinute%", String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyPerMinute(level)))).
                     replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(level)).
                     replaceAll("%maxPlayerAnchors%", String.valueOf(Global.plugin.getConfig().getInt("total-anchors-user-can-have"))).
                     replaceAll("%priceOfUpgrade%", priceOfUpgrade).

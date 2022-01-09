@@ -71,6 +71,19 @@ world-not-enabled-error: "&cSorry, anchors can't be placed in this world :("
 # Time period in which anchors will pay to players.
 pay-timer-in-minutes: 15
 
+#
+# This modifies the anchor item that the player obtains when purchasing an anchor or via the give command
+# 'level-line' is separated to the other lines because the plugin looks for that line when placing
+#              the anchor to see the level so that line is mandatory.
+# 'other-lines' placeholders: %level%, %moneyPer15Minutes%, %moneyPerMinute%, %oreLevel%, %maxPlayerAnchors%, %nextLevelOre%
+#
+anchor-item:
+  name: "&5&lAnchor"
+  lore:
+    level-line: "&fAnchor level: &e"
+    other-lines:
+      - "&fMoney per minute: &e%moneyPerMinute%"
+
 anchor:
   title: "&5Anchor - level %level%"
   current-anchor-info:
@@ -83,7 +96,7 @@ anchor:
     lore:
       - "&eBalance: &f$%playerBalance%"
       - "&eNumber of anchors:&f %playerAnchors% / %maxPlayerAnchors%"
-      - "&eTotal money per 15 minutes: &f$%playerMoneyPer15Minutes%"
+      - "&eMoney per 15 minutes: &f$%playerMoneyPer15Minutes%"
       - "&eNext Anchor pay: &f%timer%m"
   upgrades:
     txt: "&6&lUpgrades"
@@ -161,6 +174,14 @@ confirmscreen:
   you-cant-afford: "&5You can't afford this."
   cancel: "&4&lCancel"
   confirm: "&a&lConfirm"
+
+anchor-admin:
+  change-level:
+    name: "&6&lChange level"
+    lore: "&eCurrent level: &f"
+  remove:
+    name: "&4&lRemove"
+    lore: "&cRemoves this anchor"
 
 anchor-place:
   - "&7&m----------&r &5&lAnchor &7&m----------"

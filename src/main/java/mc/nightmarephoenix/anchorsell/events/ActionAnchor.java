@@ -25,7 +25,7 @@ public class ActionAnchor implements Listener {
         Player p = e.getPlayer();
         try {
             // If the player is sneaking, don't open the inventory.
-            if(Objects.requireNonNull(e.getClickedBlock()).getType().equals(Material.RESPAWN_ANCHOR) && (p.isSneaking() && e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
+            if(e.getClickedBlock().getType().equals(Material.RESPAWN_ANCHOR) && (p.isSneaking() && e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
                 e.setCancelled(true);
                 return;
             }
