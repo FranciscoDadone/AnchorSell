@@ -6,6 +6,7 @@ import mc.nightmarephoenix.anchorsell.commands.CommandManager;
 import mc.nightmarephoenix.anchorsell.events.gui.AnchorAdminInventoryEvents;
 import mc.nightmarephoenix.anchorsell.events.gui.ChangeLevelInventoryEvents;
 import mc.nightmarephoenix.anchorsell.thirdparty.essentials.EssentialsManager;
+import mc.nightmarephoenix.anchorsell.thirdparty.placeholderapi.AnchorLevelExpansion;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.MainAnchorInventoryEvents;
@@ -61,6 +62,11 @@ public final class AnchorSell extends JavaPlugin {
         } catch (NoClassDefFoundError e) {
             this.getLogger().fine("No WorldGuard detected.");
             Hooks.setWorldGuard(false);
+        }
+
+        // Placeholder API
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new AnchorLevelExpansion(this).register();
         }
 
         // // Saving config // //
