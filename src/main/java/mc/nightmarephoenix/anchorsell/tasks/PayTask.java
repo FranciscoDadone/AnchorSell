@@ -46,7 +46,7 @@ public class PayTask extends BukkitRunnable {
             try { Thread.sleep(1000); } catch (InterruptedException e) { e.printStackTrace(); }
 
             for(Player p: onlinePlayers) {
-                boolean playerAfk = EssentialsManager.getEssentials().getUser(p).isAfk();
+                boolean playerAfk = false; //EssentialsManager.getEssentials().getUser(p).isAfk();
 
                 if(Global.plugin.getConfig().getBoolean("pay-afk-players") || !playerAfk) {
                     double totalAmount = 0;

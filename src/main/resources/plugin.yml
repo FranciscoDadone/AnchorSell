@@ -2,7 +2,7 @@ name: AnchorSell
 version: 1.5.1
 main: mc.nightmarephoenix.anchorsell.AnchorSell
 api-version: 1.16
-depend: [ Vault, Essentials ]
+depend: [ Vault ]
 softdepend: [ WorldGuard, PlaceholderAPI ]
 authors: [ DadoGamer13, MatiasME ]
 description: Minecraft plugin to get money using a Respawn Anchor.

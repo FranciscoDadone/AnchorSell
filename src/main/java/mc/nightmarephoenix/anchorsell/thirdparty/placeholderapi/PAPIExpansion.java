@@ -10,9 +10,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
 
-public class AnchorLevelExpansion extends PlaceholderExpansion {
+public class PAPIExpansion extends PlaceholderExpansion {
 
-    public AnchorLevelExpansion(AnchorSell plugin) {
+    public PAPIExpansion(AnchorSell plugin) {
         this.plugin = plugin;
     }
 

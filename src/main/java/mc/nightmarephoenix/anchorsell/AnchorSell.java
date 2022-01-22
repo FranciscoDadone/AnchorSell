@@ -6,7 +6,7 @@ import mc.nightmarephoenix.anchorsell.commands.CommandManager;
 import mc.nightmarephoenix.anchorsell.events.gui.AnchorAdminInventoryEvents;
 import mc.nightmarephoenix.anchorsell.events.gui.ChangeLevelInventoryEvents;
 import mc.nightmarephoenix.anchorsell.thirdparty.essentials.EssentialsManager;
-import mc.nightmarephoenix.anchorsell.thirdparty.placeholderapi.AnchorLevelExpansion;
+import mc.nightmarephoenix.anchorsell.thirdparty.placeholderapi.PAPIExpansion;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
 import mc.nightmarephoenix.anchorsell.events.gui.MainAnchorInventoryEvents;
@@ -37,39 +37,31 @@ public final class AnchorSell extends JavaPlugin {
         Global.plugin = this;
 
         // // Loading dependencies // //
-        // Vault check
-        if (!EconomyManager.setupEconomy()) {
-            this.getLogger().severe("Disabled due to no Vault or EssentialsX found!");
+        // Vault and economy (dependency)
+        if (EconomyManager.setupEconomy()) {
+            this.getLogger().info("Vault (econ) hooked!");
+        } else {
+            this.getLogger().severe("Disabled due to no Vault or Economy plugin found!");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
 
-        try {
-            if(getServer().getPluginManager().getPlugin("Essentials") != null) {
-                EssentialsManager.setupEssentials();
-                this.getLogger().log(Level.FINE, "EssentialsX hooked!");
-            } else {
-                this.getLogger().log(Level.SEVERE, "No EssentialsX plugin found :( Disabling AnchorSell...");
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        // World guard check - soft depend
+        // World guard (soft dependency)
         try {
             WorldGuard wg = WorldGuard.getInstance();
+            this.getLogger().info("WorldGuard hooked!");
             if(wg != null) Hooks.setWorldGuard(true);
         } catch (NoClassDefFoundError e) {
-            this.getLogger().fine("No WorldGuard detected.");
             Hooks.setWorldGuard(false);
         }
 
-        // Placeholder API
+        // Placeholder API (soft dependency)
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new AnchorLevelExpansion(this).register();
+            this.getLogger().info("PlaceholderAPI hooked!");
+            new PAPIExpansion(this).register();
         }
 
-        // // Saving config // //
+        // // Config // //
         this.saveDefaultConfig();
         File configFile = new File(getDataFolder(), "config.yml");
 
