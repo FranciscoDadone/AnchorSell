@@ -4,6 +4,7 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.models.Anchor;
 import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.api.StorageManager;
+import mc.nightmarephoenix.anchorsell.utils.Logger;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -63,8 +64,7 @@ public class AnchorBreak implements Listener {
                 if(!location.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
 
                     // Log to console the anchor break
-                    Bukkit.getLogger().info("[AnchorSell] "
-                            + p.getName() + " broke a level " + StorageManager.getAnchorLevel(location) + " Anchor. " +
+                    Logger.info(p.getName() + " broke a level " + StorageManager.getAnchorLevel(location) + " Anchor. " +
                             "(" +
                                     location.getX() + ", " +
                                     location.getY() + ", " +

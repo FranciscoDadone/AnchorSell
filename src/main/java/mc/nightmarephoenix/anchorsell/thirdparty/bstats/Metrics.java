@@ -27,6 +27,8 @@ import java.util.logging.Level;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPOutputStream;
 import javax.net.ssl.HttpsURLConnection;
+
+import mc.nightmarephoenix.anchorsell.utils.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -89,8 +91,8 @@ public class Metrics {
                         this::appendServiceData,
                         submitDataTask -> Bukkit.getScheduler().runTask(plugin, submitDataTask),
                         plugin::isEnabled,
-                        (message, error) -> this.plugin.getLogger().log(Level.WARNING, message, error),
-                        (message) -> this.plugin.getLogger().log(Level.INFO, message),
+                        (message, error) -> plugin.getLogger().log(Level.WARNING, message, error),
+                        (message) -> plugin.getLogger().log(Level.INFO, message),
                         logErrors,
                         logSentData,
                         logResponseStatusText);

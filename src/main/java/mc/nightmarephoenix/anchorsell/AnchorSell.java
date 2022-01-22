@@ -5,7 +5,6 @@ import com.tchristofferson.configupdater.ConfigUpdater;
 import mc.nightmarephoenix.anchorsell.commands.CommandManager;
 import mc.nightmarephoenix.anchorsell.events.gui.AnchorAdminInventoryEvents;
 import mc.nightmarephoenix.anchorsell.events.gui.ChangeLevelInventoryEvents;
-import mc.nightmarephoenix.anchorsell.thirdparty.essentials.EssentialsManager;
 import mc.nightmarephoenix.anchorsell.thirdparty.placeholderapi.PAPIExpansion;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
@@ -16,16 +15,14 @@ import mc.nightmarephoenix.anchorsell.tasks.ParticleTask;
 import mc.nightmarephoenix.anchorsell.tasks.PayTask;
 import mc.nightmarephoenix.anchorsell.hooks.Hooks;
 import mc.nightmarephoenix.anchorsell.thirdparty.bstats.Metrics;
+import mc.nightmarephoenix.anchorsell.utils.Logger;
 import mc.nightmarephoenix.anchorsell.utils.UpdateChecker;
-import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
 
 
 public final class AnchorSell extends JavaPlugin {
@@ -39,9 +36,9 @@ public final class AnchorSell extends JavaPlugin {
         // // Loading dependencies // //
         // Vault and economy (dependency)
         if (EconomyManager.setupEconomy()) {
-            this.getLogger().info("Vault (econ) hooked!");
+            Logger.info("Vault (econ) hooked!");
         } else {
-            this.getLogger().severe("Disabled due to no Vault or Economy plugin found!");
+            Logger.severe("Disabled due to no Vault or Economy plugin found!");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
@@ -49,7 +46,7 @@ public final class AnchorSell extends JavaPlugin {
         // World guard (soft dependency)
         try {
             WorldGuard wg = WorldGuard.getInstance();
-            this.getLogger().info("WorldGuard hooked!");
+            Logger.info("WorldGuard hooked!");
             if(wg != null) Hooks.setWorldGuard(true);
         } catch (NoClassDefFoundError e) {
             Hooks.setWorldGuard(false);
@@ -57,7 +54,7 @@ public final class AnchorSell extends JavaPlugin {
 
         // Placeholder API (soft dependency)
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            this.getLogger().info("PlaceholderAPI hooked!");
+            Logger.info("PlaceholderAPI hooked!");
             new PAPIExpansion(this).register();
         }
 
@@ -117,17 +114,15 @@ public final class AnchorSell extends JavaPlugin {
         // // Update checker // //
         new UpdateChecker(90038).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                Utils.sendMessage("You are running the latest version.");
+                Logger.info("You are running the latest version.");
             } else {
-                Utils.sendMessage("There is a new update available. ( &a" + version + "&f )");
+                Logger.warning("There is a new update available. ( &a" + version + "&e )");
                 UpdateChecker.updateString = version;
             }
         });
 
-
         // bStats metrics
         new Metrics(this, 13580);
-
     }
 
     @Override

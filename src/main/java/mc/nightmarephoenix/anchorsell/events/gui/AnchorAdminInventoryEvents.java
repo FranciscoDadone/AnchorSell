@@ -7,6 +7,7 @@ import mc.nightmarephoenix.anchorsell.inventories.AnchorAdmin;
 import mc.nightmarephoenix.anchorsell.inventories.ChangeLevelScreen;
 import mc.nightmarephoenix.anchorsell.inventories.ConfirmScreen;
 import mc.nightmarephoenix.anchorsell.models.Anchor;
+import mc.nightmarephoenix.anchorsell.utils.Logger;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -72,7 +73,7 @@ public class AnchorAdminInventoryEvents implements Listener {
                 StorageManager.removeAnchor(anchor);
                 Global.removeAnchor(anchor);
                 block.setType(Material.AIR);
-                Bukkit.getLogger().log(Level.INFO, "[AnchorSell] " + p.getPlayerListName() + " (Admin) removed an anchor " + anchor.getLocation());
+                Logger.info(p.getPlayerListName() + " (Admin) removed an anchor " + anchor.getLocation());
                 p.closeInventory();
             } else if((e.getCurrentItem() != null) && (e.getCurrentItem().getType().equals(Material.RED_STAINED_GLASS_PANE))) {
                 p.closeInventory();

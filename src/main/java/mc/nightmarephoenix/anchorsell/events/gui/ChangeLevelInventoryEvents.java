@@ -28,14 +28,8 @@ public class ChangeLevelInventoryEvents implements Listener {
     @EventHandler
     public void onClick(InventoryClickEvent e) {
         if (e == null) return;
-
-        Set<Material> invisibleBlocksSet = new HashSet<>();
-        invisibleBlocksSet.add(Material.AIR);
-        invisibleBlocksSet.add(Material.WATER);
-        invisibleBlocksSet.add(Material.LAVA);
-
         Player p = (Player) e.getWhoClicked();
-        Block block = p.getTargetBlock(invisibleBlocksSet, 5);
+        Block block = p.getTargetBlock(Utils.getInvisibleBlockList(), 5);
         Location location = block.getLocation();
         Anchor anchor = StorageManager.getAnchorFromLoc(location);
 

@@ -3,6 +3,7 @@ package mc.nightmarephoenix.anchorsell.events;
 import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.api.StorageManager;
+import mc.nightmarephoenix.anchorsell.utils.Logger;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -74,8 +75,7 @@ public class AnchorBlow implements Listener {
                     world.dropItem(new Location(anchor.getWorld(), anchor.getX(), anchor.getY(), anchor.getZ()), Utils.getAnchor(level, 1)).setInvulnerable(true);
 
                     // Log to console the anchor blow
-                    Bukkit.getLogger().info("[AnchorSell] " +
-                            "Anchor blew " +
+                    Logger.info("Anchor blew " +
                             "(" +
                                     anchor.getX() + ", " +
                                     anchor.getY() + ", " +

@@ -249,14 +249,6 @@ public class Utils {
     }
 
     /**
-     * Sends console message.
-     * @param msg message
-     */
-    public static void sendMessage(String msg) {
-        Bukkit.getConsoleSender().sendMessage(Utils.Color("&5&lAnchorSell &f - " + msg));
-    }
-
-    /**
      * Sends config message and requires strings to replace
      * @param str main string
      * @param toBeReplaced string to be replaced (placeholder)
@@ -267,7 +259,7 @@ public class Utils {
         try {
             sender.sendMessage(Color(Objects.requireNonNull(Global.plugin.getConfig().getString(str)).replaceAll(toBeReplaced, toReplace)));
         } catch (Exception e) {
-            sendMessage("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
+            Logger.severe("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
         }
     }
 
@@ -280,7 +272,7 @@ public class Utils {
         try {
             sender.sendMessage(Color(Objects.requireNonNull(Global.plugin.getConfig().getString(path))));
         } catch (Exception e) {
-            sendMessage("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
+            Logger.severe("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
         }
     }
 
@@ -295,7 +287,7 @@ public class Utils {
                 sender.sendMessage(Utils.Color(line));
             }
         } catch (Exception e) {
-            sendMessage("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
+            Logger.severe("Check for config updates: &ahttps://github.com/FranciscoDadone/AnchorSell/blob/main/src/main/resources/config.yml");
         }
     }
 
@@ -396,20 +388,11 @@ public class Utils {
 
     public static Set<Material> getInvisibleBlockList() {
         Set<Material> invisibleBlocksSet = new HashSet<>();
-        invisibleBlocksSet.add(Material.AIR);
-        invisibleBlocksSet.add(Material.WATER);
-        invisibleBlocksSet.add(Material.LAVA);
-        invisibleBlocksSet.add(Material.IRON_BARS);
-        invisibleBlocksSet.add(Material.ACACIA_FENCE);
-        invisibleBlocksSet.add(Material.BIRCH_FENCE);
-        invisibleBlocksSet.add(Material.CRIMSON_FENCE);
-        invisibleBlocksSet.add(Material.JUNGLE_FENCE);
-        invisibleBlocksSet.add(Material.OAK_FENCE);
-        invisibleBlocksSet.add(Material.SPRUCE_FENCE);
-        invisibleBlocksSet.add(Material.WARPED_FENCE);
-        invisibleBlocksSet.add(Material.NETHER_BRICK_FENCE);
-        invisibleBlocksSet.add(Material.DARK_OAK_FENCE);
-        invisibleBlocksSet.add(Material.CAMPFIRE);
+        for(Material material : Material.values()) {
+            if(!material.isOccluding()) {
+                invisibleBlocksSet.add(material);
+            }
+        }
         return invisibleBlocksSet;
     }
 }

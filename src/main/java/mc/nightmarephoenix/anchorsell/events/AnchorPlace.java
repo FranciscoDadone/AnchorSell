@@ -4,6 +4,7 @@ import mc.nightmarephoenix.anchorsell.AnchorSell;
 import mc.nightmarephoenix.anchorsell.models.Anchor;
 import mc.nightmarephoenix.anchorsell.api.Global;
 import mc.nightmarephoenix.anchorsell.api.StorageManager;
+import mc.nightmarephoenix.anchorsell.utils.Logger;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import mc.nightmarephoenix.anchorsell.thirdparty.worldguard.RegionManager;
 import org.bukkit.*;
@@ -122,8 +123,7 @@ public class AnchorPlace implements Listener {
                         }
 
                         // Log to console the anchor place
-                        Bukkit.getLogger().info("[AnchorSell] "
-                                + p.getName() + " placed a level " + finalCurrentAnchorLevel + " Anchor. " +
+                        Logger.info(p.getName() + " placed a level " + finalCurrentAnchorLevel + " Anchor. " +
                                 "(" +
                                 block.getX() + ", " +
                                 block.getY() + ", " +

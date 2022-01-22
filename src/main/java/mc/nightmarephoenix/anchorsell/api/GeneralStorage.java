@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.api;
 
 import mc.nightmarephoenix.anchorsell.AnchorSell;
+import mc.nightmarephoenix.anchorsell.utils.Logger;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
@@ -53,7 +54,7 @@ class GeneralStorage {
         try {
             this.getConfig().save(this.configFile);
         } catch (IOException e) {
-            this.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + this.configFile, e);
+            Logger.severe("Could not save config to " + this.configFile);
         }
     }
 

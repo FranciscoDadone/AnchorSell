@@ -1,6 +1,7 @@
 package mc.nightmarephoenix.anchorsell.api;
 
 import mc.nightmarephoenix.anchorsell.models.Anchor;
+import mc.nightmarephoenix.anchorsell.utils.Logger;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
@@ -342,7 +343,7 @@ public class StorageManager {
 
                 if(!loc.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
 
-                    Bukkit.getLogger().log(Level.SEVERE, "[AnchorSell] Revalidation found an error: " +
+                    Logger.severe("Revalidation found an error: " +
                             "Player: " + p.getName() +
                             ". Anchor location: " + "[" +
                             loc.getBlockX() + ", " +
@@ -365,7 +366,7 @@ public class StorageManager {
 
         // Total anchors the user has check.
         if(userData.getConfig().getInt("total") != totalUserAnchors) {
-            Bukkit.getLogger().log(Level.WARNING, "[AnchorSell] Revalidation found an error (total of anchors): " +
+            Logger.severe("Revalidation found an error (total of anchors): " +
                     "Player: " + p.getName() +
                     ". Total rectified from " +
                     userData.getConfig().getInt("total") +
