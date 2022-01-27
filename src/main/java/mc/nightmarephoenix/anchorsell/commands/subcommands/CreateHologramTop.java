@@ -10,6 +10,7 @@ import mc.nightmarephoenix.anchorsell.utils.Utils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateHologramTop extends SubCommands {
@@ -29,9 +30,7 @@ public class CreateHologramTop extends SubCommands {
     }
 
     @Override
-    public List<String> getSubCommandsArgs(CommandSender sender, String[] args) {
-        return null;
-    }
+    public List<String> getSubCommandsArgs(CommandSender sender, String[] args) { return new ArrayList<>(); }
 
     @Override
     public String getPermission() {
