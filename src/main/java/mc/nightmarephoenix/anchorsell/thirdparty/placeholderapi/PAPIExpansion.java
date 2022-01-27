@@ -65,20 +65,18 @@ public class PAPIExpansion extends PlaceholderExpansion {
         }
 
         // TOP
+        HashMap top = StorageManager.getAnchorTop();
         for(int i = 0; i <= 100; i++) {
             if(params.equalsIgnoreCase("top" + i)) {
-                HashMap top = StorageManager.getAnchorTop();
                 if(top.size() < i) return "";
-                return Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[i - 1].toString())).getName();
+                return Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[top.size() - i].toString())).getName();
             }
         }
-
         // POINTS
         for(int i = 0; i <= 100; i++) {
             if(params.equalsIgnoreCase("top" + i + "-points")) {
-                HashMap top = StorageManager.getAnchorTop();
                 if(top.size() < i) return "";
-                return StorageManager.getAnchorTop().values().toArray()[i - 1].toString();
+                return StorageManager.getAnchorTop().values().toArray()[top.size() - i].toString();
             }
         }
 
