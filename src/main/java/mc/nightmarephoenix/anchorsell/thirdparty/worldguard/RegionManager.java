@@ -17,7 +17,7 @@ public class RegionManager {
      * @return if can build
      */
     public boolean canBuild(Location location) {
-        if(Hooks.getWorldGuard().equals(WG.ACTIVE)) {
+        if(Hooks.isWorldGuardActive) {
             com.sk89q.worldedit.util.Location wgLocation = BukkitAdapter.adapt(location);
             RegionContainer container = WorldGuard.getInstance().getPlatform().getRegionContainer();
             RegionQuery query = container.createQuery();

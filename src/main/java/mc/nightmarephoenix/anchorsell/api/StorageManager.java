@@ -1,5 +1,6 @@
 package mc.nightmarephoenix.anchorsell.api;
 
+import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import mc.nightmarephoenix.anchorsell.models.Anchor;
 import mc.nightmarephoenix.anchorsell.utils.Logger;
 import mc.nightmarephoenix.anchorsell.utils.Utils;
@@ -8,7 +9,6 @@ import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import java.util.*;
-import java.util.logging.Level;
 
 public class StorageManager {
 
@@ -496,6 +496,21 @@ public class StorageManager {
             }
         }
         return anchors;
+    }
+
+    /**
+     * Saves the newly created hologram to the database.
+     * @param hologram
+     */
+    public static void saveHologram(Hologram hologram) {
+        HologramsStorage storage = new HologramsStorage();
+        storage.getConfig().set("hologram", hologram.getLocation());
+        storage.saveConfig();
+    }
+
+    public static Location retrieveHologramLocation() {
+        HologramsStorage storage = new HologramsStorage();
+        return storage.getConfig().getLocation("hologram");
     }
 
     private static PerUserStorage getUserData(OfflinePlayer p) {

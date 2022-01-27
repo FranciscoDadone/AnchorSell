@@ -5,6 +5,7 @@ import com.tchristofferson.configupdater.ConfigUpdater;
 import mc.nightmarephoenix.anchorsell.commands.CommandManager;
 import mc.nightmarephoenix.anchorsell.events.gui.AnchorAdminInventoryEvents;
 import mc.nightmarephoenix.anchorsell.events.gui.ChangeLevelInventoryEvents;
+import mc.nightmarephoenix.anchorsell.thirdparty.holographicdisplays.HologramMaker;
 import mc.nightmarephoenix.anchorsell.thirdparty.placeholderapi.PAPIExpansion;
 import mc.nightmarephoenix.anchorsell.thirdparty.vault.EconomyManager;
 import mc.nightmarephoenix.anchorsell.events.*;
@@ -18,6 +19,7 @@ import mc.nightmarephoenix.anchorsell.thirdparty.bstats.Metrics;
 import mc.nightmarephoenix.anchorsell.utils.Logger;
 import mc.nightmarephoenix.anchorsell.utils.UpdateChecker;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
@@ -47,15 +49,23 @@ public final class AnchorSell extends JavaPlugin {
         try {
             WorldGuard wg = WorldGuard.getInstance();
             Logger.info("WorldGuard hooked!");
-            if(wg != null) Hooks.setWorldGuard(true);
+            if(wg != null) Hooks.isWorldGuardActive = true;
         } catch (NoClassDefFoundError e) {
-            Hooks.setWorldGuard(false);
+            Hooks.isWorldGuardActive = false;
         }
 
         // Placeholder API (soft dependency)
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             Logger.info("PlaceholderAPI hooked!");
             new PAPIExpansion(this).register();
+        }
+
+        // HolographicDisplays (soft dependency)
+        if(Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null) {
+            Logger.info("HolographicDisplays hooked!");
+            Hooks.isHolographicDisplaysActive = true;
+            Location loc = StorageManager.retrieveHologramLocation();
+            if(loc != null) HologramMaker.createHoloTop(loc);
         }
 
         // // Config // //

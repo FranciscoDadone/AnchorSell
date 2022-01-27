@@ -36,6 +36,7 @@ public class CommandManager implements TabExecutor {
         subCommands.add(new Give());
         subCommands.add(new Particles());
         subCommands.add(new Revalidate());
+        subCommands.add(new CreateHologramTop());
 
     }
 

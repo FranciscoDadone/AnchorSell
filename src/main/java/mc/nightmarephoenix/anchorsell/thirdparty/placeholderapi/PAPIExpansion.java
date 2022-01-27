@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.UUID;
 
 public class PAPIExpansion extends PlaceholderExpansion {
@@ -64,30 +65,23 @@ public class PAPIExpansion extends PlaceholderExpansion {
         }
 
         // TOP
-        if(params.equalsIgnoreCase("top1")) {
-            return Bukkit.getOfflinePlayer(UUID.fromString(StorageManager.getAnchorTop().keySet().toArray()[0].toString())).getName();
+        for(int i = 0; i <= 100; i++) {
+            if(params.equalsIgnoreCase("top" + i)) {
+                HashMap top = StorageManager.getAnchorTop();
+                if(top.size() < i) return "";
+                return Bukkit.getOfflinePlayer(UUID.fromString(top.keySet().toArray()[i - 1].toString())).getName();
+            }
         }
-        if(params.equalsIgnoreCase("top2")) {
-            return Bukkit.getOfflinePlayer(UUID.fromString(StorageManager.getAnchorTop().keySet().toArray()[1].toString())).getName();
+
+        // POINTS
+        for(int i = 0; i <= 100; i++) {
+            if(params.equalsIgnoreCase("top" + i + "-points")) {
+                HashMap top = StorageManager.getAnchorTop();
+                if(top.size() < i) return "";
+                return StorageManager.getAnchorTop().values().toArray()[i - 1].toString();
+            }
         }
-        if(params.equalsIgnoreCase("top3")) {
-            return Bukkit.getOfflinePlayer(UUID.fromString(StorageManager.getAnchorTop().keySet().toArray()[2].toString())).getName();
-        }
-        if(params.equalsIgnoreCase("top4")) {
-            return Bukkit.getOfflinePlayer(UUID.fromString(StorageManager.getAnchorTop().keySet().toArray()[3].toString())).getName();
-        }
-        if(params.equalsIgnoreCase("top5")) {
-            return Bukkit.getOfflinePlayer(UUID.fromString(StorageManager.getAnchorTop().keySet().toArray()[4].toString())).getName();
-        }
-        if(params.equalsIgnoreCase("top6")) {
-            return Bukkit.getOfflinePlayer(UUID.fromString(StorageManager.getAnchorTop().keySet().toArray()[5].toString())).getName();
-        }
-        if(params.equalsIgnoreCase("top7")) {
-            return Bukkit.getOfflinePlayer(UUID.fromString(StorageManager.getAnchorTop().keySet().toArray()[6].toString())).getName();
-        }
-        if(params.equalsIgnoreCase("top8")) {
-            return Bukkit.getOfflinePlayer(UUID.fromString(StorageManager.getAnchorTop().keySet().toArray()[7].toString())).getName();
-        }
+
 
         return null;
     }
