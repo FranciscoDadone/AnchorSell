@@ -1,12 +1,75 @@
 name: AnchorSell
-version: 1.6.0
+version: 1.6.1
 main: mc.nightmarephoenix.anchorsell.AnchorSell
 api-version: 1.16
+
 depend: [ Vault ]
 softdepend: [ WorldGuard, PlaceholderAPI, HolographicDisplays ]
+
 authors: [ DadoGamer13, MatiasME ]
+
 description: Minecraft plugin to get money using a Respawn Anchor.
+
 commands:
   anchor:
     description: Display anchor help message
     usage: /anchor
+
+permissions:
+  anchorsell.*:
+    description: Gives access to all anchorsell permissions.
+    default: op
+  anchorsell.admin.*:
+    description: Gives access to all admin commands.
+    default: op
+  anchorsell.admin.help:
+    description: Gives all admin help
+    default: op
+  anchorsell.admin.reload:
+    description: Allows player to reload the plugin config.
+    default: op
+  anchorsell.admin.give:
+    description: Allows player to use /anchor give [] []
+    default: op
+  anchorsell.admin.upgrades:
+    description: Allows player to see the upgrade curve.
+    default: op
+  anchorsell.admin.list:
+    description: Allows player to run /anchor list [others username]
+    default: op
+  anchorsell.admin.changeUpgradeMultiplier:
+    description: Allows player to change the upgrade multiplier.
+    default: op
+  anchorsell.admin.changeSafeZone:
+    description: Allows player to change the safe zone.
+    default: op
+  anchorsell.admin.getUserFileName:
+    description: Allows player to get the user file name.
+    default: op
+  anchorsell.admin.revalidate:
+    description: Allows player to revalidate a user file.
+    default: op
+  anchorsell.admin.createholo:
+    description: Allows player to create a Hologram of the anchor top.
+    default: op
+  anchorsell.admin.particles:
+    description: Allows player to change particles.
+    default: op
+  anchorsell.admin.anchoradmin:
+    description: Allows player to access others anchors.
+    default: op
+  anchorsell.player.*:
+    description: Gives access to all player commands.
+    default: true
+  anchorsell.player.help:
+    description: Allows player to view help.
+    default: true
+  anchorsell.player.buy:
+    description: Allows players to run /anchor buy
+    default: true
+  anchorsell.player.list:
+    description: Allows players to run /anchor list
+    default: true
+  anchorsell.player.top:
+    description: Allows players to run /anchor top
+    default: true
