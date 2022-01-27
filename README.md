@@ -20,10 +20,11 @@
 
 ## Dependencies
 + [Vault](https://www.spigotmc.org/resources/vault.34315/)
-+ [EssentialsX](https://www.spigotmc.org/resources/essentialsx.9089/)
 
 ## Soft-dependencies (hooks)
 + [WorldGuard](https://dev.bukkit.org/projects/worldguard)
++ [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
++ [HolographicDisplays](https://dev.bukkit.org/projects/holographic-displays)
 
 
 ## Commands and permissions
@@ -43,8 +44,18 @@
 - /anchor changeSafeZone [safeZone] (anchorsell.admin.changeSafeZone)
 - /anchor getUserFileName [username] (anchorsell.admin.getUserFileName)
 - /anchor revalidate [username] (anchorsell.admin.revalidate)
+- /anchor createHologramTop (anchorsell.admin.createholo)
 - /anchor particles [all/low/off] (anchorsell.admin.particles)
 - Access others anchors (anchorsell.admin.anchoradmin)
+
+## Placeholders (PlaceholderAPI support)
+- %anchorsell_playerlevel% (Sum of all levels of all anchors from player)
+- %anchorsell_playeranchors% (total player anchors)
+- %anchorsell_playermoneyperminute% (money that the player generates in a minute)
+- %anchorsell_anchorprice% (Anchor price)
+- %anchorsell_top[1...100]% (Anchor TOP 1 to 100) (ie. %anchorsell_top1%)
+- %anchorsell_top[1...100]-points% (Anchor TOP 1...100 points) (ie. %anchorsell_top1-points%) (Sum of all levels of all anchors from player)
+
 
 ## Config file
 
@@ -84,6 +95,7 @@ help-message-admin:
   - "&e/anchor getUserFileName [username] &fShows the archive where the user information is stored."
   - "&e/anchor revalidate [username] &fRevalidates the anchors of that player."
   - "&e/anchor particles [all/low/off] &fChanges the particles on all anchors."
+  - "&e/anchor createHologramTop &fCreates a hologram of the Top."
   - "&e/anchor version &fPlugin version"
   - ""
   - "&e/anchor authors"
