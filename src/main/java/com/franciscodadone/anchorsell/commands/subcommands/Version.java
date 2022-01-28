@@ -35,7 +35,9 @@ public class Version extends SubCommands {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        sender.sendMessage(Utils.Color("&5&lAnchorSell version: &f" + Global.plugin.getDescription().getVersion()));
-        sender.sendMessage(Utils.Color("&eSpigot page: &fhttps://www.spigotmc.org/resources/anchorsell-earn-money-automatically-1-16-x-1-17-x.90038/"));
+        sender.sendMessage(Utils.Color("&7&m-----------------&r &5&lAnchorSell &7&m-----------------"));
+        sender.sendMessage(Utils.Color("&eVersion: &f" + Global.plugin.getDescription().getVersion()));
+        sender.sendMessage(Utils.Color("&9https://www.spigotmc.org/resources/anchorsell.90038/"));
+        sender.sendMessage(Utils.Color("&7&m----------------------------------------------"));
     }
 }
