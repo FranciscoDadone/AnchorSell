@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 public final class AnchorSell extends JavaPlugin {
@@ -123,13 +124,26 @@ public final class AnchorSell extends JavaPlugin {
 
         // // Update checker // //
         new UpdateChecker(90038).getVersion(version -> {
+            Logger.info("----------------------------------------------");
+            Logger.info("");
+            Logger.info("            +==================+"              );
+            Logger.info("            |    &5&lAnchorSell&r    |");
+            Logger.info("            +==================+");
+            Logger.info("");
+            Logger.info("           Current version: " + this.getDescription().getVersion());
+
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                Logger.info("You are running the latest version.");
+                Logger.info("         &bThis is the latest version!");
             } else {
-                Logger.warning("There is a new update available. ( &a" + version + "&e )");
+                Logger.info("       &eThere is a newer version! (" + version + ")");
+                Logger.info("&eDownload it from: https://www.spigotmc.org/resources/anchorsell.90038/");
                 UpdateChecker.updateString = version;
             }
+
+            Logger.info("");
+            Logger.info("----------------------------------------------");
         });
+
 
         // bStats metrics
         new Metrics(this, 13580);
