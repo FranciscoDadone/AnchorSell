@@ -10,6 +10,7 @@ import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import java.io.File;
@@ -203,6 +204,7 @@ public class Utils {
         meta.setDisplayName(name);
         if(enchanted)
             meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         return item;
     }
@@ -220,9 +222,10 @@ public class Utils {
         ItemMeta meta = item.getItemMeta();
         assert meta != null;
         meta.setDisplayName(name);
-        meta.setLore(lore);
         if(enchanted)
             meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        meta.setLore(lore);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         return item;
     }

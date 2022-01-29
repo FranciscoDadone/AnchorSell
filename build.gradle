@@ -4,7 +4,7 @@ plugins {
     id 'java'
 }
 
-group = 'mc.nightmarephoenix'
+group = 'com.franciscodadone'
 version = '0.1.0-SNAPSHOT'
 
 repositories {
@@ -12,10 +12,6 @@ repositories {
     maven {
         name = 'spigotmc-repo'
         url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
-    }
-    maven {
-        name "essentialsx-releases"
-        url "https://repo.essentialsx.net/releases/"
     }
     maven {
         name "papermc"
@@ -38,7 +34,6 @@ dependencies {
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
     compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.0'
     implementation "com.tchristofferson:ConfigUpdater:1.2-SNAPSHOT"
-    compileOnly 'net.essentialsx:EssentialsX:2.19.0'
     compileOnly 'me.clip:placeholderapi:2.11.1'
     implementation 'com.gmail.filoghost.holographicdisplays:holographicdisplays-api:2.4.9'
 }
