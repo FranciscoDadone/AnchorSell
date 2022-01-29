@@ -15,13 +15,13 @@ public class setupBstats {
         metrics.addCustomChart(new Metrics.SimplePie("anchor_price", () -> String.valueOf(Global.plugin.getConfig().getDouble("anchor-value"))));
 
         // Total anchors users can have
-        metrics.addCustomChart(new Metrics.SimplePie("total_anchors_users_can_have", () -> String.valueOf(Global.plugin.getConfig().getDouble("total-anchors-user-can-have"))));
+        metrics.addCustomChart(new Metrics.SimplePie("total_anchors_users_can_have", () -> String.valueOf(Global.plugin.getConfig().getInt("total-anchors-user-can-have"))));
 
         // Safe anchor area
-        metrics.addCustomChart(new Metrics.SimplePie("safe_anchor_area", () -> String.valueOf(Global.plugin.getConfig().getDouble("safe-anchor-area"))));
+        metrics.addCustomChart(new Metrics.SimplePie("safe_anchor_area", () -> String.valueOf(Global.plugin.getConfig().getInt("safe-anchor-area"))));
 
         // Pay timer in minutes
-        metrics.addCustomChart(new Metrics.SimplePie("pay_timer_in_minutes", () -> String.valueOf(Global.plugin.getConfig().getDouble("pay-timer-in-minutes"))));
+        metrics.addCustomChart(new Metrics.SimplePie("pay_timer_in_minutes", () -> String.valueOf(Global.plugin.getConfig().getInt("pay-timer-in-minutes"))));
 
         // Upgrade Multiplier
         metrics.addCustomChart(new Metrics.SimplePie("upgrade_multiplier", () -> String.valueOf(Global.plugin.getConfig().getDouble("anchor.upgrade-multiplier"))));
@@ -30,7 +30,7 @@ public class setupBstats {
         metrics.addCustomChart(new Metrics.SimplePie("pay_modifier", () -> String.valueOf(Global.plugin.getConfig().getDouble("anchor.pay-modifier"))));
 
         // Particles
-        metrics.addCustomChart(new Metrics.SimplePie("particles", () -> String.valueOf(Global.plugin.getConfig().getDouble("particles"))));
+        metrics.addCustomChart(new Metrics.SimplePie("particles", () -> Global.plugin.getConfig().getString("particles")));
 
         // Hologram
         metrics.addCustomChart(new Metrics.SimplePie("has_hologram", () -> (StorageManager.retrieveHologramLocation() != null) ? "true" : "false"));
