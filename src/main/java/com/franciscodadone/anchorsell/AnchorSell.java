@@ -7,7 +7,7 @@ import com.franciscodadone.anchorsell.events.*;
 import com.franciscodadone.anchorsell.events.gui.MainAnchorInventoryEvents;
 import com.franciscodadone.anchorsell.hooks.Hooks;
 import com.franciscodadone.anchorsell.tasks.ParticleTask;
-import com.franciscodadone.anchorsell.thirdparty.bstats.Metrics;
+import com.franciscodadone.anchorsell.thirdparty.bstats.setupBstats;
 import com.franciscodadone.anchorsell.thirdparty.placeholderapi.PAPIExpansion;
 import com.franciscodadone.anchorsell.thirdparty.vault.EconomyManager;
 import com.franciscodadone.anchorsell.utils.Logger;
@@ -25,7 +25,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public final class AnchorSell extends JavaPlugin {
@@ -146,7 +145,7 @@ public final class AnchorSell extends JavaPlugin {
 
 
         // bStats metrics
-        new Metrics(this, 13580);
+        setupBstats.init();
     }
 
     @Override
