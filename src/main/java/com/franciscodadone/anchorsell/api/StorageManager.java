@@ -508,9 +508,20 @@ public class StorageManager {
         storage.saveConfig();
     }
 
+    /**
+     * @return Current hologram location.
+     */
     public static Location retrieveHologramLocation() {
         HologramsStorage storage = new HologramsStorage();
         return storage.getConfig().getLocation("hologram");
+    }
+
+    /**
+     * @return Total anchors placed on the server.
+     */
+    public static int getTotalAnchorsPlaced() {
+        generalData = new GeneralStorage();
+        return generalData.getConfig().getConfigurationSection("all_anchors").getKeys(false).size();
     }
 
     private static PerUserStorage getUserData(OfflinePlayer p) {

@@ -35,6 +35,9 @@ public class setupBstats {
         // Hologram
         metrics.addCustomChart(new Metrics.SimplePie("has_hologram", () -> (StorageManager.retrieveHologramLocation() != null) ? "true" : "false"));
 
+        // Total anchors (all servers all anchors)
+        metrics.addCustomChart(new Metrics.SingleLineChart("total_anchors_in_all_servers", () -> StorageManager.getTotalAnchorsPlaced()));
+
         // ----------------------------------------- //
 
     }
