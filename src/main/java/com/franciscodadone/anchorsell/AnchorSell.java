@@ -12,6 +12,7 @@ import com.franciscodadone.anchorsell.thirdparty.placeholderapi.PAPIExpansion;
 import com.franciscodadone.anchorsell.thirdparty.vault.EconomyManager;
 import com.franciscodadone.anchorsell.utils.Logger;
 import com.franciscodadone.anchorsell.utils.UpdateChecker;
+import com.franciscodadone.anchorsell.utils.Utils;
 import com.sk89q.worldguard.WorldGuard;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import com.franciscodadone.anchorsell.events.gui.AnchorAdminInventoryEvents;
@@ -19,6 +20,7 @@ import com.franciscodadone.anchorsell.events.gui.ChangeLevelInventoryEvents;
 import com.franciscodadone.anchorsell.thirdparty.holographicdisplays.HologramMaker;
 import com.franciscodadone.anchorsell.tasks.PayTask;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
@@ -143,7 +145,6 @@ public final class AnchorSell extends JavaPlugin {
             Logger.info("");
             Logger.info("----------------------------------------------");
         });
-
 
         // bStats metrics
         setupBstats.init();
