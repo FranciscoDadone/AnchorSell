@@ -23,6 +23,7 @@ import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -73,7 +74,7 @@ public final class AnchorSell extends JavaPlugin {
         File configFile = new File(getDataFolder(), "config.yml");
 
         try {
-            ConfigUpdater.update(this, "config.yml", configFile, List.of());
+            ConfigUpdater.update(this, "config.yml", configFile, Collections.emptyList());
         } catch (IOException e) {
             e.printStackTrace();
         }

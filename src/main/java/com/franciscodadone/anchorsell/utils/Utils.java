@@ -329,7 +329,7 @@ public class Utils {
         Global.plugin.getConfig().set(path, value);
         Global.plugin.saveConfig();
         try {
-            ConfigUpdater.update(Global.plugin, "config.yml", new File(Global.plugin.getDataFolder(), "config.yml"), List.of());
+            ConfigUpdater.update(Global.plugin, "config.yml", new File(Global.plugin.getDataFolder(), "config.yml"), Collections.emptyList());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -344,7 +344,7 @@ public class Utils {
         Global.plugin.getConfig().set(path, value);
         Global.plugin.saveConfig();
         try {
-            ConfigUpdater.update(Global.plugin, "config.yml", new File(Global.plugin.getDataFolder(), "config.yml"), List.of());
+            ConfigUpdater.update(Global.plugin, "config.yml", new File(Global.plugin.getDataFolder(), "config.yml"), Collections.emptyList());
         } catch (IOException e) {
             e.printStackTrace();
         }
