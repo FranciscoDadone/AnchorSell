@@ -1,7 +1,7 @@
 package com.franciscodadone.anchorsell.thirdparty.placeholderapi;
 
 import com.franciscodadone.anchorsell.AnchorSell;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.models.Anchor;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
@@ -43,7 +43,7 @@ public class PAPIExpansion extends PlaceholderExpansion {
         // Player level (sum of all levels of all anchors from that player)
         if(params.equalsIgnoreCase("playerlevel")) {
             int level = 0;
-            for(Anchor anchor : StorageManager.getAllPlayerAnchors(player)) {
+            for(Anchor anchor : AnchorAPI.getAllPlayerAnchors(player)) {
                 level += anchor.getLevel();
             }
             return String.valueOf(level);
@@ -51,12 +51,12 @@ public class PAPIExpansion extends PlaceholderExpansion {
 
         // Total player anchors
         if(params.equalsIgnoreCase("playeranchors")) {
-            return String.valueOf(StorageManager.getPlayerTotalAnchors(player));
+            return String.valueOf(AnchorAPI.getPlayerTotalAnchors(player));
         }
 
         // Money per minute that the player generates via anchors.
         if(params.equalsIgnoreCase("playermoneyperminute")) {
-            return String.valueOf(StorageManager.getPlayerMoneyPerMinute(player));
+            return String.valueOf(AnchorAPI.getPlayerMoneyPerMinute(player));
         }
 
         // Anchor price
@@ -65,7 +65,7 @@ public class PAPIExpansion extends PlaceholderExpansion {
         }
 
         // TOP
-        HashMap top = StorageManager.getAnchorTop();
+        HashMap top = AnchorAPI.getAnchorTop();
         for(int i = 0; i <= 100; i++) {
             if(params.equalsIgnoreCase("top" + i)) {
                 if(top.size() < i) return "";
@@ -76,7 +76,7 @@ public class PAPIExpansion extends PlaceholderExpansion {
         for(int i = 0; i <= 100; i++) {
             if(params.equalsIgnoreCase("top" + i + "-points")) {
                 if(top.size() < i) return "";
-                return StorageManager.getAnchorTop().values().toArray()[top.size() - i].toString();
+                return AnchorAPI.getAnchorTop().values().toArray()[top.size() - i].toString();
             }
         }
 

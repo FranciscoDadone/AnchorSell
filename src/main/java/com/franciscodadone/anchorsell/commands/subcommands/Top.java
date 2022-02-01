@@ -1,6 +1,6 @@
 package com.franciscodadone.anchorsell.commands.subcommands;
 
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -40,7 +40,7 @@ public class Top extends SubCommands {
     @Override
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission(getPermission())) {
-            HashMap<String, Integer> top = StorageManager.getAnchorTop();
+            HashMap<String, Integer> top = AnchorAPI.getAnchorTop();
             int page = 1;
             double a = top.size();
             double maxPages = Math.ceil(a / 10);

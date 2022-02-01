@@ -1,7 +1,7 @@
 package com.franciscodadone.anchorsell.events;
 
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.utils.Logger;
 import com.franciscodadone.anchorsell.AnchorSell;
 import com.franciscodadone.anchorsell.utils.Utils;
@@ -56,7 +56,7 @@ public class AnchorBlow implements Listener {
                 world.playSound(b.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1f, 1f);
 
                 // Removes anchor from cache.
-                Global.removeAnchor(StorageManager.getAnchorFromLoc(b.getLocation()));
+                Global.removeAnchor(AnchorAPI.getAnchorFromLoc(b.getLocation()));
 
 
                 // generate particles around on blow
@@ -71,7 +71,7 @@ public class AnchorBlow implements Listener {
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
             if(!anchors.isEmpty()) {
                 for(Block anchor: anchors) {
-                    int level = StorageManager.getAnchorLevel(anchor.getLocation());
+                    int level = AnchorAPI.getAnchorLevel(anchor.getLocation());
                     world.dropItem(new Location(anchor.getWorld(), anchor.getX(), anchor.getY(), anchor.getZ()), Utils.getAnchor(level, 1)).setInvulnerable(true);
 
                     // Log to console the anchor blow
@@ -83,7 +83,7 @@ public class AnchorBlow implements Listener {
                             ")");
 
                     // Saves the broken anchor to the database.
-                    StorageManager.removeAnchor(Objects.requireNonNull(StorageManager.getAnchorFromLoc(anchor.getLocation())));
+                    AnchorAPI.removeAnchor(Objects.requireNonNull(AnchorAPI.getAnchorFromLoc(anchor.getLocation())));
                 }
             }
 

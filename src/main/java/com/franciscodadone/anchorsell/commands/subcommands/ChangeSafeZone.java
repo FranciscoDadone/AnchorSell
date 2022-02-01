@@ -1,6 +1,5 @@
 package com.franciscodadone.anchorsell.commands.subcommands;
 
-import com.franciscodadone.anchorsell.api.StorageManager;
 import com.franciscodadone.anchorsell.utils.Utils;
 import org.bukkit.command.CommandSender;
 
@@ -37,7 +36,7 @@ public class ChangeSafeZone extends SubCommands {
     public void perform(CommandSender sender, String[] args) {
         if (sender.hasPermission("anchorsell.admin.changeSafeZone")) {
             if(args.length > 1) {
-                StorageManager.changeSafeZone(Integer.parseInt(args[1]));
+                Utils.setConfigValue("safe-anchor-area", Integer.parseInt(args[1]));
                 sender.sendMessage(Utils.Color("&aSafe zone changed to &c" + Integer.parseInt(args[1])));
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e" + syntax()));

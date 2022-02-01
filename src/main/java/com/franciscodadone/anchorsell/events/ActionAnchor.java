@@ -1,6 +1,6 @@
 package com.franciscodadone.anchorsell.events;
 import com.franciscodadone.anchorsell.AnchorSell;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.inventories.AnchorAdmin;
 import com.franciscodadone.anchorsell.inventories.AnchorScreen;
 import com.franciscodadone.anchorsell.models.Anchor;
@@ -34,13 +34,13 @@ public class ActionAnchor implements Listener {
             if((e.getClickedBlock().getType().equals(Material.RESPAWN_ANCHOR)) && (e.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
                 if (!p.isSneaking()) {
                     // Checks if it's my anchor and opens the inventory.
-                    Anchor anchor = StorageManager.getAnchorFromLoc(e.getClickedBlock().getLocation());
+                    Anchor anchor = AnchorAPI.getAnchorFromLoc(e.getClickedBlock().getLocation());
 
                     // Checks creative anchor
                     if (anchor == null) return;
 
                     e.setCancelled(true);
-                    if (StorageManager.belongsToPlayer(anchor, p)) {
+                    if (AnchorAPI.belongsToPlayer(anchor, p)) {
                         p.openInventory(new AnchorScreen(p, e.getClickedBlock().getLocation()).getInventory());
                     } else if(p.hasPermission("anchorsell.admin.anchoradmin")) {
                         p.openInventory(new AnchorAdmin(e.getClickedBlock().getLocation()).getInventory());

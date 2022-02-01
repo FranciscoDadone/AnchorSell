@@ -1,7 +1,7 @@
 package com.franciscodadone.anchorsell.utils;
 
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.models.Anchor;
 import com.franciscodadone.anchorsell.thirdparty.vault.EconomyManager;
 import com.tchristofferson.configupdater.ConfigUpdater;
@@ -157,7 +157,7 @@ public class Utils {
     public static List<String> getLore(String path, Location location, OfflinePlayer player) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(Global.plugin.getConfig().getStringList(path))) {
-            int level = StorageManager.getAnchorLevel(location);
+            int level = AnchorAPI.getAnchorLevel(location);
             String levelToUpgrade = String.valueOf(level + 1);
             String priceOfUpgrade = String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyToUpgrade(level)));
             if((level + 1) > 64) {
@@ -172,9 +172,9 @@ public class Utils {
                     replaceAll("%moneyPerMinute%", String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyPerMinute(level)))).
                     replaceAll("%oreLevel%", Utils.getAnchorOreLevelString(level)).
                     replaceAll("%playerBalance%", String.valueOf(new DecimalFormat("0.00").format(EconomyManager.getEconomy().getBalance(player)))).
-                    replaceAll("%playerAnchors%", String.valueOf(StorageManager.getPlayerTotalAnchors(player))).
+                    replaceAll("%playerAnchors%", String.valueOf(AnchorAPI.getPlayerTotalAnchors(player))).
                     replaceAll("%maxPlayerAnchors%", String.valueOf(Global.plugin.getConfig().getInt("total-anchors-user-can-have"))).
-                    replaceAll("%playerMoneyPer15Minutes%", String.valueOf(new DecimalFormat("0.00").format(StorageManager.getPlayerMoneyPerMinute(player) * 15))).
+                    replaceAll("%playerMoneyPer15Minutes%", String.valueOf(new DecimalFormat("0.00").format(AnchorAPI.getPlayerMoneyPerMinute(player) * 15))).
                     replaceAll("%priceOfUpgrade%", priceOfUpgrade).
                     replaceAll("%nextLevel%", levelToUpgrade).
                     replaceAll("%nextLevelOre%", Utils.getAnchorOreLevelString(level + 1)).
@@ -191,7 +191,7 @@ public class Utils {
     public static List<String> getLore(String path, Location location) {
         List<String> res = new ArrayList<>();
         for(String str: Utils.Color(Global.plugin.getConfig().getStringList(path))) {
-            int level = StorageManager.getAnchorLevel(location);
+            int level = AnchorAPI.getAnchorLevel(location);
             String levelToUpgrade = String.valueOf(level + 1);
             String priceOfUpgrade = String.valueOf(new DecimalFormat("0.00").format(Utils.getMoneyToUpgrade(level)));
             if((level + 1) > 64) {
@@ -381,7 +381,7 @@ public class Utils {
 
         toSendBack.sendMessage(Utils.Color(Objects.requireNonNull(Global.plugin.getConfig().getString("anchor.list.first-message"))));
 
-        for(Anchor playerAnchor : StorageManager.getAllPlayerAnchors(p)) {
+        for(Anchor playerAnchor : AnchorAPI.getAllPlayerAnchors(p)) {
             userFound = true;
             Utils.Color(Global.plugin.getConfig().getStringList("anchor.list.message")).forEach((str) -> toSendBack.sendMessage(
                     str.replaceAll("%location%", "X: " + playerAnchor.getLocation().getX()

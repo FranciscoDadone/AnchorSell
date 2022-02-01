@@ -2,7 +2,7 @@ package com.franciscodadone.anchorsell.tasks;
 
 import com.franciscodadone.anchorsell.AnchorSell;
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.models.Anchor;
 import com.franciscodadone.anchorsell.thirdparty.vault.EconomyManager;
 import com.franciscodadone.anchorsell.utils.Utils;
@@ -36,7 +36,7 @@ public class PayTask extends BukkitRunnable {
         Collection<Player> onlinePlayers = (Collection<org.bukkit.entity.Player>) Bukkit.getOnlinePlayers();
 
         // Revalidates all the anchors.
-        StorageManager.revalidateAll();
+        AnchorAPI.revalidateAll();
 
         // Pays to all online players.
         new Thread(() -> {
@@ -50,7 +50,7 @@ public class PayTask extends BukkitRunnable {
                 if(Global.plugin.getConfig().getBoolean("pay-afk-players") || !playerAfk) {
                     double totalAmount = 0;
 
-                    for(Anchor playerAnchor : StorageManager.getAllPlayerAnchors(p)) {
+                    for(Anchor playerAnchor : AnchorAPI.getAllPlayerAnchors(p)) {
                         boolean loaded = true;
                         // Checks if the chunk that the anchor is on is loaded.
                         if(Global.plugin.getConfig().getBoolean("pay-if-chunk-is-loaded")) {

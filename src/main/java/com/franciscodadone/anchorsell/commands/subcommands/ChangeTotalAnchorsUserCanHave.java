@@ -1,6 +1,5 @@
 package com.franciscodadone.anchorsell.commands.subcommands;
 
-import com.franciscodadone.anchorsell.api.StorageManager;
 import com.franciscodadone.anchorsell.utils.Utils;
 import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class ChangeTotalAnchorsUserCanHave extends SubCommands {
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.changeTotalAnchorsUserCanHave")) {
             if(args.length == 2 && Utils.isNumeric(args[1])) {
-                StorageManager.changeTotalAnchorsUserCanHave(Integer.parseInt(args[1]));
+                Utils.setConfigValue("total-anchors-user-can-have", Integer.parseInt(args[1]));
                 sender.sendMessage(Utils.Color("&aTotal anchors per user changed to &c" + args[1]));
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e/anchor changeTotalAnchorsUserCanHave [number]"));

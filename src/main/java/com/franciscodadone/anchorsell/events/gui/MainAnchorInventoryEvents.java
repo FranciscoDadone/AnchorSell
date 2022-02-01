@@ -7,7 +7,7 @@ import com.franciscodadone.anchorsell.inventories.AnchorScreen;
 import com.franciscodadone.anchorsell.inventories.BuyScreen;
 import com.franciscodadone.anchorsell.inventories.ConfirmScreen;
 import com.franciscodadone.anchorsell.inventories.UpgradesScreen;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.utils.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -53,7 +53,7 @@ public class MainAnchorInventoryEvents implements Listener {
         if (e.getClickedInventory() != null && e.getClickedInventory().getHolder() instanceof AnchorScreen) {
             e.setCancelled(true);
             if ((e.getCurrentItem() != null) && (e.getSlot() == 15)) { // checks if the slot is the upgrade slot
-                int level = StorageManager.getAnchorLevel(new Location(p.getWorld(), location.getX(), location.getY(), location.getZ()));
+                int level = AnchorAPI.getAnchorLevel(new Location(p.getWorld(), location.getX(), location.getY(), location.getZ()));
                 if(level >= 64)
                     return;
                 p.openInventory(new UpgradesScreen(plugin, level, location).getInventory());
@@ -67,7 +67,7 @@ public class MainAnchorInventoryEvents implements Listener {
             e.setCancelled(true);
             // If it hits the upgrade button.
             if ((e.getCurrentItem() != null) && (e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE))) { // checks if the slot is the upgrade slot
-                int level = StorageManager.getAnchorLevel(location);
+                int level = AnchorAPI.getAnchorLevel(location);
                 if(level >= 64) {
                     p.closeInventory();
                     return;
@@ -83,7 +83,7 @@ public class MainAnchorInventoryEvents implements Listener {
                             );
 
                     // Saves the upgrade to config.
-                    StorageManager.upgradeAnchor(location, p);
+                    AnchorAPI.changeLevel(AnchorAPI.getAnchorFromLoc(location), AnchorAPI.getAnchorLevel(location) + 1);
 
                     // Upgrades the anchor aesthetics if it needs.
                     if(Utils.getAnchorOreLevel(level) != Utils.getAnchorOreLevel(level + 1)) {

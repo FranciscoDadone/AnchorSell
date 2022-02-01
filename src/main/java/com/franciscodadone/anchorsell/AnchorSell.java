@@ -1,7 +1,8 @@
 package com.franciscodadone.anchorsell;
 
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
+import com.franciscodadone.anchorsell.api.InternalAnchorAPI;
 import com.franciscodadone.anchorsell.commands.CommandManager;
 import com.franciscodadone.anchorsell.events.*;
 import com.franciscodadone.anchorsell.events.gui.MainAnchorInventoryEvents;
@@ -12,7 +13,6 @@ import com.franciscodadone.anchorsell.thirdparty.placeholderapi.PAPIExpansion;
 import com.franciscodadone.anchorsell.thirdparty.vault.EconomyManager;
 import com.franciscodadone.anchorsell.utils.Logger;
 import com.franciscodadone.anchorsell.utils.UpdateChecker;
-import com.franciscodadone.anchorsell.utils.Utils;
 import com.sk89q.worldguard.WorldGuard;
 import com.tchristofferson.configupdater.ConfigUpdater;
 import com.franciscodadone.anchorsell.events.gui.AnchorAdminInventoryEvents;
@@ -20,13 +20,11 @@ import com.franciscodadone.anchorsell.events.gui.ChangeLevelInventoryEvents;
 import com.franciscodadone.anchorsell.thirdparty.holographicdisplays.HologramMaker;
 import com.franciscodadone.anchorsell.tasks.PayTask;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -67,7 +65,7 @@ public final class AnchorSell extends JavaPlugin {
         if(Bukkit.getPluginManager().getPlugin("HolographicDisplays") != null) {
             Logger.info("HolographicDisplays hooked!");
             Hooks.isHolographicDisplaysActive = true;
-            Location loc = StorageManager.retrieveHologramLocation();
+            Location loc = InternalAnchorAPI.retrieveHologramLocation();
             if(loc != null) HologramMaker.createHoloTop(loc);
         }
 
@@ -97,7 +95,7 @@ public final class AnchorSell extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("anchor")).setExecutor(new CommandManager());
 
         // // Caching all anchors // //
-        StorageManager.cacheAllAnchors();
+        InternalAnchorAPI.cacheAllAnchors();
 
         // // Particles status // //
         Global.particlesStatus = this.getConfig().getString("particles");

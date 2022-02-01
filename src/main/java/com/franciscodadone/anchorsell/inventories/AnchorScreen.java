@@ -2,7 +2,7 @@ package com.franciscodadone.anchorsell.inventories;
 
 import com.franciscodadone.anchorsell.AnchorSell;
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -28,7 +28,7 @@ public class AnchorScreen implements InventoryHolder {
                 Utils.Color(Objects.requireNonNull(
                         Objects.requireNonNull(plugin.getConfig().getString("anchor.title"))
                                 .replaceAll("%player%", p.getPlayerListName())
-                                .replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(location)))))
+                                .replaceAll("%level%", String.valueOf(AnchorAPI.getAnchorLevel(location)))))
         );
 
         init();

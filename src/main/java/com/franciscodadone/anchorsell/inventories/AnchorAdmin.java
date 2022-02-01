@@ -1,7 +1,7 @@
 package com.franciscodadone.anchorsell.inventories;
 
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.models.Anchor;
 import com.franciscodadone.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
@@ -18,7 +18,7 @@ import java.util.Objects;
 public class AnchorAdmin implements InventoryHolder {
 
     public AnchorAdmin(Location location) {
-        this.anchor = StorageManager.getAnchorFromLoc(location);
+        this.anchor = AnchorAPI.getAnchorFromLoc(location);
         assert anchor != null;
         this.location = anchor.getLocation();
 

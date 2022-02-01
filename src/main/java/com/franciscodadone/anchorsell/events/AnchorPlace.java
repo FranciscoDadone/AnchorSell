@@ -1,7 +1,7 @@
 package com.franciscodadone.anchorsell.events;
 
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.thirdparty.worldguard.RegionManager;
 import com.franciscodadone.anchorsell.utils.Logger;
 import com.franciscodadone.anchorsell.AnchorSell;
@@ -47,9 +47,9 @@ public class AnchorPlace implements Listener {
             // If it makes an exception it is a creative anchor.
             //
             try {
-                for(int line = 0; line < e.getItemInHand().getItemMeta().getLore().size(); line++) {
-                    if(e.getItemInHand().getItemMeta().getLore().get(line).contains(Utils.Color(Global.plugin.getConfig().getString("anchor-item.lore.level-line")))) {
-                        currentAnchorLevel = Integer.parseInt(e.getItemInHand().getItemMeta().getLore().get(line).substring(Global.plugin.getConfig().getString("anchor-item.lore.level-line").length()));
+                for(int line = 0; line < Objects.requireNonNull(Objects.requireNonNull(e.getItemInHand().getItemMeta()).getLore()).size(); line++) {
+                    if(Objects.requireNonNull(e.getItemInHand().getItemMeta().getLore()).get(line).contains(Utils.Color(Objects.requireNonNull(Global.plugin.getConfig().getString("anchor-item.lore.level-line"))))) {
+                        currentAnchorLevel = Integer.parseInt(e.getItemInHand().getItemMeta().getLore().get(line).substring(Objects.requireNonNull(Global.plugin.getConfig().getString("anchor-item.lore.level-line")).length()));
                         break;
                     }
                 }
@@ -95,7 +95,7 @@ public class AnchorPlace implements Listener {
                 // (if it has a limit)
                 //
                 try {
-                    if(!StorageManager.canPlaceMoreAnchors(p)) {
+                    if(!AnchorAPI.canPlaceMoreAnchors(p)) {
                         e.setCancelled(true);
                         p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("cannot-place-more-anchors")).replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
                         return;
@@ -114,7 +114,7 @@ public class AnchorPlace implements Listener {
                                 p.getPlayerListName()
                         );
 
-                        boolean couldPlace = StorageManager.saveAnchor(anchor);
+                        boolean couldPlace = AnchorAPI.saveAnchor(anchor);
 
                         if(!couldPlace) {
                             p.sendMessage(Utils.Color(Objects.requireNonNull(plugin.getConfig().getString("cannot-place-more-anchors")).replaceAll("%quantity%", String.valueOf(plugin.getConfig().getInt("total-anchors-user-can-have")))));
@@ -142,14 +142,14 @@ public class AnchorPlace implements Listener {
 
                         // Caching anchor
                         Global.addAnchor(new Anchor(
-                                StorageManager.getAnchorLevel(loc),
+                                AnchorAPI.getAnchorLevel(loc),
                                 loc,
                                 p,
                                 p.getPlayerListName()
                         ));
 
                         // Determines witch level of glowstone the anchor needs
-                        Material i = Utils.getAnchorOreLevel(StorageManager.getAnchorLevel(loc));
+                        Material i = Utils.getAnchorOreLevel(AnchorAPI.getAnchorLevel(loc));
                         int charges = 0;
                         if(i == Material.IRON_INGOT)           charges = 1;
                         else if(i == Material.GOLD_INGOT)      charges = 2;
@@ -165,7 +165,7 @@ public class AnchorPlace implements Listener {
                         Utils.Color(plugin.getConfig().getStringList("anchor-place")).forEach((str) -> p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(loc.getX())).
                                 replaceAll("%coordsY%", String.valueOf(loc.getY())).
                                 replaceAll("%coordsZ%", String.valueOf(loc.getZ())).
-                                replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(loc)))));
+                                replaceAll("%level%", String.valueOf(AnchorAPI.getAnchorLevel(loc)))));
                     }
                 }, 20L);
 
@@ -191,7 +191,7 @@ public class AnchorPlace implements Listener {
                 for(int k = 0; k < (radius * 2) + 1; k++) {
                     Block b = new Location(startOfTheBox.getWorld(), startOfTheBox.getBlock().getX() + i, startOfTheBox.getBlock().getY() + j, startOfTheBox.getBlock().getZ() + k).getBlock();
                     if(!anchor.getBlock().equals(b) && b.getType() == Material.RESPAWN_ANCHOR) {
-                        if(StorageManager.isValidAnchor(b.getLocation())) return false;
+                        if(AnchorAPI.isValidAnchor(b.getLocation())) return false;
                     }
                 }
             }

@@ -1,7 +1,7 @@
 package com.franciscodadone.anchorsell.events.gui;
 
 import com.franciscodadone.anchorsell.AnchorSell;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.models.Anchor;
 import com.franciscodadone.anchorsell.inventories.ChangeLevelScreen;
 import com.franciscodadone.anchorsell.utils.Utils;
@@ -28,7 +28,7 @@ public class ChangeLevelInventoryEvents implements Listener {
         Player p = (Player) e.getWhoClicked();
         Block block = p.getTargetBlock(Utils.getInvisibleBlockList(), 5);
         Location location = block.getLocation();
-        Anchor anchor = StorageManager.getAnchorFromLoc(location);
+        Anchor anchor = AnchorAPI.getAnchorFromLoc(location);
 
         //
         // Checks if the player is in direct contact with the anchor
@@ -53,7 +53,7 @@ public class ChangeLevelInventoryEvents implements Listener {
             } else if(e.getCurrentItem().getType().equals(Material.LIME_STAINED_GLASS_PANE)) {
                 if(anchor.getLevel() < 64) anchor.setLevel(anchor.getLevel() + 1);
             }
-            StorageManager.changeLevel(location, anchor.getLevel());
+            AnchorAPI.changeLevel(anchor, anchor.getLevel());
 
             anchorBlock.setCharges(Utils.getAnchorCharges(anchor.getLevel()));
             block.setBlockData(anchorBlock);

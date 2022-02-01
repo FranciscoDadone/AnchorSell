@@ -1,7 +1,8 @@
 package com.franciscodadone.anchorsell.thirdparty.bstats;
 
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
+import com.franciscodadone.anchorsell.api.InternalAnchorAPI;
 
 public class setupBstats {
 
@@ -33,10 +34,10 @@ public class setupBstats {
         metrics.addCustomChart(new Metrics.SimplePie("particles", () -> Global.plugin.getConfig().getString("particles")));
 
         // Hologram
-        metrics.addCustomChart(new Metrics.SimplePie("has_hologram", () -> (StorageManager.retrieveHologramLocation() != null) ? "true" : "false"));
+        metrics.addCustomChart(new Metrics.SimplePie("has_hologram", () -> (InternalAnchorAPI.retrieveHologramLocation() != null) ? "true" : "false"));
 
         // Total anchors (all servers all anchors)
-        metrics.addCustomChart(new Metrics.SingleLineChart("total_anchors_in_all_servers", () -> StorageManager.getTotalAnchorsPlaced()));
+        metrics.addCustomChart(new Metrics.SingleLineChart("total_anchors_in_all_servers", () -> AnchorAPI.getTotalAnchorsPlaced()));
 
         // ----------------------------------------- //
 

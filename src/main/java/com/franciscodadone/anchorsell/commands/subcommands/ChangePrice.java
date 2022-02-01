@@ -1,6 +1,5 @@
 package com.franciscodadone.anchorsell.commands.subcommands;
 
-import com.franciscodadone.anchorsell.api.StorageManager;
 import com.franciscodadone.anchorsell.utils.Utils;
 import org.bukkit.command.CommandSender;
 
@@ -36,7 +35,7 @@ public class ChangePrice extends SubCommands {
     @Override
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.changePrice")) {
-            StorageManager.changePrice(Integer.parseInt(args[1]));
+            Utils.setConfigValue("anchor-value", Integer.parseInt(args[1]));
             sender.sendMessage(Utils.Color("&aPrice for anchors changed to &c$" + Integer.parseInt(args[1])));
         } else Utils.noPermission(getPermission(), sender);
     }

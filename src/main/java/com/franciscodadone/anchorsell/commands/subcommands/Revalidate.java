@@ -1,6 +1,6 @@
 package com.franciscodadone.anchorsell.commands.subcommands;
 
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -43,7 +43,7 @@ public class Revalidate extends SubCommands {
     public void perform(CommandSender sender, String[] args) {
         if(sender.hasPermission("anchorsell.admin.revalidate")) {
             if(args.length == 2) {
-                StorageManager.revalidateUser(Bukkit.getOfflinePlayer(args[1]));
+                AnchorAPI.revalidateUser(Bukkit.getOfflinePlayer(args[1]));
                 sender.sendMessage(Utils.Color("&aRevalidated &c" + args[1] + " &afiles."));
             } else {
                 sender.sendMessage(Utils.Color("Usage: &e/anchor revalidate [username]"));

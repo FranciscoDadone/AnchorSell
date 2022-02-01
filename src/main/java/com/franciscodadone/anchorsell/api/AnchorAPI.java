@@ -10,7 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import java.util.*;
 
-public class StorageManager {
+public class AnchorAPI {
 
     /**
      * Handles the save of a new anchor being placed.
@@ -214,41 +214,14 @@ public class StorageManager {
     }
 
     /**
-     * Saves the anchor upgrade to the config.
-     * @param location location of anchor
-     * @param p player
+     * Changes the level of an anchor in that location.
+     * @param anchor
+     * @param level
+     * @return
      */
-    public static void upgradeAnchor(Location location, Player p) {
-        userData = new PerUserStorage(p);
-        generalData = new GeneralStorage();
-
-        // Updating user data...
-        for(int i = 1; i <= Global.plugin.getConfig().getInt("total-anchors-user-can-have"); i++) {
-            if(userData.getConfig().contains("anchors." + i)) {
-                if(userData.getConfig().getInt("anchors." + i + ".location.x") == location.getX() &&
-                        userData.getConfig().getInt("anchors." + i + ".location.y") == location.getY() &&
-                        userData.getConfig().getInt("anchors." + i + ".location.z") == location.getZ()) {
-                    int currentLevel = userData.getConfig().getInt("anchors." + i + ".level");
-                    if(currentLevel >= 64)
-                        return;
-                    userData.getConfig().set("anchors." + i + ".level", (currentLevel + 1));
-                }
-            }
-        }
-
-        // Updating general data...
-        if(Objects.equals(generalData.getConfig().getString("all_anchors." + StorageManager.getAnchorUUID(location) + ".owner"), p.getUniqueId().toString())) {
-            generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(location) + ".level",
-                    generalData.getConfig().getInt("all_anchors." + StorageManager.getAnchorUUID(location) + ".level") + 1);
-        }
-
-        generalData.saveConfig();
-        userData.saveConfig();
-    }
-
-    public static boolean changeLevel(Location location, int level) {
+    public static boolean changeLevel(Anchor anchor, int level) {
+        Location location = anchor.getLocation();
         if(level < 0 || level > 64) return false;
-        Anchor anchor = StorageManager.getAnchorFromLoc(location);
         assert anchor != null;
         userData = new PerUserStorage(anchor.getOwner());
         generalData = new GeneralStorage();
@@ -266,41 +239,13 @@ public class StorageManager {
         }
 
         // Updating general data...
-        if(Objects.equals(generalData.getConfig().getString("all_anchors." + StorageManager.getAnchorUUID(location) + ".owner"), anchor.getOwner().getUniqueId().toString())) {
-            generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(location) + ".level", level);
+        if(Objects.equals(generalData.getConfig().getString("all_anchors." + AnchorAPI.getAnchorUUID(location) + ".owner"), anchor.getOwner().getUniqueId().toString())) {
+            generalData.getConfig().set("all_anchors." + AnchorAPI.getAnchorUUID(location) + ".level", level);
         }
 
         generalData.saveConfig();
         userData.saveConfig();
         return true;
-    }
-
-    /**
-     * Handles the change of the upgrade multiplier.
-     */
-    public static void changeUpgradeMultiplier(int multiplier) {
-        Utils.setConfigValue("anchor.upgrade-multiplier", multiplier);
-    }
-
-    /**
-     * Handles the price change
-     */
-    public static void changePrice(int price) {
-        Utils.setConfigValue("anchor-value", price);
-    }
-
-    /**
-     * Handles the change of the area that anchors cannot be placed nearby.
-     */
-    public static void changeSafeZone(int zone) {
-        Utils.setConfigValue("safe-anchor-area", zone);
-    }
-
-    /**
-     * Handles the change of the total of anchors a user can have.
-     */
-    public static void changeTotalAnchorsUserCanHave(int n) {
-        Utils.setConfigValue("total-anchors-user-can-have", n);
     }
 
     /**
@@ -353,8 +298,8 @@ public class StorageManager {
 
                     userData.getConfig().set("anchors." + i, null);
                     userData.getConfig().set("total", userData.getConfig().getInt("total") - 1);
-                    if(generalData.getConfig().contains("all_anchors." + StorageManager.getAnchorUUID(loc))) {
-                        generalData.getConfig().set("all_anchors." + StorageManager.getAnchorUUID(loc), null);
+                    if(generalData.getConfig().contains("all_anchors." + AnchorAPI.getAnchorUUID(loc))) {
+                        generalData.getConfig().set("all_anchors." + AnchorAPI.getAnchorUUID(loc), null);
                     }
                     userData.saveConfig();
                     generalData.saveConfig();
@@ -421,47 +366,6 @@ public class StorageManager {
     }
 
     /**
-     * Saves to RAM (Global) all anchors.
-     */
-    public static void cacheAllAnchors() {
-        generalData = new GeneralStorage();
-        Set<String> a = generalData.getConfig().getKeys(true);
-
-        int x = -1, y = -1, z = -1;
-        World world = null;
-        int level;
-        OfflinePlayer owner = null;
-        String ownerName = "";
-        for(String str : a) {
-            if(StringUtils.countMatches(str, ".") == 1) {
-                x = Integer.parseInt(StringUtils.split(str, "all_anchors.")[0]);
-                y = Integer.parseInt(StringUtils.split(str, "all_anchors.")[1]);
-                z = Integer.parseInt(StringUtils.split(str, "all_anchors.")[2]);
-            }
-            if(StringUtils.countMatches(str, ".world") == 1) {
-                world = Bukkit.getServer().getWorld(Objects.requireNonNull(generalData.getConfig().getString(str)));
-            }
-            if(StringUtils.countMatches(str, ".owner") == 1) {
-                owner = Bukkit.getOfflinePlayer(UUID.fromString(Objects.requireNonNull(generalData.getConfig().getString(str))));
-                PerUserStorage user = new PerUserStorage(Bukkit.getOfflinePlayer(UUID.fromString(Objects.requireNonNull(generalData.getConfig().getString(str)))));
-
-                if(user.getConfig().contains("playerName")) {
-                    ownerName = user.getConfig().getString("playerName");
-                } else ownerName = "";
-            }
-            if(StringUtils.countMatches(str, ".level") == 1) {
-                level = generalData.getConfig().getInt(str);
-                Global.addAnchor(new Anchor(
-                        level,
-                        new Location(world, x, y, z),
-                        owner,
-                        ownerName
-                ));
-            }
-        }
-    }
-
-    /**
      * Returns the anchor in that location.
      */
     public static Anchor getAnchorFromLoc(Location location) {
@@ -499,24 +403,6 @@ public class StorageManager {
     }
 
     /**
-     * Saves the newly created hologram to the database.
-     * @param hologram
-     */
-    public static void saveHologram(Hologram hologram) {
-        HologramsStorage storage = new HologramsStorage();
-        storage.getConfig().set("hologram", hologram.getLocation());
-        storage.saveConfig();
-    }
-
-    /**
-     * @return Current hologram location.
-     */
-    public static Location retrieveHologramLocation() {
-        HologramsStorage storage = new HologramsStorage();
-        return storage.getConfig().getLocation("hologram");
-    }
-
-    /**
      * @return Total anchors placed on the server.
      */
     public static int getTotalAnchorsPlaced() {
@@ -528,6 +414,6 @@ public class StorageManager {
         return new PerUserStorage(p);
     }
 
-    public static PerUserStorage userData;
-    public static GeneralStorage generalData;
+    private static PerUserStorage userData;
+    private static GeneralStorage generalData;
 }

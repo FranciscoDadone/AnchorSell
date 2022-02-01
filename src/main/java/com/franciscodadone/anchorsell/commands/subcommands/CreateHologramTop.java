@@ -1,6 +1,7 @@
 package com.franciscodadone.anchorsell.commands.subcommands;
 
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
+import com.franciscodadone.anchorsell.api.InternalAnchorAPI;
 import com.franciscodadone.anchorsell.hooks.Hooks;
 import com.franciscodadone.anchorsell.thirdparty.holographicdisplays.HologramMaker;
 import com.franciscodadone.anchorsell.utils.Utils;
@@ -40,7 +41,7 @@ public class CreateHologramTop extends SubCommands {
         if(sender instanceof Player && sender.hasPermission(getPermission())) {
             if(Hooks.isHolographicDisplaysActive) {
                 Hologram hologram = HologramMaker.createHoloTop(((Player)sender).getLocation());
-                StorageManager.saveHologram(hologram);
+                InternalAnchorAPI.saveHologram(hologram);
             } else sender.sendMessage(Utils.Color("&cHolographicDisplays and PlaceholderAPI have to be present!"));
         } else Utils.noPermission(getPermission(), sender);
     }

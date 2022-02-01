@@ -2,7 +2,7 @@ package com.franciscodadone.anchorsell.events.gui;
 
 import com.franciscodadone.anchorsell.AnchorSell;
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.inventories.AnchorAdmin;
 import com.franciscodadone.anchorsell.inventories.ChangeLevelScreen;
 import com.franciscodadone.anchorsell.inventories.ConfirmScreen;
@@ -51,7 +51,7 @@ public class AnchorAdminInventoryEvents implements Listener {
 
             // Change level
             if(Objects.requireNonNull(e.getCurrentItem()).getType().equals(Material.GLOWSTONE)) {
-                p.openInventory(new ChangeLevelScreen(StorageManager.getAnchorLevel(location)).getInventory());
+                p.openInventory(new ChangeLevelScreen(AnchorAPI.getAnchorLevel(location)).getInventory());
             }
 
             // Remove anchor
@@ -66,9 +66,9 @@ public class AnchorAdminInventoryEvents implements Listener {
             e.setCancelled(true);
 
             if((e.getCurrentItem() != null) && (e.getCurrentItem().getType().equals(Material.GREEN_STAINED_GLASS_PANE))) {
-                Anchor anchor = StorageManager.getAnchorFromLoc(location);
+                Anchor anchor = AnchorAPI.getAnchorFromLoc(location);
                 assert anchor != null;
-                StorageManager.removeAnchor(anchor);
+                AnchorAPI.removeAnchor(anchor);
                 Global.removeAnchor(anchor);
                 block.setType(Material.AIR);
                 Logger.info(p.getPlayerListName() + " (Admin) removed an anchor " + anchor.getLocation());

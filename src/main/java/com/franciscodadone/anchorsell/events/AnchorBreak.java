@@ -1,7 +1,7 @@
 package com.franciscodadone.anchorsell.events;
 
 import com.franciscodadone.anchorsell.api.Global;
-import com.franciscodadone.anchorsell.api.StorageManager;
+import com.franciscodadone.anchorsell.api.AnchorAPI;
 import com.franciscodadone.anchorsell.utils.Logger;
 import com.franciscodadone.anchorsell.AnchorSell;
 import com.franciscodadone.anchorsell.models.Anchor;
@@ -33,11 +33,11 @@ public class AnchorBreak implements Listener {
             Location location = block.getLocation();
 
             // If the anchor isn't registered, exits.
-            if (!StorageManager.isValidAnchor(location)) return;
+            if (!AnchorAPI.isValidAnchor(location)) return;
 
-            Anchor anchor = StorageManager.getAnchorFromLoc(location);
+            Anchor anchor = AnchorAPI.getAnchorFromLoc(location);
 
-            if(!Global.plugin.getConfig().getBoolean("break-others") && !StorageManager.belongsToPlayer(anchor, p)) {
+            if(!Global.plugin.getConfig().getBoolean("break-others") && !AnchorAPI.belongsToPlayer(anchor, p)) {
                 e.setCancelled(true);
 
                 assert anchor != null;
@@ -64,7 +64,7 @@ public class AnchorBreak implements Listener {
                 if(!location.getBlock().getType().equals(Material.RESPAWN_ANCHOR)) {
 
                     // Log to console the anchor break
-                    Logger.info(p.getName() + " broke a level " + StorageManager.getAnchorLevel(location) + " Anchor. " +
+                    Logger.info(p.getName() + " broke a level " + AnchorAPI.getAnchorLevel(location) + " Anchor. " +
                             "(" +
                                     location.getX() + ", " +
                                     location.getY() + ", " +
@@ -84,17 +84,17 @@ public class AnchorBreak implements Listener {
                     Utils.Color(plugin.getConfig().getStringList("anchor-break")).forEach((str) -> p.sendMessage(str.replaceAll("%coordsX%", String.valueOf(location.getX())).
                             replaceAll("%coordsY%", String.valueOf(location.getY())).
                             replaceAll("%coordsZ%", String.valueOf(location.getZ())).
-                            replaceAll("%level%", String.valueOf(StorageManager.getAnchorLevel(location)))));
+                            replaceAll("%level%", String.valueOf(AnchorAPI.getAnchorLevel(location)))));
 
-                    HashMap<Integer, ItemStack> inv = p.getInventory().addItem(Utils.getAnchor(StorageManager.getAnchorLevel(location), 1));
+                    HashMap<Integer, ItemStack> inv = p.getInventory().addItem(Utils.getAnchor(AnchorAPI.getAnchorLevel(location), 1));
 
                     // If the inventory is full it drops the anchor.
                     if(!inv.isEmpty()) {
-                        p.getWorld().dropItem(location, Utils.getAnchor(StorageManager.getAnchorLevel(location), 1)).setInvulnerable(true);
+                        p.getWorld().dropItem(location, Utils.getAnchor(AnchorAPI.getAnchorLevel(location), 1)).setInvulnerable(true);
                     }
 
                     // Saves to the database the broken anchor.
-                    StorageManager.removeAnchor(Objects.requireNonNull(StorageManager.getAnchorFromLoc(location)));
+                    AnchorAPI.removeAnchor(Objects.requireNonNull(AnchorAPI.getAnchorFromLoc(location)));
 
                     // Removes anchor from cache
                     Global.removeAnchor(anchor);
