@@ -191,7 +191,7 @@ public class AnchorPlace implements Listener {
                 for(int k = 0; k < (radius * 2) + 1; k++) {
                     Block b = new Location(startOfTheBox.getWorld(), startOfTheBox.getBlock().getX() + i, startOfTheBox.getBlock().getY() + j, startOfTheBox.getBlock().getZ() + k).getBlock();
                     if(!anchor.getBlock().equals(b) && b.getType() == Material.RESPAWN_ANCHOR) {
-                        return false;
+                        if(StorageManager.isValidAnchor(b.getLocation())) return false;
                     }
                 }
             }
